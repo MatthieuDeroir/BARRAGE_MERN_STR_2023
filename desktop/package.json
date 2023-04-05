@@ -1,0 +1,11 @@
+{
+  "name": "desktop",
+  "version": "1.0.0",
+  "description": "Desktop application to display medias and datas",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "Maawox",
+  "license": "ISC"
+}
