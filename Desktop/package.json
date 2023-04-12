@@ -2,7 +2,7 @@
   "name": "desktop",
   "version": "1.0.0",
   "description": "Desktop application to display medias and datas",
-  "main": "main.js",
+  "main": "src/main.js",
   "scripts": {
     "test": "npm test",
     "start": "electron ."
@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "electron": "^24.0.0"
+  },
+  "dependencies": {
+    "ws": "^8.13.0"
   }
 }
