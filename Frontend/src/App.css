@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+/* Path: Frontend/src/App.js */
+
+.preview-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 100px;
+}
+
+.left-preview-container {
+  width: 50%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-preview-container {
+  width: 50%;
+  height: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
