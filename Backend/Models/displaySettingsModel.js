@@ -7,7 +7,12 @@ const displaySettingsSchema = new mongoose.Schema({
         enum: ['image', 'data', 'free', 'loop'],
         required: true,
     },
-    loop: [PlaylistItem], // PlaylistItem is a mongoose model (see playlistItemModel.js)
+    loop: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'PlaylistItem',
+        },
+    ], // PlaylistItem is a mongoose model (see playlistItemModel.js)
     createdAt: {
         type: Date,
         default: Date.now,
@@ -18,6 +23,6 @@ const displaySettingsSchema = new mongoose.Schema({
     },
 });
 
-const DisplaySettings = mongoose.model('DisplaySettings', displaySettingsSchema);
+const DisplaySettings = mongoose.models.DisplaySettings || mongoose.model('DisplaySettings', displaySettingsSchema);
 
 module.exports = DisplaySettings;

@@ -110,7 +110,7 @@ app.use('/users', userRoutes);
 app.use('/displaySettings', displaySettingsRoutes);
 
 // Initialize the database with a DisplaySettings document if it is empty.
-initializeDatabase(mongoose.models('DisplaySettings'));
+initializeDatabase(mongoose.models['DisplaySettings']);
 
 // Start the server.
 app.listen(PORT, () => {
