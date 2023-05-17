@@ -3,8 +3,8 @@ import React from 'react';
 export default function Header(){
     return(
         <div className="header">
-            <h1>Header</h1>
-            HELLO
+            <h1 className={".header"}>Stramatel</h1>
+
         </div>
     );
 }
