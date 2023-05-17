@@ -2,7 +2,7 @@ const DisplaySettings = require('../Models/displaySettingsModel');
 
 // Get all display settings
 async function getAll() {
-    return await DisplaySettings.find().sort({createdAt: 'desc'});
+	return await DisplaySettings.find().sort({ createdAt: "desc" });
 }
 
 // Get a single display setting by ID

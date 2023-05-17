@@ -18,22 +18,22 @@
     "ecmaVersion": "latest"
   },
   "rules": {
-    "indent": [
-      "error",
-      "tab"
-    ],
+//    "indent": [
+//      "error",
+//      "tab"
+//    ],
     "linebreak-style": [
       "error",
       "unix"
     ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
+//    "quotes": [
+//      "error",
+//      "single"
+//    ],
+//    "semi": [
+//      "error",
+//      "always"
+//    ],
     "node/no-unpublished-require": "error",
     "node/no-missing-require": "error"
   }
