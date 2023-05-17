@@ -1,5 +1,5 @@
-const ImageDisplay = require('./ImageDisplay');
-const DataDisplay = require('./DataDisplay');
+const ImageDisplay = require('./imageDisplayComponent');
+const DataDisplay = require('./dataDisplayComponent');
 
 class PlaylistManager {
 	constructor(playlist) {
