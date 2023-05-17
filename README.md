@@ -7,3 +7,4 @@ Features
     Data display mode: Connects to the company's database to display relevant data.
     Free display mode: Enables users to customize and display up to five lines of text.
     Display loop: The three display modes can be looped and displayed in sequence.
+
