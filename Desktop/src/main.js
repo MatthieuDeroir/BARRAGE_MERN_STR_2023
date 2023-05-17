@@ -1,11 +1,12 @@
-const { app, BrowserWindow } = require('electron');
-const { setupWebSocket } = require('./websocket');
+const { app, BrowserWindow, ipcMain } = require('electron');
+const path = require('path');
 
 function createWindow() {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
+            preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
         },
     });
@@ -13,10 +14,7 @@ function createWindow() {
     win.loadFile('index.html');
 }
 
-app.whenReady().then(() => {
-    createWindow();
-    setupWebSocket();
-});
+app.whenReady().then(createWindow);
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
@@ -30,7 +28,7 @@ app.on('activate', () => {
     }
 });
 
-const PlaylistManager = require('./Components/PlaylistManager');
+const PlaylistManager = require('./Components/Display/playlistManager');
 
 let playlist = [
     { type: 'image', content: 'path/to/image1.jpg' },
@@ -48,3 +46,6 @@ setInterval(() => {
     playlistManager.nextItem();
 }, 5000);
 
+ipcMain.handle('get-next-item', (event) => {
+    return playlistManager.nextItem();
+});
