@@ -1,10 +1,13 @@
 import React from 'react';
 
-export default function DataConfiguration(){
+const DataConfiguration = () => {
+    // Implement your data fetching and rendering logic here
     return (
         <div>
-            <h1>Data Configuration</h1>
+            <h3>Data Configuration</h3>
+            <p>Preview of data fetched from the external database</p>
         </div>
     );
-}
+};
 
+export default DataConfiguration;
