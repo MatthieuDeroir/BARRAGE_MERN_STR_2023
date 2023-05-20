@@ -4,7 +4,7 @@ This is a web application to control the display of two video panels connected t
 Features
 
     Image display mode: Allows the user to upload and display images with a specific resolution, considering network constraints.
-    Data display mode: Connects to the company's database to display relevant data.
+    Data display mode: Connects to the company's database to display relevant4 data.
     Free display mode: Enables users to customize and display up to five lines of text.
     Display loop: The three display modes can be looped and displayed in sequence.
 
