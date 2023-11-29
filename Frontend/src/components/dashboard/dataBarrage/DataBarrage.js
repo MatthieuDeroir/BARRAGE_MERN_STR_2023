@@ -20,7 +20,7 @@ function DataBarrage() {
                 sx={{ color: "text.primary" }}
                 className="headerTitle"
               >
-                Donnée Barrage
+                Données Barrage
               </Typography>
             </Box>
           </Stack>
@@ -33,13 +33,13 @@ function DataBarrage() {
           >
            
             <Typography variant="h6" sx={{ color: "text.primary", marginTop: 2 }}>
-              Débit entrant: 150 m³/s
+              Débit entrant: 132.728 m³/s
             </Typography>
             <Typography variant="h6" sx={{ color: "text.primary", marginTop: 2 }}>
-              Débit sortant: 120 m³/s
+              Débit sortant: 127.891 m³/s
             </Typography>
             <Typography variant="h6" sx={{ color: "text.primary", marginTop: 2 }}>
-              Cote du plan d'eau: 30 m
+              Côte du plan d'eau: 421.62 mNGF
             </Typography>
             <Typography variant="subtitle1" sx={{ color: "text.secondary", marginTop: 1 }}>
               {lastUpdated}

@@ -36,6 +36,9 @@ function Display() {
         const foundSlideshow = slideshowRes.data.slideshows.find(
           (slideshow) => slideshow.id === currentSlideshowId
         );
+        if (foundSlideshow && foundSlideshow.media) {
+          foundSlideshow.media.sort((a, b) => a.order - b.order);
+        }
         console.log(foundSlideshow);
     
 
