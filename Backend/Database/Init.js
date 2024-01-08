@@ -1,10 +1,10 @@
-const {initializeCamions} = require('../Controllers/CamionController');
+const {initializeDatas} = require('../Controllers/DataController');
 const {initializeSettings} = require('../Controllers/SettingsController');
 const {initializeSlideshowStatus} = require('../Controllers/SlideshowStatusController');
 
 function initialize() {
     try {
-        initializeCamions();
+        initializeDatas();
         initializeSettings();
         initializeSlideshowStatus();
     } catch (error) {

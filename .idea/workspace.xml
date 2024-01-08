@@ -4,7 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88698e4e-fc05-4c39-81ae-be669c101082" name="Changes" comment="" />
+    <list default="true" id="88698e4e-fc05-4c39-81ae-be669c101082" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/BARRAGE.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Config/Cron.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Config/Parser.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Routes/DataRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Villerest/.idea/Villerest.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0908fc11-b6cc-4459-9c24-14eb0f4da129.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0908fc11-b6cc-4459-9c24-14eb0f4da129.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.env.development" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Config/Express.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Config/Express.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Controllers/CamionController.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Controllers/DataController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Controllers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Controllers/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Database/Init.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Database/Init.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Database/db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Database/db.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Models/CamionModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Models/DataModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Models/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Routes/CamionRoutes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/server.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,6 +45,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitToolBoxStore">
+    <option name="projectConfigVersion" value="5" />
     <option name="recentBranches">
       <RecentBranches>
         <option name="branchesForRepo">
@@ -58,8 +82,11 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/mderoir/Desktop/Perso/BARRAGE_MERN_STR_2023/Backend/Database",
+    "javascript.nodejs.core.library.configured.version": "20.8.1",
+    "javascript.nodejs.core.library.typings.version": "20.8.1",
+    "last_opened_file_path": "/Users/mderoir/Desktop/Stramatel/BARRAGE",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -134,6 +161,7 @@
       <workItem from="1700473209681" duration="149000" />
       <workItem from="1700477588886" duration="555000" />
       <workItem from="1701277711265" duration="3659000" />
+      <workItem from="1704718500721" duration="2028000" />
     </task>
     <servers />
   </component>
