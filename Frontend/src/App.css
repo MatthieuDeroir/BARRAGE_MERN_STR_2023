@@ -1,0 +1,37 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 90vw;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.dashboard-panel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+}
+
+/* ConfigurationPanel initialisé en masqué */
+.configuration-panel {
+  display: none;
+  /* autres styles */
+}
+
+/* Style pour afficher la configuration-panel */
+.configuration-panel.active {
+  display: flex;
+}

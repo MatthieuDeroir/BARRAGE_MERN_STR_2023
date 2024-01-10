@@ -5,28 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88698e4e-fc05-4c39-81ae-be669c101082" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/BARRAGE.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/Config/Cron.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/Config/Parser.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Backend/Routes/DataRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Villerest/.idea/Villerest.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Config/Client.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Backend/Config/Websocket.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Display/src/services/WebsocketService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0908fc11-b6cc-4459-9c24-14eb0f4da129.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0908fc11-b6cc-4459-9c24-14eb0f4da129.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/.env.development" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/.env.development" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Config/Express.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Config/Express.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Controllers/CamionController.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Controllers/DataController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Controllers/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Controllers/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Database/Init.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Database/Init.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Config/Cron.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Config/Cron.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Config/Parser.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Config/Parser.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/Database/db.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Database/db.sqlite" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Models/CamionModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Models/DataModel.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Models/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Models/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Routes/CamionRoutes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Backend/Routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/Models/SlideshowMediaModel.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/Models/SlideshowMediaModel.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/file.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/file.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Display/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Display/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Display/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Display/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Display/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/Display/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,8 +49,12 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
+                    <option name="branchName" value="dev" />
+                    <option name="lastUsedInstant" value="1704721219" />
+                  </RecentBranch>
+                  <RecentBranch>
                     <option name="branchName" value="gui-dev" />
-                    <option name="lastUsedInstant" value="1701277815" />
+                    <option name="lastUsedInstant" value="1704721210" />
                   </RecentBranch>
                   <RecentBranch>
                     <option name="branchName" value="master" />
@@ -78,31 +77,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "javascript.nodejs.core.library.configured.version": "20.8.1",
-    "javascript.nodejs.core.library.typings.version": "20.8.1",
-    "last_opened_file_path": "/Users/mderoir/Desktop/Stramatel/BARRAGE",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "/usr/local/bin/node",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.nodejs",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.8.1&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.8.1&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mderoir/Desktop/Stramatel/BARRAGE&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;/usr/local/bin/node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.nodejs&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "sqlite"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -160,8 +159,14 @@
       <workItem from="1699988644963" duration="120000" />
       <workItem from="1700473209681" duration="149000" />
       <workItem from="1700477588886" duration="555000" />
+<<<<<<< HEAD
       <workItem from="1701277711265" duration="3659000" />
-      <workItem from="1704718500721" duration="2028000" />
+      <workItem from="1704718500721" duration="5696000" />
+      <workItem from="1704811840586" duration="113000" />
+      <workItem from="1704871924898" duration="3627000" />
+=======
+      <workItem from="1701277711265" duration="3967000" />
+>>>>>>> gui-dev
     </task>
     <servers />
   </component>
