@@ -9,7 +9,7 @@ const configureApp = () => {
     app.use(express.json());
 
     // Routes
-    app.use('/api/camion', Routes.Camion);
+    app.use('/api/data', Routes.Data);
     app.use('/api/media', Routes.Media);
     app.use('/api/slideshow', Routes.Slideshow);
     app.use('/api/slideshow-status', Routes.SlideshowStatus);
