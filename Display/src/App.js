@@ -9,6 +9,7 @@ import { slideshowStatutsService } from "./services/SlideshowStatutsService";
 import "./Global.css";
 import TestPage from "./pages/TestPage";
 import DataPage from "./pages/DataPage";
+import setupWebsocketClient from "./services/WebsocketService";
 
 function App() {
 
@@ -74,6 +75,16 @@ function App() {
 
     return () => clearInterval(mediaInterval);
   }, [currentSlideshow, currentMediaIndex]);
+
+  const handleWebsocketMessage = (data) => {
+    console.log("Received data from WebSocket:", data);
+    const result = JSON.parse(data);
+
+
+  };
+
+  // Setup WebSocket client with the callback
+  setupWebsocketClient(handleWebsocketMessage);
 
   const checkIsInVeillePeriod = (veilleData) => {
     if (!veilleData.enable) {
