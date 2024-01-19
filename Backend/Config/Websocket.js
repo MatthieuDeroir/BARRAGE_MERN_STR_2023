@@ -1,5 +1,5 @@
 const WebSocket = require("ws");
-const { getActiveSlideshows } = require("./Parser");
+const { getActiveSlideshows,getSettings,getSlideshowStatus } = require("./Parser");
 
 const wss = new WebSocket.Server({ port: 8080 });
 console.log("WebSocket server started on port 8080");
@@ -33,12 +33,14 @@ const sendToAll = (message) => {
 };
 
 async function sendActiveSlideshows() {
-	console.log("Sending active slideshows to all clients");
 	const slideshows = await getActiveSlideshows();
-	console.log(JSON.stringify(slideshows));
+	const settings = await getSettings();
+	const slideshowStatus = await getSlideshowStatus();
 	wss.clients.forEach(function each(client) {
 		if (client.readyState === WebSocket.OPEN) {
-			client.send(JSON.stringify(slideshows));
+			client.send(JSON.stringify({type:'slideshows',slideshows}));
+			client.send(JSON.stringify({type:'settings',settings}));
+			client.send(JSON.stringify({type:'slideshowStatus',slideshowStatus}));
 		}
 	});
 }

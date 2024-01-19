@@ -6,7 +6,7 @@ const { sendToAll, sendActiveSlideshow } = require("./Websocket");
 
 const setupCronJobs = () => {
 	cron.schedule("*/5 * * * * *", async () => {
-		console.log("running a task every minute");
+		
 		const parseData = async () => {
 			console.log("Parsing data");
 			try {
@@ -19,7 +19,7 @@ const setupCronJobs = () => {
 		parseData();
 	});
 	cron.schedule("*/5 * * * * *", async () => {
-		console.log("running a task every minute");
+		
 		sendActiveSlideshow();
 	});
 
