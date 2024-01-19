@@ -68,40 +68,43 @@ exports.uploadFile = async (req, res) => {
   };
 
 exports.deleteFile = async (req, res) => {
-  console.log(req.params);
-  try {
-    const media = await Media.findByPk(req.params.id);
-    
-    // Define the file path
-    if (!media.type.startsWith("panel")) {
-    const filePath = path.join(__dirname, process.env.UPLOAD_PATH, `${media.hashedFilename}.${media.format}`);
-    fs.unlink(filePath, async (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send({
+    console.log(req.params);
+    try {
+        const media = await Media.findByPk(req.params.id);
+
+        if (!media) {
+            return res.status(404).send({
+                message: "Media not found",
+                code: 404,
+            });
+        }
+
+        // Define the file path
+        if (!media.type.startsWith("panel")) {
+            const filePath = path.join(__dirname, process.env.UPLOAD_PATH, `${media.hashedFilename}.${media.format}`);
+            fs.unlink(filePath, async (err) => {
+                if (err) {
+                    console.error(err);
+                    // Do not return here, continue to delete the media record
+                }
+
+                // Delete the media record from the database, regardless of file deletion status
+                await media.destroy();
+                res.status(200).send({ message: "Fichier supprimé avec succès", code: 200 });
+            });
+        } else {
+            await media.destroy();
+            res.status(200).send({ message: "Fichier supprimé avec succès", code: 200 });
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({
             message: "Une erreur s'est produite lors de la suppression du fichier",
             code: 500,
-          });
-        }
-  
-        // If there's no error in deleting the file, delete the media record from the database
-        await media.destroy();
-        res.status(200).send({ message: "Fichier supprimé avec succès", code: 200 });
-      });
-    }else{
-        await media.destroy();
-        res.status(200).send({ message: "Fichier supprimé avec succès", code: 200 });
+        });
     }
-    // Delete the file
-    
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({
-      message: "Une erreur s'est produite lors de la suppression du fichier",
-      code: 500,
-    });
-  }
 };
+
 exports.updateOrder = async (req, res) => {
   const { newOrder } = req.body;
   const transaction = await sequelize.transaction();
