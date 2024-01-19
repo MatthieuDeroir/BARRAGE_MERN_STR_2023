@@ -14,7 +14,7 @@ function createWindow () {
         contextIsolation: false,
       },
   })
-
+    w
   win.removeMenu()
   win.loadURL('http://localhost:3000');
   win.setAlwaysOnTop(true, "screen-saver");
