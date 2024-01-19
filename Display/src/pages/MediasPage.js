@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-function MediasPage({ media }) {
+function MediasPage({ media, onVideoEnd }) {
 
   
   const renderMedia = () => {
@@ -9,7 +9,7 @@ function MediasPage({ media }) {
     }
     else if (media.type.includes('video')) {
       return (
-        <video style={{width:"228px", height:"216px"}} autoPlay muted>
+        <video style={{width:"228px", height:"216px"}} autoPlay muted onEnded={onVideoEnd}>
           <source src={process.env.REACT_APP_MEDIA_DISPLAY_PATH + media.path} type={media.type} />
         </video>
       );

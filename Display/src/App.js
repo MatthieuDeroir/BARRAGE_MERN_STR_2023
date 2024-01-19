@@ -52,6 +52,12 @@ function App() {
     }
   };
 
+  const handleVideoEnd = () => {
+    setCurrentMediaIndex(
+        (prevIndex) => (prevIndex + 1) % (currentSlideshow.media?.length || 1)
+    );
+  };
+
   useEffect(() => {
     const ws = setupWebsocketClient(handleWebsocketMessage);
     setWebsocket(ws);
@@ -90,7 +96,7 @@ function App() {
             {media.type === "panel" ? (
               <DataPage waterData={waterData}/>
             ) : (
-              <MediasPage media={media} />
+              <MediasPage media={media} onVideoEnd={handleVideoEnd} />
             )}
           </div>
         ))
