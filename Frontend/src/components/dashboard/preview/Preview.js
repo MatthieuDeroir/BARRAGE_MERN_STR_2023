@@ -115,6 +115,7 @@ function Preview() {
                                 }} />
                                 <Typography variant="body2">
                                     {isOn2 ? 'Allumé' : 'Éteint'}
+
                                 </Typography>
                             </Box>
                         </Box>
