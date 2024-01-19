@@ -1,34 +1,47 @@
 function setupWebsocketClient(onMessageReceived) {
-	// Create a new WebSocket connection
-	const ws = new WebSocket("ws://localhost:8080");
+    // Définir l'URL du serveur WebSocket
+    const serverUrl = "ws://localhost:8080";
+    
+    // Fonction pour créer une nouvelle connexion WebSocket
+    function connect() {
+        // Créer une nouvelle connexion WebSocket
+        const ws = new WebSocket(serverUrl);
 
-	// Connection opened
-	ws.addEventListener('open', function (event) {
-		console.log("Connected to the server");
-		ws.send("Hello, server!");
-	});
+        // Connexion ouverte
+        ws.addEventListener('open', function (event) {
+            console.log("Connected to the server");
+            ws.send("Hello, server!");
+        });
 
-	// Listen for messages
-	ws.addEventListener('message', function (event) {
-		try {
-			// Attempt to parse the message as JSON
-			onMessageReceived(event);
-		} catch (e) {
-			// If an error occurs, the message is not valid JSON
-			console.log("Non-JSON message received:", event.data);
-		}
-	});
+        // Écouter les messages
+        ws.addEventListener('message', function (event) {
+            try {
+                // Tenter de parser le message comme JSON
+                onMessageReceived(event);
+            } catch (e) {
+                // Si une erreur se produit, le message n'est pas un JSON valide
+                console.log("Non-JSON message received:", event.data);
+            }
+        });
 
-	// Handle any errors that occur
-	ws.addEventListener('error', function (event) {
-		console.error("WebSocket error observed:", event);
-	});
+        // Gérer les erreurs
+        ws.addEventListener('error', function (event) {
+            console.error("WebSocket error observed:", event);
+        });
 
-	// Connection closed
-	ws.addEventListener('close', function (event) {
-		console.log("Disconnected from the server");
-	});
+        // Connexion fermée
+        ws.addEventListener('close', function (event) {
+            console.log("Disconnected from the server");
+            // Tenter de se reconnecter après un délai
+            setTimeout(connect, 1000); // Reconnexion après 1 seconde
+        });
+
+        return ws;
+    }
+
+    // Établir la première connexion
+    return connect();
 }
 
-// You can call this function to set up the WebSocket client
+// Vous pouvez appeler cette fonction pour configurer le client WebSocket
 module.exports = setupWebsocketClient;

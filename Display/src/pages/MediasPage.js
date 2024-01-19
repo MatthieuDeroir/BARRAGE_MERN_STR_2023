@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function MediasPage({ media }) {
+
   
   const renderMedia = () => {
     if (media.type.includes('image')) {
