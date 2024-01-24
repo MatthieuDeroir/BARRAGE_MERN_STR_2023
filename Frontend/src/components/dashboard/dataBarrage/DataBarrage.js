@@ -1,8 +1,8 @@
 import { Box, Grid, IconButton, Paper, Stack, Typography } from "@mui/material";
-import WaterIcon from '@mui/icons-material/Water';
+import WaterIcon from "@mui/icons-material/Water";
 import React from "react";
 
-function DataBarrage() {
+function DataBarrage({ dataBarrage }) {
   const currentDate = new Date();
   const lastUpdated = `Dernière mise à jour : ${currentDate.toLocaleDateString()} à ${currentDate.toLocaleTimeString()}`;
 
@@ -31,17 +31,74 @@ function DataBarrage() {
               paddingRight: { xs: 2, sm: 6 },
             }}
           >
-           
-            <Typography variant="h6" sx={{ color: "text.primary", marginTop: 2 }}>
-              Débit entrant: 132.728 m³/s
-            </Typography>
-            <Typography variant="h6" sx={{ color: "text.primary", marginTop: 2 }}>
-              Débit sortant: 127.891 m³/s
-            </Typography>
-            <Typography variant="h6" sx={{ color: "text.primary", marginTop: 2 }}>
-              Côte du plan d'eau: 421.62 mNGF
-            </Typography>
-            <Typography variant="subtitle1" sx={{ color: "text.secondary", marginTop: 1 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 5,
+                marginTop: 5,
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{ color: "text.primary", marginTop: 2 }}
+              >
+                Débit entrant
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ color: "text.primary", marginTop: 2 }}
+              >
+                {dataBarrage && dataBarrage.debit_entrant} m³/s
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 5
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{ color: "text.primary", marginTop: 2 }}
+              >
+                Débit sortan
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ color: "text.primary", marginTop: 2 }}
+              >
+                {dataBarrage && dataBarrage.debit_sortant} m³/s
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                marginBottom: 5
+              }}
+            >
+              <Typography
+                variant="h6"
+                sx={{ color: "text.primary", marginTop: 2 }}
+              >
+                Côte du plan
+              </Typography>
+              <Typography
+                variant="h6"
+                sx={{ color: "text.primary", marginTop: 2 }}
+              >
+                {dataBarrage && dataBarrage.cote_plan_eau} m
+              </Typography>
+            </Box>
+            <Typography
+              variant="subtitle1"
+              sx={{ color: "text.secondary", marginTop: 1 }}
+            >
               {lastUpdated}
             </Typography>
           </Box>

@@ -5,17 +5,20 @@ import Preview from "./preview/Preview";
 import SlideshowList from "./slideshow/SlideshowList";
 import SlideshowConfig from "./slideshow/SlideshowConfig";
 import { slideshowService } from "../../services/SlideshowService";
+import DataService from "../../services/DataService";
 import DataBarrage from "./dataBarrage/DataBarrage";
 
 function Dashboard() {
   const [slideshow, setSlideshow] = useState(null);
   const [slideshows, setSlideshows] = useState(null);
+  const [dataBarrage, setdataBarrage] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        
         getSlideshow();
+        getData();
+        
       } catch (error) {
         console.error("Erreur lors de la récupération du slideshow:", error);
       }
@@ -23,10 +26,15 @@ function Dashboard() {
     fetchData();
   }, [slideshow]);
 
+
+  async function getData() {
+    await DataService.getData().then((data) => {
+      console.log("data", data[0]);
+      setdataBarrage(data[0]);
+    });
+  }
   async function getSlideshow() {
-    console.log("getSlideshow");
     await slideshowService.getSlideshow().then((data) => {
-      console.log("data", data);
       setSlideshows(data.data.slideshows);
     });
   }
@@ -39,13 +47,13 @@ function Dashboard() {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={4}>
-      <DataBarrage/>
+        <DataBarrage dataBarrage={dataBarrage} />
       </Grid>
       <Grid item xs={12} sm={4}>
         <Preview />
       </Grid>
       <Grid item xs={12} sm={4}>
-        {slideshow ? (
+        {slideshows && slideshow ? (
           <SlideshowConfig
             slideshow={slideshow}
             setSlideshow={setSlideshow}
