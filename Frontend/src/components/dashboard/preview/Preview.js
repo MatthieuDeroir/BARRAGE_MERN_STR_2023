@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import {
   Box,
   Grid,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -10,10 +11,9 @@ import {
   TableHead,
   TableRow,
   Typography,
-  Stack,
 } from "@mui/material";
-import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import IconButton from "@mui/material/IconButton";
+import React, { useState } from "react";
 import Display from "./display/Display";
 
 function Preview() {
