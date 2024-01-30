@@ -74,14 +74,17 @@ function Preview() {
             p: { xs: 2, sm: 6 },
           }}
         >
-          <Display />
+          <Box sx={{ mb: 6 }}>
+            <Display />
+          </Box>
+
           <TableContainer>
             <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>Écran</TableCell>
-                  <TableCell >1</TableCell>
-                  <TableCell >2</TableCell>
+                  <TableCell>1</TableCell>
+                  <TableCell>2</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -92,8 +95,8 @@ function Preview() {
                   <TableCell component="th" scope="row">
                     En ligne
                   </TableCell>
-                  <TableCell >
-                  <Box
+                  <TableCell>
+                    <Box
                       sx={{
                         width: 24,
                         height: 24,
@@ -103,8 +106,8 @@ function Preview() {
                       }}
                     />
                   </TableCell>
-                  <TableCell >
-                  <Box
+                  <TableCell>
+                    <Box
                       sx={{
                         width: 24,
                         height: 24,
@@ -119,8 +122,10 @@ function Preview() {
                   key="ecran2"
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
-                  <TableCell component="th" scope="row">Allumé</TableCell>
-                  <TableCell >
+                  <TableCell component="th" scope="row">
+                    Allumé
+                  </TableCell>
+                  <TableCell>
                     <Box
                       sx={{
                         width: 24,
@@ -131,7 +136,7 @@ function Preview() {
                       }}
                     />
                   </TableCell>
-                  <TableCell >
+                  <TableCell>
                     <Box
                       sx={{
                         width: 24,
