@@ -29,11 +29,22 @@ function DataPage({ waterData }) {
               width: "50px",
               height: "25px",
               left: "0px",
-              top: "74px",
+              top: "0px",
               position: "absolute",
             }}
             alt="Footer"
             src="/cote plan d'eau.png"
+          />
+          <img
+            style={{
+              width: "50px",
+              height: "25px",
+              left: "0px",
+              top: "74px",
+              position: "absolute",
+            }}
+            alt="Footer"
+            src="/débit entrant.png"
           />
 
           <img
@@ -45,18 +56,7 @@ function DataPage({ waterData }) {
               position: "absolute",
             }}
             alt="Footer"
-            src="/débit entrant.png"
-          />
-          <img
-            style={{
-              width: "50px",
-              height: "25px",
-              left: "0px",
-              top: "0px",
-              position: "absolute",
-            }}
-            alt="Footer"
-            src="/débit entrant.png"
+            src="/débit sortant.png"
           />
         </div>
         <div
@@ -118,11 +118,11 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
-          200
+          {waterData.cote_plan_eau || 0}
         </div>
         <div
           style={{
-            left: "181px",
+            left: "185px",
             top: "26px",
             position: "absolute",
             color: "white",
@@ -132,6 +132,7 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
+          {" "}
           mNGF
         </div>
         <div
@@ -148,7 +149,7 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
-          200
+          {waterData.debit_entrant || 0}
         </div>
         <div
           style={{
@@ -164,7 +165,7 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
-          200
+          {waterData.debit_sortant || 0}
         </div>
         <div
           style={{
@@ -178,6 +179,7 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
+          {" "}
           m3/s
         </div>
         <div
