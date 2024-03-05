@@ -76,7 +76,6 @@ function App() {
 
   return (
     <div>
-      <Header />
       {!isVeilleMode ? (
         <></> //veille
       ) : isRunning &&
@@ -101,7 +100,6 @@ function App() {
       ) : (
         <DataPage waterData={waterData} />
       )}
-      <Footer />
     </div>
   );
 }
