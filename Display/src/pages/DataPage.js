@@ -106,9 +106,9 @@ function DataPage({ waterData }) {
         </div>
         <div
           style={{
-            width: "37px",
+            width: "50px",
             height: "18px",
-            left: "149px",
+            left: "135px",
             top: "26px",
             position: "absolute",
             color: "white",
@@ -137,10 +137,10 @@ function DataPage({ waterData }) {
         </div>
         <div
           style={{
-            width: "37px",
+            width: "50px",
             height: "18px",
-            left: "149px",
-            top: "95px",
+            left: "135px",
+            top: "98px",
             position: "absolute",
             color: "white",
             fontSize: "16px",
@@ -153,24 +153,8 @@ function DataPage({ waterData }) {
         </div>
         <div
           style={{
-            width: "37px",
-            height: "18px",
-            left: "149px",
-            top: "170px",
-            position: "absolute",
-            color: "white",
-            fontSize: "16px",
-            fontFamily: '"D-DIN-Bold"',
-            fontWeight: "400",
-            wordWrap: "break-word",
-          }}
-        >
-          {waterData.debit_sortant || 0}
-        </div>
-        <div
-          style={{
             left: "186px",
-            top: "95px",
+            top: "98px",
             position: "absolute",
             color: "white",
             fontSize: "16px",
@@ -184,8 +168,24 @@ function DataPage({ waterData }) {
         </div>
         <div
           style={{
+            width: "50px",
+            height: "18px",
+            left: "135px",
+            top: "172px",
+            position: "absolute",
+            color: "white",
+            fontSize: "16px",
+            fontFamily: '"D-DIN-Bold"',
+            fontWeight: "400",
+            wordWrap: "break-word",
+          }}
+        >
+          {waterData.debit_sortant || 0}
+        </div>
+        <div
+          style={{
             left: "186px",
-            top: "170px",
+            top: "172px",
             position: "absolute",
             color: "white",
             fontSize: "16px",
