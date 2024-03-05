@@ -5,6 +5,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 export const settingsService = {
   getSettings,
   updateSetting,
+  updateDate,
 };
 
 function getSettings() {
@@ -31,6 +32,20 @@ function updateSetting(settingsToUpdate) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+function updateDate(date) {
+  
+  return api
+    .fetchWithAuthorization(`${API_URL}/api/settings/1`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(date),
+    })
+    .then(handleResponse)
+    .catch(handleError);
+} 
 
 function handleResponse(response) {
   if (!response.ok) {

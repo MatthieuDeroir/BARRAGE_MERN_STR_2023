@@ -19,6 +19,7 @@ import BugReportIcon from "@mui/icons-material/BugReport";
 import PhoneIcon from "@mui/icons-material/Phone";
 import ModeNightIcon from "@mui/icons-material/ModeNight";
 import LockIcon from "@mui/icons-material/Lock";
+import DateRangeIcon from "@mui/icons-material/DateRange";
 
 import ChangePasswordDialog from "../dialogs/ChangePasswordDialog";
 import { useThemeMode } from "../../context/ThemeModeContext";
@@ -63,36 +64,61 @@ function Settings() {
     }
     return 0;
   };
-
   const handleSliderChange = (event, newValue) => {
-    console.log("handleSliderChange", newValue);
+    const date = new Date();
     const updatedSetting = {
       ...setting,
       start: newValue[0],
       stop: newValue[1],
+      date: date.toString(),
     };
-    console.log("updatedSetting", updatedSetting);
+
     setSetting(updatedSetting);
     settingsService.updateSetting(updatedSetting).then((response) => {});
   };
 
   const handleSettingChange = (event) => {
+    const date = new Date();
     const updatedSetting = {
       ...setting,
       enable: event.target.checked ? true : false,
+      date: date.toString(),
     };
     setSetting(updatedSetting);
     settingsService.updateSetting(updatedSetting).then((response) => {});
   };
+
   function playSlideshow(isTesting) {
+    const date = new Date();
     const data = {
       slideshowId: slideshowToPlay.slideshowId,
       isRunning: false,
       isTesting: isTesting,
+      date: date.toString(),
     };
     slideshowStatutsService.updateSlideshowStatus(data);
     setSlideshowToPlay(data);
   }
+
+  function updateDate(date) {
+    const data = {
+      date: date.toString(),
+    };
+    settingsService.updateDate(data).then((response) => {});
+  }
+
+  function stopSlideshow(isTesting) {
+    const date = new Date();
+    const data = {
+      slideshowId: slideshowToPlay.slideshowId,
+      isRunning: false,
+      isTesting: isTesting,
+      date: date.toString(),
+    };
+    slideshowStatutsService.updateSlideshowStatus(data);
+    setSlideshowToPlay(data);
+  }
+
   function stopSlideshow(isTesting) {
     const data = {
       slideshowId: slideshowToPlay.slideshowId,
@@ -156,7 +182,28 @@ function Settings() {
                         color="secondary"
                       />
                     </Stack>
-                    <Stack  onClick={toggleModal} direction="row" alignItems="center" spacing={3}>
+                    <Stack
+                      onClick={() => {
+                        const date = new Date();
+                        updateDate(date);
+                      }}
+                      direction="row"
+                      alignItems="center"
+                      spacing={3}
+                    >
+                      <IconButton>
+                        <DateRangeIcon sx={{ color: "text.secondary" }} />
+                      </IconButton>
+                      <Typography variant="h8" sx={{ color: "text.primary" }}>
+                        Update Date
+                      </Typography>
+                    </Stack>
+                    <Stack
+                      onClick={toggleModal}
+                      direction="row"
+                      alignItems="center"
+                      spacing={3}
+                    >
                       <IconButton disabled>
                         <LockIcon sx={{ color: "text.secondary" }} />
                       </IconButton>
@@ -276,7 +323,7 @@ function Settings() {
           </Paper>
         </Grid>
       </Grid>
-        <ChangePasswordDialog open={modalOpen} onClose={toggleModal} />
+      <ChangePasswordDialog open={modalOpen} onClose={toggleModal} />
     </>
   );
 }

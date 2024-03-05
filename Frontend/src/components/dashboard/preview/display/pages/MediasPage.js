@@ -1,28 +1,37 @@
-import React from 'react'
+import React from "react";
 
 function MediasPage({ media }) {
-  
   const renderMedia = () => {
-    if (media.type.includes('image')) {
-      return <img style={{width:"228px", height:"216px"}} src={media.path} alt={`Media ${media.id}`} />;
-    }
-    else if (media.type.includes('video')) {
+    if (media.type.includes("image")) {
       return (
-        <video style={{width:"228px", height:"216px"}} autoPlay muted>
+        <img
+          style={{
+            width: `${process.env.REACT_APP_WIDTH}px`,
+            height: `${process.env.REACT_APP_HEIGHT}px`,
+          }}
+          src={media.path}
+          alt={`Media ${media.id}`}
+        />
+      );
+    } else if (media.type.includes("video")) {
+      return (
+        <video
+          style={{
+            width: `${process.env.REACT_APP_WIDTH}px`,
+            height: `${process.env.REACT_APP_HEIGHT}px`,
+          }}
+          autoPlay
+          muted
+        >
           <source src={media.path} type={media.type} />
         </video>
       );
-    }
-    else {
+    } else {
       return null;
     }
-  }
+  };
 
-  return (
-    <>
-      {renderMedia()}
-    </>
-  );
+  return <>{renderMedia()}</>;
 }
 
 export default MediasPage;

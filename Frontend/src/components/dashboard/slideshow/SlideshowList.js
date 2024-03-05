@@ -133,7 +133,7 @@ function SlideshowList(props) {
 
                       {slideshowToPlay.slideshowId === slideshow.id &&
                       slideshowToPlay.isRunning ? (
-                        <TableCell sx={{ p: 0 }} align="right">
+                        <TableCell sx={{p:0, pr: 3  }}align="right">
                           <IconButton
                             onClick={(e) => {
                               e.stopPropagation();

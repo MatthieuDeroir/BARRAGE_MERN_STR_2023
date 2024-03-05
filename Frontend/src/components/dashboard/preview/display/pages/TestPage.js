@@ -17,8 +17,8 @@ function TestPage() {
   return (
     <div
       style={{
-        width: '228px',
-        height: '216px',
+        width: `${process.env.REACT_APP_WIDTH}px`,	
+        height: `${process.env.REACT_APP_HEIGHT}px`,	
         backgroundColor: colors[colorIndex],
       }}
     />

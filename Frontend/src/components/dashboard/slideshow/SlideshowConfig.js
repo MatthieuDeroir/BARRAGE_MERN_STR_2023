@@ -218,11 +218,9 @@ function SlideshowConfig(props) {
                           {media.type.split("/")[0] === "video" ? (
                             <Box
                               component="video"
-                              sx={{
-                                minHeight: "calc(8vh)",
-                                minWidth: "calc(16vh)",
-                                maxWidth: "calc(16vh)",
-                                maxHeight: "calc(8vh)",
+                              style={{
+                                aspectRatio: `${process.env.REACT_APP_WIDTH}/${process.env.REACT_APP_HEIGHT}`,
+                                width: "40%",
                               }}
                               alt={media.originalFilename}
                               src={media.path}
@@ -230,11 +228,10 @@ function SlideshowConfig(props) {
                           ) : media.type.split("/")[0] === "image" ? (
                             <Box
                               component="img"
-                              sx={{
-                                minHeight: "calc(8vh)",
-                                minWidth: "calc(16vh)",
-                                maxWidth: "calc(16vh)",
-                                maxHeight: "calc(8vh)",
+                              style={{
+                                aspectRatio: `${process.env.REACT_APP_WIDTH}/${process.env.REACT_APP_HEIGHT}`,
+                                width: "40%",
+
                               }}
                               alt={media.originalFilename}
                               src={media.path}

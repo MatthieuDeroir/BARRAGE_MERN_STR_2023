@@ -10,10 +10,6 @@
   .body {
     font-family: "D-DIN-Bold", sans-serif;
     margin: 0px;
-    max-width: 228px;
-    max-height: 216px;
-    min-width: 228px;
-    min-height: 216px;
     background-color: #000000;
     color: rgb(255, 255, 255);
     overflow: hidden;

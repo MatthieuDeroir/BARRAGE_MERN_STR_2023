@@ -29,16 +29,12 @@ function Display() {
         console.log(slideshowRes);
         console.log(slideshowStatusRes);
       setIsSettingMode(checkIsInSettingPeriod(settingRes[0]));
-      console.log(isSettingMode);
       const currentSlideshowId = slideshowStatusRes[0]?.slideshowId;
       if (slideshowStatusRes[0]?.isRunning) {
         console.log("isRunning");
         const foundSlideshow = slideshowRes.data.slideshows.find(
           (slideshow) => slideshow.id === currentSlideshowId
         );
-        if (foundSlideshow && foundSlideshow.media) {
-          foundSlideshow.media.sort((a, b) => a.order - b.order);
-        }
         console.log(foundSlideshow);
     
 
@@ -53,10 +49,8 @@ function Display() {
       }
       if (slideshowStatusRes[0]?.isTesting) {
         setIsTesting(true);
-        console.log("isTesting");
       }else{
         setIsTesting(false);
-        console.log("isNotTesting");
       }
     };
     fetchData();
@@ -88,12 +82,18 @@ function Display() {
     const startHour = parseInt(veilleData.start);
     const stopHour = parseInt(veilleData.stop);
     console.log(currentHour, startHour, stopHour);
-    console.log(currentHour >= startHour &&  currentHour <= stopHour);
-    return currentHour >= startHour &&  currentHour <= stopHour;
+    console.log(currentHour >= startHour && stopHour <= currentHour);
+    return currentHour >= startHour && stopHour <= currentHour;
   };
 
   return (
-    <div className="body">
+    <div className="body" style={{
+      maxHeight: `${process.env.REACT_APP_HEIGHT}px`,
+      maxWidth: `${process.env.REACT_APP_WIDTH}px`,
+      minHeight: `${process.env.REACT_APP_HEIGHT}px`,
+      minWidth: `${process.env.REACT_APP_WIDTH}px`,
+      overflow: "hidden"
+    }}>
       {isTesting? (<TestPage/>):(isSettingMode ? (
        <></>
       ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
@@ -101,10 +101,7 @@ function Display() {
           <div
             key={media.id}
             style={{
-              maxHeight: "216px",
               display: index === currentMediaIndex ? "block" : "none",
-              maxWidth: "228px"
-             
             }}
           >
             {media.type === "panel" ? (
