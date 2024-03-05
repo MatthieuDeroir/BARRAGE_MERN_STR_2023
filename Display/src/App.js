@@ -5,6 +5,8 @@ import "./Global.css";
 import TestPage from "./pages/TestPage";
 import DataPage from "./pages/DataPage";
 import setupWebsocketClient from "./services/WebsocketService";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 function App() {
   const [isVeilleMode, setIsVeilleMode] = useState(false);
@@ -12,7 +14,7 @@ function App() {
   const [currentSlideshow, setCurrentSlideshow] = useState({});
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [waterData , setWaterData] = useState({});//[debit_entrant, debit_sortant, cote_plan_eau]
+  const [waterData, setWaterData] = useState({}); //[debit_entrant, debit_sortant, cote_plan_eau]
 
   const [websocket, setWebsocket] = useState(null);
 
@@ -46,8 +48,7 @@ function App() {
       setIsRunning(result.slideshowStatus[0].isRunning);
     } else if (result.type === "settings") {
       setIsVeilleMode(checkIsInVeillePeriod(result.settings[0]));
-    }
-    else if (result.type === "data") {
+    } else if (result.type === "data") {
       setWaterData(result);
     }
   };
@@ -75,6 +76,7 @@ function App() {
 
   return (
     <div>
+      <Header />
       {!isVeilleMode ? (
         <></> //veille
       ) : isRunning &&
@@ -88,7 +90,7 @@ function App() {
             }}
           >
             {media.type === "panel" ? (
-              <DataPage waterData={waterData}/>
+              <DataPage waterData={waterData} />
             ) : (
               <MediasPage media={media} />
             )}
@@ -97,8 +99,9 @@ function App() {
       ) : isTesting ? (
         <TestPage />
       ) : (
-        <DataPage waterData={waterData}/>
+        <DataPage waterData={waterData} />
       )}
+      <Footer />
     </div>
   );
 }
