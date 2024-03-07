@@ -1,6 +1,6 @@
 function setupWebsocketClient(onMessageReceived, clientId) {
     const API_URL = process.env.REACT_APP_API_URL;
-    const serverUrl = `ws://${API_URL}:8080`;
+    const serverUrl = `ws://localhost:8080`;
     const ws = new WebSocket(serverUrl);
 
     ws.addEventListener('open', function (event) {
@@ -33,7 +33,7 @@ function setupWebsocketClient(onMessageReceived, clientId) {
 }
 
 // Vous pouvez adapter cette partie pour choisir l'identifiant du client correctement
-const client = setupWebsocketClient(onMessageReceived, "1"); // Utiliser "1" pour le client 1, "2" pour le client 2
+const client = setupWebsocketClient(onMessageReceived, process.env.REACT_APP_CLIENT_ID); // Utiliser "1" pour le client 1, "2" pour le client 2
 
 function onMessageReceived(event) {
     const data = JSON.parse(event.data);
