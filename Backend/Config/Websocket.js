@@ -58,11 +58,10 @@ const sendUpdateToAllClients = () => {
     });
 };
 
-const sendToAll = (type, message) => {
-	const data = JSON.stringify({ type, message });
+const sendToAll = (message) => {
 	wss.clients.forEach((client) => {
 		if (client.readyState === WebSocket.OPEN) {
-			client.send(data);
+			client.send(message);
 		}
 	});
 }
