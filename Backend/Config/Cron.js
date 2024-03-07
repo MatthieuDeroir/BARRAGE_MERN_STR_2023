@@ -5,7 +5,7 @@ const { read, write } = require("./Parser");
 const { sendToAll, sendActiveSlideshow } = require("./Websocket");
 
 const setupCronJobs = () => {
-	cron.schedule("*/5 * * * * *", async () => {
+	cron.schedule("* * * * * *", async () => {
 		
 		const parseData = async () => {
 			console.log("Parsing data");
@@ -18,7 +18,7 @@ const setupCronJobs = () => {
 		};
 		parseData();
 	});
-	cron.schedule("*/5 * * * * *", async () => {
+	cron.schedule("* * * * * *", async () => {
 		
 		sendActiveSlideshow();
 	});
