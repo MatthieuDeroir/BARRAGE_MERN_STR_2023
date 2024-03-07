@@ -11,7 +11,7 @@ const connectedClients = {};
 const setupWebSocketServer = () => {
     wss.on("connection", (ws) => {
         console.log("A client connected");
-		const ip = req.socket.remoteAddress;
+		const ip = ws._socket.remoteAddress;
 
         ws.on("message", async (message) => {
             console.log("received: %s", message);
