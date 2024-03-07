@@ -3,7 +3,7 @@ const { getActiveSlideshows, getSettings, getSlideshowStatus } = require("./Pars
 // Suppose que `updateClientStatus` est défini dans ce fichier ou importé d'un contrôleur
 // const { updateClientStatus } = require('./path/to/your/controller');
 
-const wss = new WebSocket({'ws://10.8.0.1:8080' });
+const wss = new WebSocket('ws://10.8.0.1:8080' );
 console.log("WebSocket server started on port 8080");
 
 const connectedClients = {};
