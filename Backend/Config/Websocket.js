@@ -1,55 +1,58 @@
 const WebSocket = require("ws");
-const { getActiveSlideshows,getSettings,getSlideshowStatus } = require("./Parser");
-
 const wss = new WebSocket.Server({ port: 8080 });
 console.log("WebSocket server started on port 8080");
 
-const setupWebSocketServer = () => {
-	wss.on("connection", (ws) => {
-		console.log("A client connected");
+const connectedClients = {};
 
-		ws.on("message", (message) => {
-			console.log("received: %s", message);
-			// Optionally, echo the message back to the client
-			ws.send("Echo: " + message);
-		});
+wss.on("connection", (ws) => {
+    console.log("A client connected");
 
-		ws.on("close", () => {
-			console.log("A client disconnected");
-		});
+    ws.on("message", async (message) => {
+        console.log("Received: %s", message);
+        const data = JSON.parse(message);
+        
+        if (data.type === 'connect') {
+            // Enregistrer le client comme connecté
+            connectedClients[data.id] = ws;
+            console.log(`Client ${data.id} connected`);
+			await updateClientStatus(data.id, true); // Implémentez cette fonction dans votre contrôleur
+            
+            // Envoyer la mise à jour de l'état de connexion à tous les clients
+            updateClientsStatus();
+        } else if (data.type === 'disconnect') {
+            // Supprimer le client de la liste des connectés
+            delete connectedClients[data.id];
+            console.log(`Client ${data.id} disconnected`);
 
-		// Send a welcome message to the newly connected client
-		ws.send("Welcome to the WebSocket server!");
-	});
-};
+			await updateClientStatus(data.id, false); // Implémentez cette fonction dans votre contrôleur
+            
+            // Envoyer la mise à jour de l'état de connexion à tous les clients
+            updateClientsStatus();
+        }
+    });
 
-const sendToAll = (message) => {
-	console.log("Sending message to all clients: " + message);
-	wss.clients.forEach((client) => {
-		if (client.readyState === WebSocket.OPEN) {
-			client.send(message);
-		}
-	});
-};
+    ws.on("close", () => {
+        // Trouver et supprimer le client déconnecté
+        Object.keys(connectedClients).forEach( async clientId => {
+            if (connectedClients[clientId] === ws) {
+                delete connectedClients[clientId];
+                console.log(`Client ${clientId} disconnected`);
 
-async function sendActiveSlideshows() {
-	const slideshows = await getActiveSlideshows();
-	const settings = await getSettings();
-	const slideshowStatus = await getSlideshowStatus();
-	wss.clients.forEach(function each(client) {
-		if (client.readyState === WebSocket.OPEN) {
-			client.send(JSON.stringify({type:'slideshows',slideshows}));
-			client.send(JSON.stringify({type:'settings',settings}));
-			client.send(JSON.stringify({type:'slideshowStatus',slideshowStatus}));
-		}
-	});
+				await DataController.updateClientStatus(clientId, false);
+            }
+        });
+        updateClientsStatus();
+    });
+
+    ws.send("Welcome to the WebSocket server!");
+});
+
+function updateClientsStatus() {
+    const connectedIds = Object.keys(connectedClients);
+    const message = JSON.stringify({ type: 'statusUpdate', connectedIds });
+    wss.clients.forEach((client) => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(message);
+        }
+    });
 }
-
-// You can call this function periodically or trigger it based on some events
-setInterval(sendActiveSlideshows, 30000); // For example, every 30 seconds
-
-
-module.exports = {
-	setupWebSocketServer,
-	sendToAll
-};

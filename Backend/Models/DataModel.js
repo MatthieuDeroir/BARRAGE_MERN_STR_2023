@@ -14,8 +14,18 @@ const Data = sequelize.define("Data", {
 	cote_plan_eau:{
 			type: DataTypes.STRING,
 			allowNull: false
-	}
 	},
+	client1Connected: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
+		allowNull: false
+	},
+	client2Connected: {
+		type: DataTypes.BOOLEAN,
+		defaultValue: false,
+		allowNull: false
+	},
+},
 	{
 		timestamps: false,
 		tableName: "Data"

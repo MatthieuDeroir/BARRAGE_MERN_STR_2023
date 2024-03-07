@@ -1,47 +1,41 @@
-function setupWebsocketClient(onMessageReceived) {
-    // Définir l'URL du serveur WebSocket
-    const serverUrl = "ws://localhost:8080";
-    
-    // Fonction pour créer une nouvelle connexion WebSocket
-    function connect() {
-        // Créer une nouvelle connexion WebSocket
-        const ws = new WebSocket(serverUrl);
+function setupWebsocketClient(onMessageReceived, clientId) {
+    const API_URL = process.env.REACT_APP_API_URL;
+    const serverUrl = `ws://${API_URL}:8080`;
+    const ws = new WebSocket(serverUrl);
 
-        // Connexion ouverte
-        ws.addEventListener('open', function (event) {
-            console.log("Connected to the server");
-            ws.send("Hello, server!");
-        });
+    ws.addEventListener('open', function (event) {
+        console.log("Connected to the server");
+        // Envoyer l'identifiant du client au serveur
+        ws.send(JSON.stringify({ type: 'connect', id: clientId }));
+    });
 
-        // Écouter les messages
-        ws.addEventListener('message', function (event) {
-            try {
-                // Tenter de parser le message comme JSON
-                onMessageReceived(event);
-            } catch (e) {
-                // Si une erreur se produit, le message n'est pas un JSON valide
-                console.log("Non-JSON message received:", event.data);
-            }
-        });
+    ws.addEventListener('message', function (event) {
+        onMessageReceived(event);
+    });
 
-        // Gérer les erreurs
-        ws.addEventListener('error', function (event) {
-            console.error("WebSocket error observed:", event);
-        });
+    ws.addEventListener('close', function (event) {
+        console.log("Disconnected from the server");
+        setTimeout(() => setupWebsocketClient(onMessageReceived, clientId), 1000);
+    });
 
-        // Connexion fermée
-        ws.addEventListener('close', function (event) {
-            console.log("Disconnected from the server");
-            // Tenter de se reconnecter après un délai
-            setTimeout(connect, 1000); // Reconnexion après 1 seconde
-        });
+    ws.addEventListener('error', function (event) {
+        console.error("WebSocket error observed:", event);
+    });
 
-        return ws;
+    // Envoyer un message de déconnexion avant de fermer la connexion
+    function disconnect() {
+        ws.send(JSON.stringify({ type: 'disconnect', id: clientId }));
+        ws.close();
     }
 
-    // Établir la première connexion
-    return connect();
+    // Exposer la fonction de déconnexion pour un usage externe
+    return { disconnect };
 }
 
-// Vous pouvez appeler cette fonction pour configurer le client WebSocket
-module.exports = setupWebsocketClient;
+// Vous pouvez adapter cette partie pour choisir l'identifiant du client correctement
+const client = setupWebsocketClient(onMessageReceived, "1"); // Utiliser "1" pour le client 1, "2" pour le client 2
+
+function onMessageReceived(event) {
+    const data = JSON.parse(event.data);
+    console.log(data);
+}
