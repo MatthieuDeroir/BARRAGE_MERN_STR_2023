@@ -44,7 +44,7 @@ exports.uploadFile = async (req, res) => {
       hashedFilename,
       user: "user",
       format,
-      path: `/media/${hashedFilename}.${format}`,
+      path: `/api/media/${hashedFilename}.${format}`,
       duration: 10,
       type: mimetype,
       order: currentMediaCount + 1,
