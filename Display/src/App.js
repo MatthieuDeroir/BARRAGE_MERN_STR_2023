@@ -52,7 +52,10 @@ function App() {
       } else if (result.type === "data") {
         setWaterData(result);
       }
+    } catch (error) {
+      console.error("Error while parsing websocket message", error);
     }
+    
     
   };
 
