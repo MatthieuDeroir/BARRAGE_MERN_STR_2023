@@ -53,9 +53,7 @@ function App() {
         setWaterData(result);
       }
     }
-    catch (error) {
-      console.error('Erreur lors du parsing JSON:', error);
-    }
+    
   };
 
   useEffect(() => {

@@ -11,6 +11,7 @@ const connectedClients = {};
 const setupWebSocketServer = () => {
     wss.on("connection", (ws) => {
         console.log("A client connected");
+		const ip = req.socket.remoteAddress;
 
         ws.on("message", async (message) => {
             console.log("received: %s", message);
@@ -20,17 +21,21 @@ const setupWebSocketServer = () => {
                 connectedClients[data.id] = ws;
                 console.log(`Client ${data.id} connected`);
                 await updateClientStatus(data.id, true);
+				console.log('IP: ' + ip);
                 sendUpdateToAllClients();
             } else if (data.type === 'disconnect') {
                 delete connectedClients[data.id];
                 console.log(`Client ${data.id} disconnected`);
                 await updateClientStatus(data.id, false);
+				console.log('IP: ' + ip);
                 sendUpdateToAllClients();
             } else {
                 // Gérer d'autres types de messages ici
                 // Par exemple, écho du message reçu pour des tests simples
                 ws.send("Echo: " + message);
             }
+		
+
         });
 
         ws.on("close", async () => {
