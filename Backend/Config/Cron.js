@@ -31,7 +31,7 @@ const setupCronJobs = () => {
 		};
 		parseData();
 	});
-	cron.schedule("*/60 * * * * *", async () => {
+	cron.schedule("*/5 * * * * *", async () => {
 		
 		sendActiveSlideshow();
 	});
