@@ -5,6 +5,7 @@ const ffmpeg = require("fluent-ffmpeg");
 const Media = require("../Models/MediaModel");
 const sequelize = require("../Database/Sequelize");
 const Slideshow = require("../Models/SlideshowModel");
+const { log } = require("console");
 
 const saveMediaAndUpdateSlideshow = async (media, slideshowId) => {
     const newMedia = await Media.create(media.dataValues);
@@ -31,11 +32,13 @@ exports.uploadFile = async (req, res) => {
       .createHash("sha256")
       .update(originalname + uniqueValue)
       .digest("hex");
+    console.log('fichier upload a', hashedFilename);
     const newPath = path.join(
       __dirname,
       process.env.UPLOAD_PATH,
       `${hashedFilename}.${format}`
     );
+    console.log('fichier upload a', newPath);
     const currentMediaCount = await Media.count({ where: { slideshowId } });
   
     const mediaData = {

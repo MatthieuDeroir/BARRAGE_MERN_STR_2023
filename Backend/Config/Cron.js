@@ -18,7 +18,7 @@ const setupCronJobs = () => {
 	};
 	parseData();
 
-	cron.schedule("*/5 * * * * *", async () => {
+	cron.schedule("*/60 * * * * *", async () => {
 		
 		const parseData = async () => {
 			console.log("Parsing data");

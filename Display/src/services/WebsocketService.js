@@ -25,10 +25,8 @@ function setupWebsocketClient(onMessageReceived, clientId) {
     // Envoyer un message de déconnexion avant de fermer la connexion
     function disconnect() {
         ws.send(JSON.stringify({ type: 'disconnect', id: clientId }));
-        ws.close();
     }
 
-    ws.close = disconnect;
 
     // Exposer la fonction de déconnexion pour un usage externe
     return { disconnect };
@@ -38,7 +36,7 @@ function setupWebsocketClient(onMessageReceived, clientId) {
 const client = setupWebsocketClient(onMessageReceived, process.env.REACT_APP_CLIENT_ID); // Utiliser "1" pour le client 1, "2" pour le client 2
 function onMessageReceived(event) {
     try {
-        const data = event.data;
+        const data = JSON.parse(event.data);
         console.log(data);
     } catch (error) {
         console.error('Erreur lors du parsing JSON:', error);
