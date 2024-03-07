@@ -32,13 +32,11 @@ exports.uploadFile = async (req, res) => {
       .createHash("sha256")
       .update(originalname + uniqueValue)
       .digest("hex");
-    console.log('fichier upload a', hashedFilename);
     const newPath = path.join(
       __dirname,
       process.env.UPLOAD_PATH,
       `${hashedFilename}.${format}`
     );
-    console.log('fichier upload a', newPath);
     const currentMediaCount = await Media.count({ where: { slideshowId } });
   
     const mediaData = {
@@ -54,47 +52,45 @@ exports.uploadFile = async (req, res) => {
     };
   
     try {
-        await fs.promises.rename(oldPath, newPath);
-        if (mimetype.startsWith("video/")) {
-          mediaData.duration = await getVideoDuration(newPath);
-        }
-        const newMedia = await saveMediaAndUpdateSlideshow(new Media(mediaData), slideshowId);
-        res
-          .status(200)
-          .send({ media: newMedia, code: 200 });
-      } catch (error) {
-        console.error(error);
-        res
-          .status(500)
-          .send({ message: "Échec du téléchargement du fichier", code: 500 });
+      await fs.promises.rename(oldPath, newPath);
+      let mediaDuration = 10; // Valeur par défaut
+      if (mimetype.startsWith("video/")) {
+          mediaDuration = await getVideoDuration(newPath);
       }
+      mediaData.duration = mediaDuration;
+      try {
+          const newMedia = await saveMediaAndUpdateSlideshow(new Media(mediaData), slideshowId);
+          res.status(200).send({ media: newMedia, code: 200 });
+      } catch (dbError) {
+          console.error(dbError);
+          await fs.promises.unlink(newPath); // Supprime le fichier si l'insertion DB échoue
+          res.status(500).send({ message: "Échec de l'enregistrement des données du fichier", code: 500 });
+      }
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ message: "Échec du téléchargement du fichier", code: 500 });
+    }
   };
 
 exports.deleteFile = async (req, res) => {
   console.log(req.params);
   try {
     const media = await Media.findByPk(req.params.id);
-    
-    // Define the file path
-    if (!media.type.startsWith("panel")) {
     const filePath = path.join(__dirname, process.env.UPLOAD_PATH, `${media.hashedFilename}.${media.format}`);
-    fs.unlink(filePath, async (err) => {
-        if (err) {
-          console.error(err);
-          return res.status(500).send({
-            message: "Une erreur s'est produite lors de la suppression du fichier",
-            code: 500,
-          });
-        }
-  
-        // If there's no error in deleting the file, delete the media record from the database
-        await media.destroy();
-        res.status(200).send({ message: "Fichier supprimé avec succès", code: 200 });
-      });
-    }else{
-        await media.destroy();
-        res.status(200).send({ message: "Fichier supprimé avec succès", code: 200 });
-    }
+    
+    // Essayer de supprimer le fichier, sans bloquer la suppression DB en cas d'échec
+    fs.unlink(filePath, (err) => {
+        if (err) console.error(err);
+    });
+
+    // Toujours supprimer l'entrée DB indépendamment du résultat de la suppression du fichier
+    await media.destroy();
+    res.status(200).send({ message: "Fichier supprimé avec succès", code: 200 });
+} catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Une erreur s'est produite lors de la suppression du fichier", code: 500 });
+}
+
     // Delete the file
     
   } catch (error) {
