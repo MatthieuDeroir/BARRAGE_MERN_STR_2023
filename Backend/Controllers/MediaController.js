@@ -86,20 +86,10 @@ exports.deleteFile = async (req, res) => {
     // Toujours supprimer l'entrée DB indépendamment du résultat de la suppression du fichier
     await media.destroy();
     res.status(200).send({ message: "Fichier supprimé avec succès", code: 200 });
-} catch (error) {
-    console.error(error);
-    res.status(500).send({ message: "Une erreur s'est produite lors de la suppression du fichier", code: 500 });
-}
-
-    // Delete the file
-    
   } catch (error) {
-    console.error(error);
-    res.status(500).send({
-      message: "Une erreur s'est produite lors de la suppression du fichier",
-      code: 500,
-    });
-  }
+        console.error(error);
+        res.status(500).send({ message: "Une erreur s'est produite lors de la suppression du fichier", code: 500 });
+  }     
 };
 exports.updateOrder = async (req, res) => {
   const { newOrder } = req.body;
