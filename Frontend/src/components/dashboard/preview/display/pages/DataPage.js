@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 function DataPage({ }) {
 	const [waterData, setWaterData] = useState({}); //[debit_entrant, debit_sortant, cote_plan_eau]
