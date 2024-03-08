@@ -1,12 +1,21 @@
 import React, { useEffect } from "react";
 
 function DataPage({ waterData }) {
-  useEffect(() => {
+  /*  useEffect(() => {
     console.log(waterData);
-  }, [waterData]);
+  }, [waterData?]); */
 
   return (
-    <div style={{ fontSize: "15px", display: "flex", flexDirection: "row" }}>
+    <div
+      style={{
+        width: "228px",
+        height: "216px",
+        fontSize: "15px",
+        display: "flex",
+        flexDirection: "row",
+        backgroundColor: "#0E4194",
+      }}
+    >
       <div
         style={{
           width: "100%",
@@ -118,7 +127,7 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
-          {waterData.cote_plan_eau || 0}
+          {waterData?.cote_plan_eau || 0}
         </div>
         <div
           style={{
@@ -149,7 +158,7 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
-          {waterData.debit_entrant || 0}
+          {waterData?.debit_entrant || 0}
         </div>
         <div
           style={{
@@ -180,7 +189,7 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
-          {waterData.debit_sortant || 0}
+          {waterData?.debit_sortant || 0}
         </div>
         <div
           style={{

@@ -5,15 +5,23 @@ function DataPage({ waterData }) {
     console.log(waterData);
   }, [waterData]);
 
-
   return (
-    <div style={{ fontSize: "15px", display: "flex", flexDirection: "row", backgroundColor: "#0e4194" }}>
+    <div
+      style={{
+        fontSize: "15px",
+        display: "flex",
+        flexDirection: "row",
+        backgroundColor: "#0e4194",
+      }}
+    >
       <div
         style={{
-          width: "100%",
-          height: "100%",
-          position: "relative",
-          background: "#0E4194",
+          width: "228px",
+          height: "216px",
+          fontSize: "15px",
+          display: "flex",
+          flexDirection: "row",
+          backgroundColor: "#0E4194",
         }}
       >
         <div
