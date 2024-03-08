@@ -3,6 +3,7 @@ import { Card, CardContent, Grid, IconButton, Table, TableBody, TableCell, Table
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import DataService from "../../../services/DataService";
 import { settingsService } from "../../../services/SettingsService";
+import Display from "./display/Display";
 
 function Preview() {
   const [isOnline1, setIsOnline1] = useState(false);
@@ -71,6 +72,9 @@ function Preview() {
               <VideoLabelIcon color="primary" />
             </IconButton>
             Aperçu
+            <Box sx={{ mb: 6 }}>
+            <Display />
+          </Box>
           </Typography>
           <TableContainer component={Card}>
             <Table>
@@ -96,14 +100,14 @@ function Preview() {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell>Actif</TableCell>
+                  <TableCell>En Veille</TableCell>
                   <TableCell>
-                    <Typography variant="body2" sx={{ color: isOn1 ? "green" : "red" }}>
+                    <Typography variant="body2" sx={{ color: isOn1 ? "grey" : "black" }}>
                       {isOn1 ? "Oui" : "Non"}
                     </Typography>
                   </TableCell>
                   <TableCell>
-                    <Typography variant="body2" sx={{ color: isOn2 ? "green" : "red" }}>
+                    <Typography variant="body2" sx={{ color: isOn2 ? "grey" : "black" }}>
                       {isOn2 ? "Oui" : "Non"}
                     </Typography>
                   </TableCell>
