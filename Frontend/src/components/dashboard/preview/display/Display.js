@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { slideshowService } from "../../../../services/SlideshowService";
 import { settingsService } from "../../../../services/SettingsService";
+import DataService from "../../../../services/DataService";
 import _ from "lodash";
 
 import "./Display.css";
@@ -16,30 +17,28 @@ function Display() {
   const [isTesting, setIsTesting] = useState(false);
   const [currentSlideshow, setCurrentSlideshow] = useState({});
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+  const [waterData, setWaterData] = useState({}); //[debit_entrant, debit_sortant, cote_plan_eau]
 
   useEffect(() => {
     const fetchData = async () => {
-      const [settingRes,  slideshowRes, slideshowStatusRes] =
+      const [settingRes,  slideshowRes, slideshowStatusRes, waterData] =
         await Promise.all([
           settingsService.getSettings(),
+         
 
           slideshowService.getSlideshow(),
           slideshowStatutsService.getSlideshowStatus(),
+          DataService.getData(),
         ]);
-        console.log(slideshowRes);
-        console.log(slideshowStatusRes);
       setIsSettingMode(checkIsInSettingPeriod(settingRes[0]));
-      console.log(isSettingMode);
       const currentSlideshowId = slideshowStatusRes[0]?.slideshowId;
       if (slideshowStatusRes[0]?.isRunning) {
-        console.log("isRunning");
         const foundSlideshow = slideshowRes.data.slideshows.find(
           (slideshow) => slideshow.id === currentSlideshowId
         );
         if (foundSlideshow && foundSlideshow.media) {
           foundSlideshow.media.sort((a, b) => a.order - b.order);
         }
-        console.log(foundSlideshow);
     
 
         // Vérifie si le diaporama actuel est le même que le précédent
@@ -53,10 +52,8 @@ function Display() {
       }
       if (slideshowStatusRes[0]?.isTesting) {
         setIsTesting(true);
-        console.log("isTesting");
       }else{
         setIsTesting(false);
-        console.log("isNotTesting");
       }
     };
     fetchData();
@@ -87,9 +84,7 @@ function Display() {
     const currentHour = new Date().getHours();
     const startHour = parseInt(veilleData.start);
     const stopHour = parseInt(veilleData.stop);
-    console.log(currentHour, startHour, stopHour);
-    console.log(currentHour >= startHour &&  currentHour <= stopHour);
-    return currentHour >= startHour &&  currentHour <= stopHour;
+    return currentHour <= startHour &&  currentHour >= stopHour;
   };
 
   return (

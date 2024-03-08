@@ -1,77 +1,89 @@
 const WebSocket = require("ws");
+const { updateClientStatus } = require("../Controllers/DataController");
 const { getActiveSlideshows, getSettings, getSlideshowStatus } = require("./Parser");
-// Suppose que `updateClientStatus` est défini dans ce fichier ou importé d'un contrôleur
-// const { updateClientStatus } = require('./path/to/your/controller');
 
-const wss = new WebSocket.Server({ port: 8080 });
-console.log("WebSocket server started on port 8080");
-
+let wss;
 const connectedClients = {};
 
-const setupWebSocketServer = () => {
+function setupWebSocketServer() {
+    wss = new WebSocket.Server({ host: '0.0.0.0', port: 8080 });
+    console.log("WebSocket server started on port 8080");
+
     wss.on("connection", (ws) => {
         console.log("A client connected");
+        const ip = ws._socket.remoteAddress;
 
         ws.on("message", async (message) => {
             console.log("received: %s", message);
             const data = JSON.parse(message);
 
             if (data.type === 'connect') {
-                connectedClients[data.id] = ws;
-                console.log(`Client ${data.id} connected`);
+                connectedClients[data.id] = { ws, lastHeartbeat: Date.now() };
+                console.log(`Client ${data.id} from ip ${ip} connected`);
                 await updateClientStatus(data.id, true);
-                sendUpdateToAllClients();
             } else if (data.type === 'disconnect') {
                 delete connectedClients[data.id];
-                console.log(`Client ${data.id} disconnected`);
+                console.log(`Client ${data.id} ip ${ip} disconnected`);
                 await updateClientStatus(data.id, false);
-                sendUpdateToAllClients();
-            } else {
-                // Gérer d'autres types de messages ici
-                // Par exemple, écho du message reçu pour des tests simples
-                ws.send("Echo: " + message);
+            } else if (data.type === 'heartbeat') {
+                if (connectedClients[data.id]) {
+                    connectedClients[data.id].lastHeartbeat = Date.now();
+                    console.log(`Heartbeat received from ${data.id} ip ${ip}`);
+                }
             }
         });
 
         ws.on("close", async () => {
-            const disconnectedClientId = Object.keys(connectedClients).find(clientId => connectedClients[clientId] === ws);
+            const disconnectedClientId = Object.keys(connectedClients).find(clientId => connectedClients[clientId].ws === ws);
             if (disconnectedClientId) {
                 delete connectedClients[disconnectedClientId];
                 console.log(`Client ${disconnectedClientId} disconnected`);
                 await updateClientStatus(disconnectedClientId, false);
             }
-            sendUpdateToAllClients();
         });
-
-        // Envoyer un message de bienvenue au client nouvellement connecté
-        ws.send("Welcome to the WebSocket server!");
     });
-};
 
-const sendUpdateToAllClients = () => {
+    // Définition d'intervalles pour les vérifications périodiques
+    setInterval(checkClientsConnection, 60000);
+    setInterval(sendActiveSlideshows, 30000);
+}
+
+function checkClientsConnection() {
+    const currentTime = Date.now();
+    console.log("Testing if clients are still connected");
+    Object.keys(connectedClients).forEach(async (clientId) => {
+        const client = connectedClients[clientId];
+        if (currentTime - client.lastHeartbeat > 90 * 1000) { // 90 seconds
+            console.log(`Client ${clientId} is considered disconnected due to timeout`);
+            delete connectedClients[clientId];
+            await updateClientStatus(clientId, false);
+        }
+    });
+}
+
+function sendUpdateToAllClients() {
     const connectedIds = Object.keys(connectedClients);
     const message = JSON.stringify({ type: 'statusUpdate', connectedIds });
-    wss.clients.forEach((client) => {
+    wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
             client.send(message);
         }
     });
-};
+}
 
-const sendToAll = (type, message) => {
-	const data = JSON.stringify({ type, message });
-	wss.clients.forEach((client) => {
-		if (client.readyState === WebSocket.OPEN) {
-			client.send(data);
-		}
-	});
+function sendToAll(message) {
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(message);
+        }
+    });
 }
 
 async function sendActiveSlideshows() {
     const slideshows = await getActiveSlideshows();
     const settings = await getSettings();
     const slideshowStatus = await getSlideshowStatus();
-    wss.clients.forEach(function each(client) {
+    wss.clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify({type: 'slideshows', slideshows}));
             client.send(JSON.stringify({type: 'settings', settings}));
@@ -80,17 +92,9 @@ async function sendActiveSlideshows() {
     });
 }
 
-// You can call this function periodically or trigger it based on some events
-setInterval(sendActiveSlideshows, 30000); // For example, every 30 seconds
-
-// Make sure to define or import `updateClientStatus` function to update client status in your database
-async function updateClientStatus(clientId, isConnected) {
-    // Votre logique de mise à jour de la base de données va ici
-    console.log(`Client ${clientId} connection status updated to ${isConnected}`);
-}
-
 module.exports = {
     setupWebSocketServer,
     sendUpdateToAllClients,
-	sendToAll
+    sendToAll,
+    sendActiveSlideshows
 };

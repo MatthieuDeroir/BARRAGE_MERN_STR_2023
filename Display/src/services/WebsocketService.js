@@ -1,12 +1,17 @@
 function setupWebsocketClient(onMessageReceived, clientId) {
     const API_URL = process.env.REACT_APP_API_URL;
-    const serverUrl = `ws://localhost:8080`;
+    const serverUrl = `ws://192.168.100.186/ws`;
     const ws = new WebSocket(serverUrl);
 
     ws.addEventListener('open', function (event) {
         console.log("Connected to the server");
         // Envoyer l'identifiant du client au serveur
         ws.send(JSON.stringify({ type: 'connect', id: clientId }));
+        let heartbeatInterval = setInterval(() => {
+            const timestamp = Date.now(); // Obtenir le timestamp actuel
+            ws.send(JSON.stringify({ type: 'heartbeat', id: clientId, timestamp }));
+            console.log("Heartbeat sent", { clientId, timestamp });
+        }, 60000); // 60000 ms = 1 minute
     });
 
     ws.addEventListener('message', function (event) {
@@ -25,8 +30,8 @@ function setupWebsocketClient(onMessageReceived, clientId) {
     // Envoyer un message de déconnexion avant de fermer la connexion
     function disconnect() {
         ws.send(JSON.stringify({ type: 'disconnect', id: clientId }));
-        ws.close();
     }
+
 
     // Exposer la fonction de déconnexion pour un usage externe
     return { disconnect };
@@ -34,8 +39,14 @@ function setupWebsocketClient(onMessageReceived, clientId) {
 
 // Vous pouvez adapter cette partie pour choisir l'identifiant du client correctement
 const client = setupWebsocketClient(onMessageReceived, process.env.REACT_APP_CLIENT_ID); // Utiliser "1" pour le client 1, "2" pour le client 2
-
 function onMessageReceived(event) {
-    const data = JSON.parse(event.data);
-    console.log(data);
+    try {
+        const data = JSON.parse(event.data);
+        console.log(data);
+    } catch (error) {
+        console.error('Erreur lors du parsing JSON:', error);
+    }
 }
+
+
+exports.setupWebsocketClient = setupWebsocketClient;

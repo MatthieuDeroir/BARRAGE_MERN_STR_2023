@@ -27,6 +27,7 @@ import { ReactSortable } from "react-sortablejs";
 function SlideshowConfig(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const sortedMedia = [...props.slideshow.media].sort(
     (a, b) => a.order - b.order
@@ -225,7 +226,7 @@ function SlideshowConfig(props) {
                                 maxHeight: "calc(8vh)",
                               }}
                               alt={media.originalFilename}
-                              src={media.path}
+                              src={API_URL + media.path}
                             />
                           ) : media.type.split("/")[0] === "image" ? (
                             <Box
@@ -237,7 +238,7 @@ function SlideshowConfig(props) {
                                 maxHeight: "calc(8vh)",
                               }}
                               alt={media.originalFilename}
-                              src={media.path}
+                              src={API_URL + media.path}
                             />
                           ) : (
                             "Panneau"

@@ -4,7 +4,7 @@ import MediasPage from "./pages/MediasPage";
 import "./Global.css";
 import TestPage from "./pages/TestPage";
 import DataPage from "./pages/DataPage";
-import setupWebsocketClient from "./services/WebsocketService";
+import {setupWebsocketClient} from "./services/WebsocketService";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
@@ -34,23 +34,29 @@ function App() {
   }, [currentSlideshow, currentMediaIndex]);
 
   const handleWebsocketMessage = (event) => {
-    const result = JSON.parse(event.data); // Assurez-vous de parser event.data et non event
-    console.log(result);
-    if (result.type === "slideshows") {
-      if (result.slideshows === undefined || result.slideshows.length === 0) {
-        setCurrentSlideshow({});
-        setCurrentMediaIndex(0);
-      } else {
-        setCurrentSlideshow(result.slideshows[0]);
+    try {
+      const result = JSON.parse(event.data);
+      console.log(result);
+      if (result.type === "slideshows") {
+        if (result.slideshows === undefined || result.slideshows.length === 0) {
+          setCurrentSlideshow({});
+          setCurrentMediaIndex(0);
+        } else {
+          setCurrentSlideshow(result.slideshows[0]);
+        }
+      } else if (result.type === "slideshowStatus") {
+        setIsTesting(result.slideshowStatus[0].isTesting);
+        setIsRunning(result.slideshowStatus[0].isRunning);
+      } else if (result.type === "settings") {
+        setIsVeilleMode(checkIsInVeillePeriod(result.settings[0]));
+      } else if (result.type === "data") {
+        setWaterData(result);
       }
-    } else if (result.type === "slideshowStatus") {
-      setIsTesting(result.slideshowStatus[0].isTesting);
-      setIsRunning(result.slideshowStatus[0].isRunning);
-    } else if (result.type === "settings") {
-      setIsVeilleMode(checkIsInVeillePeriod(result.settings[0]));
-    } else if (result.type === "data") {
-      setWaterData(result);
+    } catch (error) {
+      console.error("Error while parsing websocket message", error);
     }
+    
+    
   };
 
   useEffect(() => {
