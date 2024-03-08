@@ -15,6 +15,8 @@ import {
 import IconButton from "@mui/material/IconButton";
 import React, { useState } from "react";
 import Display from "./display/Display";
+import { useEffect } from "react";
+import { settingsService } from "../../../services/SettingsService";
 
 function Preview() {
   // État initial pour chaque écran
