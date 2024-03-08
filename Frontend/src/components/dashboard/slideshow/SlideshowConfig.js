@@ -134,9 +134,9 @@ function SlideshowConfig(props) {
 
   return (
     <>
-       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+       <Container sx={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
       <Grid item xs={12} md={8}>
-        <Paper className="mainPaperPage">
+        <Paper elevation={4}>
           <Stack className="herderTitlePage">
             <Box className="headerLeft">
               <IconButton

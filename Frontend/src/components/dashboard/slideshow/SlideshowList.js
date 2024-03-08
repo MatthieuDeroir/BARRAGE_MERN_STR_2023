@@ -88,7 +88,7 @@ function SlideshowList(props) {
 
   return (
     <>
-      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Container sx={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
 
       <Grid item xs={12} md={8}>
       <Paper elevation={4}>
