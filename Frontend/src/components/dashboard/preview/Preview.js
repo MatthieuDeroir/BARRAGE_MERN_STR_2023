@@ -84,8 +84,8 @@ function Preview({ waterData }) {
                 <TableHead>
                   <TableRow>
                     <TableCell>Écran</TableCell>
-                    <TableCell>1</TableCell>
-                    <TableCell>2</TableCell>
+                    <TableCell sx={{color:"orange"}}>1</TableCell>
+                    <TableCell sx={{color:"orange"}}>2</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
