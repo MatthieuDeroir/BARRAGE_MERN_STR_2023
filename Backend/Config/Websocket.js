@@ -2,11 +2,12 @@ const WebSocket = require("ws");
 const { updateClientStatus } = require("../Controllers/DataController");
 const { getActiveSlideshows, getSettings, getSlideshowStatus } = require("./Parser");
 
-function setupWebSocketServer() {
-    const wss = new WebSocket.Server({ host: '0.0.0.0', port: 8080 });
-    console.log("WebSocket server started on port 8080");
+let wss;
+const connectedClients = {};
 
-    const connectedClients = {};
+function setupWebSocketServer() {
+    wss = new WebSocket.Server({ host: '0.0.0.0', port: 8080 });
+    console.log("WebSocket server started on port 8080");
 
     wss.on("connection", (ws) => {
         console.log("A client connected");
@@ -42,61 +43,58 @@ function setupWebSocketServer() {
         });
     });
 
-    setInterval(async () => {
-        const currentTime = Date.now();
-        console.log("Testing if clients are still connected");
-        for (const clientId in connectedClients) {
-            const client = connectedClients[clientId];
-            if (currentTime - client.lastHeartbeat > 1 * 90 * 1000) { // 90 seconds
-                console.log(`Client ${clientId} is considered disconnected due to timeout`);
-                delete connectedClients[clientId];
-                await updateClientStatus(clientId, false);
-            }
-        }
-    }, 60 * 1000); // Check every 60 seconds
-
-   
-
-    
-
-    // Send active slideshows every 30 seconds
+    // Définition d'intervalles pour les vérifications périodiques
+    setInterval(checkClientsConnection, 60000);
     setInterval(sendActiveSlideshows, 30000);
 }
 
-const sendUpdateToAllClients = () => {
-	const connectedIds = Object.keys(connectedClients);
-	const message = JSON.stringify({ type: 'statusUpdate', connectedIds });
-	wss.clients.forEach((client) => {
-		if (client.readyState === WebSocket.OPEN) {
-			client.send(message);
-		}
-	});
-};
+function checkClientsConnection() {
+    const currentTime = Date.now();
+    console.log("Testing if clients are still connected");
+    Object.keys(connectedClients).forEach(async (clientId) => {
+        const client = connectedClients[clientId];
+        if (currentTime - client.lastHeartbeat > 90 * 1000) { // 90 seconds
+            console.log(`Client ${clientId} is considered disconnected due to timeout`);
+            delete connectedClients[clientId];
+            await updateClientStatus(clientId, false);
+        }
+    });
+}
 
-const sendToAll = (message) => {
-	wss.clients.forEach((client) => {
-		if (client.readyState === WebSocket.OPEN) {
-			client.send(message);
-		}
-	});
-};
+function sendUpdateToAllClients() {
+    const connectedIds = Object.keys(connectedClients);
+    const message = JSON.stringify({ type: 'statusUpdate', connectedIds });
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(message);
+        }
+    });
+}
 
-const sendActiveSlideshows = async () => {
-	const slideshows = await getActiveSlideshows();
-	const settings = await getSettings();
-	const slideshowStatus = await getSlideshowStatus();
-	wss.clients.forEach((client) => {
-		if (client.readyState === WebSocket.OPEN) {
-			client.send(JSON.stringify({type: 'slideshows', slideshows}));
-			client.send(JSON.stringify({type: 'settings', settings}));
-			client.send(JSON.stringify({type: 'slideshowStatus', slideshowStatus}));
-		}
-	});
-};
+function sendToAll(message) {
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(message);
+        }
+    });
+}
+
+async function sendActiveSlideshows() {
+    const slideshows = await getActiveSlideshows();
+    const settings = await getSettings();
+    const slideshowStatus = await getSlideshowStatus();
+    wss.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({type: 'slideshows', slideshows}));
+            client.send(JSON.stringify({type: 'settings', settings}));
+            client.send(JSON.stringify({type: 'slideshowStatus', slideshowStatus}));
+        }
+    });
+}
 
 module.exports = {
-	setupWebSocketServer,
-	sendUpdateToAllClients,
-	sendToAll,
-	sendActiveSlideshows
+    setupWebSocketServer,
+    sendUpdateToAllClients,
+    sendToAll,
+    sendActiveSlideshows
 };
