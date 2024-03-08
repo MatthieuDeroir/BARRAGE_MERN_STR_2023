@@ -117,7 +117,7 @@ function SlideshowList(props) {
             </Box>
           </Stack>
           {props.slideshows ? (
-            <Box >
+            <Box className="containerPage">
               {props.slideshows.map((slideshow) => (
                 <Table key={slideshow.id}>
                   <TableBody>
