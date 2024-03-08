@@ -30,11 +30,16 @@ function Preview() {
   useEffect(() => {
     const fetchSettingsAndSetStatus = async () => {
       try {
-        // Récupérer les Datas using the dataService
+          // Récupérer les Datas using the dataService
         const data = await DataService.getData();
         console.log(data);
         setIsOnline1(data.client1Connected);
         setIsOnline2(data.client2Connected);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des datas", error);
+      }
+      try {
+        
 
         // Récupérer les paramètres using the settingsService
         const settings = await settingsService.getSettings();
