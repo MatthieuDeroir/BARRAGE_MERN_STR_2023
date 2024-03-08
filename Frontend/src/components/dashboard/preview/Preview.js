@@ -61,8 +61,8 @@ function Preview() {
         let isActive = settings[0].enable && now <= startTime && now >= endTime;
         console.log('Le paramètre de veille est activé:', isActive);
 
-        setIsOn1(isActive);
-        setIsOn2(isActive);
+        setIsOn1(!isActive);
+        setIsOn2(!isActive);
       } catch (error) {
         console.error("Erreur lors de la récupération des paramètres", error);
       }
@@ -165,7 +165,7 @@ function Preview() {
                       sx={{
                         width: 24,
                         height: 24,
-                        bgcolor: isOn1 ? "green" : "red",
+                        bgcolor: isOnline2 ? "green" : "red",
                         borderRadius: "50%",
                         marginRight: 1,
                       }}
@@ -184,7 +184,7 @@ function Preview() {
                       sx={{
                         width: 24,
                         height: 24,
-                        bgcolor: isOnline2 ? "green" : "red",
+                        bgcolor: isOn1 ? "green" : "red",
                         borderRadius: "50%",
                         marginRight: 1,
                       }}
