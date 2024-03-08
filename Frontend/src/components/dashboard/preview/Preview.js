@@ -39,17 +39,17 @@ function Preview({ waterData }) {
       const startTime = new Date();
       const endTime = new Date();
 
-      const [startHour, startMinute] = settings[0].start.split(':');
-      const [stopHour, stopMinute] = settings[0].stop.split(':');
+      const startHour = settings[0].start;
+      const stopHour = settings[0].stop
 
-      startTime.setHours(parseInt(startHour, 10), parseInt(startMinute, 10));
-      endTime.setHours(parseInt(stopHour, 10), parseInt(stopMinute, 10));
+      startTime.setHours(parseInt(startHour, 10));
+      endTime.setHours(parseInt(stopHour, 10));
 
       let isActive = settings[0].enable && now <= startTime && now >= endTime;
       console.log('Le paramètre de veille est activé:', isActive);
+      setIsOn1(isActive);
+      setIsOn2(isActive);
 
-      setIsOn1(!isActive);
-      setIsOn2(!isActive);
     } catch (error) {
       console.error("Erreur lors de la récupération des paramètres", error);
     }
