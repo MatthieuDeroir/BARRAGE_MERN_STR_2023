@@ -11,7 +11,7 @@ import { slideshowStatutsService } from "../../../../services/SlideshowStatutsSe
 import TestPage from "./pages/TestPage";
 import DataPage from "./pages/DataPage";
 
-function Display() {
+function Display({waterData}) {
 
   const [isSettingMode, setIsSettingMode] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
@@ -103,7 +103,7 @@ function Display() {
             }}
           >
             {media.type === "panel" ? (
-              <DataPage/>
+              <DataPage waterData/>
              
             ) : (
               <MediasPage media={media} />
