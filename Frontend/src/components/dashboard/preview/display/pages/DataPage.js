@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 
 function DataPage({ waterData }) {
- 
+  useEffect(() => {
+    console.log(waterData);
+  }, [waterData]);
 
 
   return (
@@ -117,7 +119,7 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
-          {waterData?.cote_plan_eau || 0}
+          {waterData.cote_plan_eau || 0}
         </div>
         <div
           style={{
@@ -148,7 +150,7 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
-          {waterData?.debit_entrant || 0}
+          {waterData.debit_entrant || 0}
         </div>
         <div
           style={{
@@ -179,7 +181,7 @@ function DataPage({ waterData }) {
             wordWrap: "break-word",
           }}
         >
-          {waterData?.debit_sortant || 0}
+          {waterData.debit_sortant || 0}
         </div>
         <div
           style={{
