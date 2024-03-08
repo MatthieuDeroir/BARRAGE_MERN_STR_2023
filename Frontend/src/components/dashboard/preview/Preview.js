@@ -36,6 +36,9 @@ function Preview() {
         
         setIsOnline1(data[0].client1Connected);
         setIsOnline2(data[0].client2Connected);
+
+        console.log('Le client 1 est en ligne:', data[0].client1Connected);
+        console.log('Le client 2 est en ligne:', data[0].client2Connected);
       } catch (error) {
         console.error("Erreur lors de la récupération des datas", error);
       }
@@ -55,7 +58,8 @@ function Preview() {
         startTime.setHours(parseInt(startHour, 10), parseInt(startMinute, 10));
         endTime.setHours(parseInt(stopHour, 10), parseInt(stopMinute, 10));
 
-        let isActive = settings[0].enable && now >= startTime && now <= endTime;
+        let isActive = settings[0].enable && now <= startTime && now >= endTime;
+        console.log('Le paramètre de veille est activé:', isActive);
 
         setIsOn1(isActive);
         setIsOn2(isActive);
