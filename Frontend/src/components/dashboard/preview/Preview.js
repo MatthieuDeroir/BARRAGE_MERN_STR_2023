@@ -18,10 +18,43 @@ import Display from "./display/Display";
 
 function Preview() {
   // État initial pour chaque écran
-  const [isOnline1, setIsOnline1] = useState(true);
-  const [isOn1, setIsOn1] = useState(true);
+  const [isOnline1, setIsOnline1] = useState(false);
+  const [isOn1, setIsOn1] = useState(false);
   const [isOnline2, setIsOnline2] = useState(false);
   const [isOn2, setIsOn2] = useState(false);
+
+  // Fetch les états de connexion au montage du composant
+  useEffect(() => {
+    const fetchSettingsAndSetStatus = async () => {
+      try {
+        const settings = await settingsService.getSettings();
+        const now = new Date();
+        const startTime = new Date();
+        const endTime = new Date();
+
+        const [startHour, startMinute] = settings.start.split(':');
+        const [stopHour, stopMinute] = settings.stop.split(':');
+
+        startTime.setHours(parseInt(startHour, 10), parseInt(startMinute, 10));
+        endTime.setHours(parseInt(stopHour, 10), parseInt(stopMinute, 10));
+
+        let isActive = settings.enable && now >= startTime && now <= endTime;
+
+        setIsOn1(isActive);
+        setIsOn2(isActive);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des paramètres", error);
+      }
+    };
+
+    fetchSettingsAndSetStatus();
+
+    // Définir un intervalle pour rafraîchir les données toutes les minutes (60000ms)
+    const intervalId = setInterval(fetchSettingsAndSetStatus, 60000);
+
+    // Fonction de nettoyage pour arrêter l'intervalle lorsque le composant est démonté
+    return () => clearInterval(intervalId);
+  }, []);
 
   // Rendu d'une cellule d'état avec un cercle coloré et du texte
   const renderStatusCell = (isOnline, isOn) => (
@@ -123,7 +156,7 @@ function Preview() {
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell component="th" scope="row">
-                    Allumé
+                    Actif
                   </TableCell>
                   <TableCell>
                     <Box
