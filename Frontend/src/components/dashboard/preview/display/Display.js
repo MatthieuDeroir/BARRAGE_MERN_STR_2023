@@ -17,18 +17,16 @@ function Display({waterData}) {
   const [isTesting, setIsTesting] = useState(false);
   const [currentSlideshow, setCurrentSlideshow] = useState({});
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-  const [waterData, setWaterData] = useState({}); //[debit_entrant, debit_sortant, cote_plan_eau]
 
   useEffect(() => {
     const fetchData = async () => {
-      const [settingRes,  slideshowRes, slideshowStatusRes, waterData] =
+      const [settingRes,  slideshowRes, slideshowStatusRes] =
         await Promise.all([
           settingsService.getSettings(),
          
 
           slideshowService.getSlideshow(),
-          slideshowStatutsService.getSlideshowStatus(),
-          DataService.getData(),
+          slideshowStatutsService.getSlideshowStatus()
         ]);
       setIsSettingMode(checkIsInSettingPeriod(settingRes[0]));
       const currentSlideshowId = slideshowStatusRes[0]?.slideshowId;
