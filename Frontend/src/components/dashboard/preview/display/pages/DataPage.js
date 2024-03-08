@@ -5,7 +5,7 @@ function DataPage({ waterData }) {
 
 
   return (
-    <div style={{ fontSize: "15px", display: "flex", flexDirection: "row", backgroundColor: "#0e4194" }}>
+    <div style={{ fontSize: "15px", display: "flex", flexDirection: "row"}}>
       <div
         style={{
           width: "100%",
