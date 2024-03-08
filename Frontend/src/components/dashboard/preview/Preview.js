@@ -91,12 +91,12 @@ function Preview({ waterData }) {
                 <TableBody>
                   <TableRow>
                     <TableCell sx={{fontWeight: 'bold' }}>En Ligne</TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       <Typography variant="body2" sx={{ color: isOnline1 ? "green" : "red", fontWeight: 'bold' }}>
                         {isOnline1 ? "Oui" : "Non"}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       <Typography variant="body2" sx={{ color: isOnline2 ? "green" : "red", fontWeight: 'bold' }}>
                         {isOnline2 ? "Oui" : "Non"}
                       </Typography>
@@ -104,12 +104,12 @@ function Preview({ waterData }) {
                   </TableRow>
                   <TableRow>
                     <TableCell sx={{fontWeight: 'bold' }}>En Veille</TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       <Typography variant="body2" sx={{ color: isOn1 ? "grey" : "black", fontWeight: 'bold' }}>
                         {isOn1 ? "Oui" : "Non"}
                       </Typography>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       <Typography variant="body2" sx={{ color: isOn2 ? "grey" : "black", fontWeight: 'bold' }}>
                         {isOn2 ? "Oui" : "Non"}
                       </Typography>
