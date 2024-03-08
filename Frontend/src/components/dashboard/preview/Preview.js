@@ -17,7 +17,7 @@ import React, { useState } from "react";
 import Display from "./display/Display";
 import { useEffect } from "react";
 import { settingsService } from "../../../services/SettingsService";
-import { dataService } from "../../../services/DataService";
+import DataService from "../../../services/DataService";
 
 function Preview() {
   // État initial pour chaque écran
@@ -31,7 +31,7 @@ function Preview() {
     const fetchSettingsAndSetStatus = async () => {
       try {
         // Récupérer les Datas using the dataService
-        const data = await dataService.getSettings();
+        const data = await DataService.getSettings();
 
         setIsOnline1(data.client1Connected);
         setIsOnline2(data.client2Connected);
