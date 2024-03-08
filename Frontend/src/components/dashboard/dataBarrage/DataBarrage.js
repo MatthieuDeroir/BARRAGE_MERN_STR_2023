@@ -11,9 +11,9 @@ function DataBarrage({ dataBarrage }) {
       <Card elevation={4}>
         <CardContent>
           <Box display="flex" alignItems="center">
-            <IconButton disabled>
-              <WaterIcon color="primary" />
-            </IconButton>
+            <IconButton disabled className="headerButton">
+                <WaterIcon sx={{ color: "primary.light" }} />
+              </IconButton>
             <Typography variant="h5" color="text.primary" marginLeft={2}>
               Données Barrage
             </Typography>
