@@ -66,7 +66,7 @@ function Preview({ waterData }) {
 
 
   return (
-    <Container sx={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
+    <Container sx={{ display: 'flex', justifyContent: 'center', height: '100vh', width: '100%' }}>
       <Grid item xs={12} md={8} lg={6}> {/* Ajustez les breakpoints selon le besoin */}
         <Card elevation={4}>
           <CardContent>
