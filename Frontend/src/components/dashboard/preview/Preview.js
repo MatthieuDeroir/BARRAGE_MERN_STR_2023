@@ -84,8 +84,12 @@ function Preview({ waterData }) {
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{fontWeight: 'bold' }} >Écran</TableCell>
-                    <TableCell sx={{color:"orange", fontWeight: 'bold' }} align="center">1</TableCell>
-                    <TableCell sx={{color:"orange",  fontWeight: 'bold'}} align="center">2</TableCell>
+                    <TableCell sx={{color:"orange", fontWeight: 'bold' }} align="center">
+                    <Typography variant="h5">1</Typography>
+                    </TableCell>
+                    <TableCell sx={{color:"orange",  fontWeight: 'bold'}} align="center">
+                    <Typography variant="h5">2</Typography>
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
