@@ -10,6 +10,7 @@ import {
   TableCell,
   TableRow,
   Typography,
+  Container,
 } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import AddIcon from "@mui/icons-material/Add";
@@ -87,6 +88,8 @@ function SlideshowList(props) {
 
   return (
     <>
+      <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    
       <Grid item xs={12}>
         <Paper className="mainPaperPage">
           <Stack className="herderTitlePage">
@@ -210,6 +213,7 @@ function SlideshowList(props) {
         onClose={closeDialog}
         AddSlideshow={AddSlideshow}
       />
+      </Container>
     </>
   );
 }

@@ -72,7 +72,7 @@ function Preview({ waterData }) {
           <CardContent>
             <Typography variant="h5" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
               <IconButton disabled>
-                <VideoLabelIcon color="primary" />
+                <VideoLabelIcon sx={{ color: "primary.light" }} />
               </IconButton>
               Aperçu
             </Typography>
