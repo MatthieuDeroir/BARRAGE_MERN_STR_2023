@@ -26,20 +26,15 @@ function Display() {
           slideshowService.getSlideshow(),
           slideshowStatutsService.getSlideshowStatus(),
         ]);
-        console.log(slideshowRes);
-        console.log(slideshowStatusRes);
       setIsSettingMode(checkIsInSettingPeriod(settingRes[0]));
-      console.log(isSettingMode);
       const currentSlideshowId = slideshowStatusRes[0]?.slideshowId;
       if (slideshowStatusRes[0]?.isRunning) {
-        console.log("isRunning");
         const foundSlideshow = slideshowRes.data.slideshows.find(
           (slideshow) => slideshow.id === currentSlideshowId
         );
         if (foundSlideshow && foundSlideshow.media) {
           foundSlideshow.media.sort((a, b) => a.order - b.order);
         }
-        console.log(foundSlideshow);
     
 
         // Vérifie si le diaporama actuel est le même que le précédent
@@ -53,10 +48,8 @@ function Display() {
       }
       if (slideshowStatusRes[0]?.isTesting) {
         setIsTesting(true);
-        console.log("isTesting");
       }else{
         setIsTesting(false);
-        console.log("isNotTesting");
       }
     };
     fetchData();
@@ -87,9 +80,7 @@ function Display() {
     const currentHour = new Date().getHours();
     const startHour = parseInt(veilleData.start);
     const stopHour = parseInt(veilleData.stop);
-    console.log(currentHour, startHour, stopHour);
-    console.log(currentHour >= startHour &&  currentHour <= stopHour);
-    return currentHour >= startHour &&  currentHour <= stopHour;
+    return currentHour <= startHour &&  currentHour >= stopHour;
   };
 
   return (
