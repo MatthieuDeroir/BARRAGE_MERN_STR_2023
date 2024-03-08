@@ -101,7 +101,7 @@ function Display({waterData}) {
             }}
           >
             {media.type === "panel" ? (
-              <DataPage waterData/>
+              <DataPage waterData={waterData}/>
              
             ) : (
               <MediasPage media={media} />
