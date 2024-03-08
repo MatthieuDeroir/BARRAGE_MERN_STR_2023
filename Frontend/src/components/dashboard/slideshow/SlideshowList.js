@@ -119,7 +119,7 @@ function SlideshowList(props) {
           {props.slideshows ? (
             <Box className="containerPage">
               {props.slideshows.map((slideshow) => (
-                <Table size="big" key={slideshow.id}>
+                <Table key={slideshow.id}>
                   <TableBody>
                     <TableRow hover>
                       <TableCell
