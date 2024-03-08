@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 const { getActiveSlideshows, getSettings, getSlideshowStatus } = require("./Parser");
 // Suppose que `updateClientStatus` est défini dans ce fichier ou importé d'un contrôleur
-const { updateClientStatus } = require("./Controller/DataController");
+const { updateClientStatus } = require("../Controllers/DataController");
 
 const wss = new WebSocket.Server({ host: '0.0.0.0', port: 8080 });
 console.log("WebSocket server started on port 8080");
