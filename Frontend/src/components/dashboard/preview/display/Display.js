@@ -11,24 +11,22 @@ import { slideshowStatutsService } from "../../../../services/SlideshowStatutsSe
 import TestPage from "./pages/TestPage";
 import DataPage from "./pages/DataPage";
 
-function Display() {
+function Display({waterData}) {
 
   const [isSettingMode, setIsSettingMode] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
   const [currentSlideshow, setCurrentSlideshow] = useState({});
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-  const [waterData, setWaterData] = useState({}); //[debit_entrant, debit_sortant, cote_plan_eau]
 
   useEffect(() => {
     const fetchData = async () => {
-      const [settingRes,  slideshowRes, slideshowStatusRes, waterData] =
+      const [settingRes,  slideshowRes, slideshowStatusRes] =
         await Promise.all([
           settingsService.getSettings(),
          
 
           slideshowService.getSlideshow(),
-          slideshowStatutsService.getSlideshowStatus(),
-          DataService.getData(),
+          slideshowStatutsService.getSlideshowStatus()
         ]);
       setIsSettingMode(checkIsInSettingPeriod(settingRes[0]));
       const currentSlideshowId = slideshowStatusRes[0]?.slideshowId;
@@ -103,7 +101,7 @@ function Display() {
             }}
           >
             {media.type === "panel" ? (
-              <DataPage/>
+              <DataPage waterData={waterData}/>
              
             ) : (
               <MediasPage media={media} />
@@ -111,7 +109,7 @@ function Display() {
           </div>
         ))
       ) : (
-        <DataPage/>
+        <DataPage waterData={waterData}/>
       ))}
     </div>
   );

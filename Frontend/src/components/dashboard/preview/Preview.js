@@ -5,15 +5,17 @@ import DataService from "../../../services/DataService";
 import { settingsService } from "../../../services/SettingsService";
 import Display from "./display/Display";
 
-function Preview() {
+function Preview({ waterData }) {
   const [isOnline1, setIsOnline1] = useState(false);
   const [isOn1, setIsOn1] = useState(false);
   const [isOnline2, setIsOnline2] = useState(false);
   const [isOn2, setIsOn2] = useState(false);
 
+
  // Fetch les états de connexion au montage du composant
  useEffect(() => {
   const fetchSettingsAndSetStatus = async () => {
+  
     try {
         // Récupérer les Datas using the dataService
       const data = await DataService.getData();
@@ -74,7 +76,7 @@ function Preview() {
             Aperçu
           </Typography>
           <Box sx={{ mb: 6 }}>
-            <Display />
+            <Display waterData={waterData} />
           </Box>
           <TableContainer component={Card}>
             <Table>
