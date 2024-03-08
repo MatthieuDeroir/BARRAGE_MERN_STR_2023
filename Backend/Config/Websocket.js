@@ -1,6 +1,6 @@
 const WebSocket = require("ws");
 const { updateClientStatus } = require("../Controllers/DataController");
-const { getActiveSlideshows, getSettings, getSlideshowStatus } = require("../Controllers/SlideshowController");
+const { getActiveSlideshows, getSettings, getSlideshowStatus } = require("./Parser");
 
 
 const wss = new WebSocket.Server({ host: '0.0.0.0', port: 8080 });
