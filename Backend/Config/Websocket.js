@@ -48,8 +48,6 @@ const setupWebSocketServer = () => {
             sendUpdateToAllClients();
         });
 
-        // Envoyer un message de bienvenue au client nouvellement connecté
-        ws.send("Welcome to the WebSocket server!");
     });
 };
 
