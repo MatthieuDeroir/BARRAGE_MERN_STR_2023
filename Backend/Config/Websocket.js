@@ -48,6 +48,8 @@ setInterval(async () => {
 
 const testIfClientIsConnected = async (clientId) => {
 	const currentTime = Date.now();
+	console.log("Testing if clients are still connected");
+	console.log("Connected clients : ", connectedClients);
     for (const clientId in connectedClients) {
         const client = connectedClients[clientId];
 		console.log("elapsed time since last heartbeat : ", currentTime - client.lastHeartbeat / 1000, " s."); 
