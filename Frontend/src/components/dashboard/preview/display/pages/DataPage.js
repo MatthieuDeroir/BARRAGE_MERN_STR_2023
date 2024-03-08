@@ -6,6 +6,7 @@ function DataPage({ waterData }) {
 		if (waterData === undefined) {
 			waterData = { debit_entrant: 0, debit_sortant: 0, cote_plan_eau: 0 };
 		}
+	});
 	return (
 		<div style={{ fontSize: "15px", display: "flex", flexDirection: "row" }}>
 			<div
