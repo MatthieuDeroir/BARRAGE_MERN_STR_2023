@@ -83,34 +83,42 @@ function Preview({ waterData }) {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Écran</TableCell>
-                    <TableCell>1</TableCell>
-                    <TableCell>2</TableCell>
+                    <TableCell sx={{fontWeight: 'bold' }} >Écran</TableCell>
+                    <TableCell sx={{fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  <Box sx={{ borderRadius: '50%', border: isOnline1 ? '1px solid green' : '1px solid red', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Typography variant="h5">1</Typography>
+  </Box>
+</TableCell>
+<TableCell sx={{fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+  <Box sx={{ borderRadius: '50%', border: isOnline2 ? '1px solid green' : '1px solid red', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <Typography variant="h5">2</Typography>
+  </Box>
+</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell>En Ligne</TableCell>
-                    <TableCell>
-                      <Typography variant="body2" sx={{ color: isOnline1 ? "green" : "red" }}>
+                    <TableCell sx={{fontWeight: 'bold' }}>En Ligne</TableCell>
+                    <TableCell align="center">
+                      <Typography variant="body2" sx={{ color: isOnline1 ? "green" : "red", fontWeight: 'bold' }}>
                         {isOnline1 ? "Oui" : "Non"}
                       </Typography>
                     </TableCell>
-                    <TableCell>
-                      <Typography variant="body2" sx={{ color: isOnline2 ? "green" : "red" }}>
+                    <TableCell align="center">
+                      <Typography variant="body2" sx={{ color: isOnline2 ? "green" : "red", fontWeight: 'bold' }}>
                         {isOnline2 ? "Oui" : "Non"}
                       </Typography>
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell>En Veille</TableCell>
-                    <TableCell>
-                      <Typography variant="body2" sx={{ color: isOn1 ? "grey" : "black" }}>
+                    <TableCell sx={{fontWeight: 'bold' }}>En Veille</TableCell>
+                    <TableCell align="center">
+                      <Typography variant="body2" sx={{ color: isOn1 ? "grey" : "black", fontWeight: 'bold' }}>
                         {isOn1 ? "Oui" : "Non"}
                       </Typography>
                     </TableCell>
-                    <TableCell>
-                      <Typography variant="body2" sx={{ color: isOn2 ? "grey" : "black" }}>
+                    <TableCell align="center">
+                      <Typography variant="body2" sx={{ color: isOn2 ? "grey" : "black", fontWeight: 'bold' }}>
                         {isOn2 ? "Oui" : "Non"}
                       </Typography>
                     </TableCell>
