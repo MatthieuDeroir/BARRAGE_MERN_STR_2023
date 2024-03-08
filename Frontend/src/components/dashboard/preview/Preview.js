@@ -33,8 +33,9 @@ function Preview() {
           // Récupérer les Datas using the dataService
         const data = await DataService.getData();
         console.log(data);
-        setIsOnline1(data.client1Connected);
-        setIsOnline2(data.client2Connected);
+        
+        setIsOnline1(data[0].client1Connected);
+        setIsOnline2(data[0].client2Connected);
       } catch (error) {
         console.error("Erreur lors de la récupération des datas", error);
       }
@@ -48,13 +49,13 @@ function Preview() {
         const startTime = new Date();
         const endTime = new Date();
 
-        const [startHour, startMinute] = settings.start.split(':');
-        const [stopHour, stopMinute] = settings.stop.split(':');
+        const [startHour, startMinute] = settings[0].start.split(':');
+        const [stopHour, stopMinute] = settings[0].stop.split(':');
 
         startTime.setHours(parseInt(startHour, 10), parseInt(startMinute, 10));
         endTime.setHours(parseInt(stopHour, 10), parseInt(stopMinute, 10));
 
-        let isActive = settings.enable && now >= startTime && now <= endTime;
+        let isActive = settings[0].enable && now >= startTime && now <= endTime;
 
         setIsOn1(isActive);
         setIsOn2(isActive);
