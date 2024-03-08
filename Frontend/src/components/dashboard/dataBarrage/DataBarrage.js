@@ -1,110 +1,61 @@
-import { Box, Grid, IconButton, Paper, Stack, Typography } from "@mui/material";
-import WaterIcon from "@mui/icons-material/Water";
 import React from "react";
+import { Box, Grid, IconButton, Typography, Card, CardContent, Divider } from "@mui/material";
+import WaterIcon from "@mui/icons-material/Water";
 
 function DataBarrage({ dataBarrage }) {
   const currentDate = new Date();
   const lastUpdated = `Dernière mise à jour : ${currentDate.toLocaleDateString()} à ${currentDate.toLocaleTimeString()}`;
 
   return (
-    <>
-      <Grid item xs={12}>
-        <Paper className="mainPaperPage">
-          <Stack className="herderTitlePage">
-            <Box className="headerLeft">
-              <IconButton disabled className="headerButton">
-                <WaterIcon sx={{ color: "primary.light" }} />
-              </IconButton>
-              <Typography
-                variant="h6"
-                sx={{ color: "text.primary" }}
-                className="headerTitle"
-              >
-                Données Barrage
-              </Typography>
-            </Box>
-          </Stack>
-          <Box
-            className="containerPage"
-            sx={{
-              paddingLeft: { xs: 2, sm: 6 },
-              paddingRight: { xs: 2, sm: 6 },
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: 5,
-                marginTop: 5,
-              }}
-            >
-              <Typography
-                variant="h6"
-                sx={{ color: "text.primary", marginTop: 2 }}
-              >
-                Débit entrant
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ color: "text.primary", marginTop: 2 }}
-              >
-                {dataBarrage && dataBarrage.debit_entrant} m³/s
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: 5
-              }}
-            >
-              <Typography
-                variant="h6"
-                sx={{ color: "text.primary", marginTop: 2 }}
-              >
-                Débit sortan
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ color: "text.primary", marginTop: 2 }}
-              >
-                {dataBarrage && dataBarrage.debit_sortant} m³/s
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: 5
-              }}
-            >
-              <Typography
-                variant="h6"
-                sx={{ color: "text.primary", marginTop: 2 }}
-              >
-                Côte du plan
-              </Typography>
-              <Typography
-                variant="h6"
-                sx={{ color: "text.primary", marginTop: 2 }}
-              >
-                {dataBarrage && dataBarrage.cote_plan_eau} m
-              </Typography>
-            </Box>
-            <Typography
-              variant="subtitle1"
-              sx={{ color: "text.secondary", marginTop: 1 }}
-            >
-              {lastUpdated}
+    <Grid item xs={12}>
+      <Card elevation={4}>
+        <CardContent>
+          <Box display="flex" alignItems="center">
+            <IconButton disabled>
+              <WaterIcon color="primary" />
+            </IconButton>
+            <Typography variant="h5" color="text.primary" marginLeft={2}>
+              Données Barrage
             </Typography>
           </Box>
-        </Paper>
-      </Grid>
-    </>
+
+          <Divider sx={{ my: 2 }} />
+
+          <Box display="flex" justifyContent="space-between" my={2}>
+            <Typography variant="subtitle1" color="text.secondary">
+              Débit entrant
+            </Typography>
+            <Typography variant="subtitle1" color="text.primary">
+              {dataBarrage?.debit_entrant} m³/s
+            </Typography>
+          </Box>
+
+          <Box display="flex" justifyContent="space-between" my={2}>
+            <Typography variant="subtitle1" color="text.secondary">
+              Débit sortant
+            </Typography>
+            <Typography variant="subtitle1" color="text.primary">
+              {dataBarrage?.debit_sortant} m³/s
+            </Typography>
+          </Box>
+
+          <Box display="flex" justifyContent="space-between" my={2}>
+            <Typography variant="subtitle1" color="text.secondary">
+              Côte du plan d'eau
+            </Typography>
+            <Typography variant="subtitle1" color="text.primary">
+              {dataBarrage?.cote_plan_eau} m
+            </Typography>
+          </Box>
+
+          <Divider sx={{ my: 2 }} />
+
+          <Typography variant="caption" color="text.secondary">
+            {lastUpdated}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Grid>
   );
 }
 

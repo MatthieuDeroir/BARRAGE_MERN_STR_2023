@@ -43,7 +43,7 @@ setInterval(async () => {
     const currentTime = Date.now();
     for (const clientId in connectedClients) {
         const client = connectedClients[clientId];
-        if (currentTime - client.lastHeartbeat > 5 * 60 * 1000) {
+        if (currentTime - client.lastHeartbeat > 2 * 60 * 1000) {
             console.log(`Client ${clientId} is considered disconnected due to timeout`);
             delete connectedClients[clientId];
             await updateClientStatus(clientId, false);
