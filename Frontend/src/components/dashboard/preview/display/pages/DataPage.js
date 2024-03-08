@@ -13,9 +13,9 @@ function DataPage({ waterData }) {
 			>
 				<div style={{ marginTop: "20px" }}>
 					<div>Débit entrant:</div>
-					<div style={{ marginBottom: "15px", fontSize: "25px" }}> waterData.debit_entrant</div>
+					<div style={{ marginBottom: "15px", fontSize: "25px" }}> ${waterData.debit_entrant}</div>
 					<div>Débit sortant:</div>
-					<div style={{ marginBottom: "15px", fontSize: "25px" }}> waterData.debit_sortant</div>
+					<div style={{ marginBottom: "15px", fontSize: "25px" }}> ${waterData.debit_sortant}</div>
 
 				</div>
 
@@ -27,7 +27,7 @@ function DataPage({ waterData }) {
 					alt="description"
 				/>
 				<div>Côte du plan d'eau:</div>
-				<div style={{ marginBottom: "15px", fontSize: "25px" }}> waterData.cote_plan_eau</div>
+				<div style={{ marginBottom: "15px", fontSize: "25px" }}> ${waterData.cote_plan_eau}</div>
 			</div>
 		</div>
 	);
