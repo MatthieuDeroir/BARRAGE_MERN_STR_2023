@@ -1,5 +1,4 @@
-import React from "react";
-import { use } from "../../../../../../../Backend/Routes/MediaRoutes";
+import React, { useEffect} from "react";
 
 function DataPage({ waterData }) {
 	useEffect(() => {
