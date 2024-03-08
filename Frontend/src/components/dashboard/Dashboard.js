@@ -48,7 +48,7 @@ function Dashboard() {
         <DataBarrage dataBarrage={dataBarrage} />
       </Grid>
       <Grid item xs={12} sm={4}>
-        <Preview />
+        <Preview waterData={dataBarrage}/>
       </Grid>
       <Grid item xs={12} sm={4}>
         {slideshows && slideshow ? (
