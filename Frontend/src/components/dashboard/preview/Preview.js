@@ -58,7 +58,7 @@ function Preview({ waterData }) {
   fetchSettingsAndSetStatus();
 
   // Définir un intervalle pour rafraîchir les données toutes les minutes (60000ms)
-  const intervalId = setInterval(fetchSettingsAndSetStatus, 60000);
+  const intervalId = setInterval(fetchSettingsAndSetStatus, 6000);
 
   // Fonction de nettoyage pour arrêter l'intervalle lorsque le composant est démonté
   return () => clearInterval(intervalId);
@@ -90,7 +90,7 @@ function Preview({ waterData }) {
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell>En ligne</TableCell>
+                    <TableCell>En Ligne</TableCell>
                     <TableCell>
                       <Typography variant="body2" sx={{ color: isOnline1 ? "green" : "red" }}>
                         {isOnline1 ? "Oui" : "Non"}
