@@ -66,60 +66,62 @@ function Preview({ waterData }) {
 
 
   return (
-    <Grid item xs={12}>
-      <Card elevation={4}>
-        <CardContent>
-          <Typography variant="h5" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
-            <IconButton disabled>
-              <VideoLabelIcon sx={{color: "primary.light"}} />
-            </IconButton>
-            Aperçu
-          </Typography>
-          <Box sx={{ mb: 6 }}>
-            <Display waterData={waterData} />
-          </Box>
-          <TableContainer component={Card}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Écran</TableCell>
-                  <TableCell>1</TableCell>
-                  <TableCell>2</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell>En ligne</TableCell>
-                  <TableCell>
-                    <Typography variant="body2" sx={{ color: isOnline1 ? "green" : "red" }}>
-                      {isOnline1 ? "Oui" : "Non"}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2" sx={{ color: isOnline2 ? "green" : "red" }}>
-                      {isOnline2 ? "Oui" : "Non"}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell>En Veille</TableCell>
-                  <TableCell>
-                    <Typography variant="body2" sx={{ color: isOn1 ? "grey" : "black" }}>
-                      {isOn1 ? "Oui" : "Non"}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2" sx={{ color: isOn2 ? "grey" : "black" }}>
-                      {isOn2 ? "Oui" : "Non"}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </CardContent>
-      </Card>
-    </Grid>
+    <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Grid item xs={12} md={8} lg={6}> {/* Ajustez les breakpoints selon le besoin */}
+        <Card elevation={4}>
+          <CardContent>
+            <Typography variant="h5" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+              <IconButton disabled>
+                <VideoLabelIcon color="primary" />
+              </IconButton>
+              Aperçu
+            </Typography>
+            <Box sx={{ mb: 6, display: 'flex', justifyContent: 'center' }}>
+              <Display waterData={waterData} />
+            </Box>
+            <TableContainer component={Box}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Écran</TableCell>
+                    <TableCell>1</TableCell>
+                    <TableCell>2</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>En ligne</TableCell>
+                    <TableCell>
+                      <Typography variant="body2" sx={{ color: isOnline1 ? "green" : "red" }}>
+                        {isOnline1 ? "Oui" : "Non"}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2" sx={{ color: isOnline2 ? "green" : "red" }}>
+                        {isOnline2 ? "Oui" : "Non"}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell>En Veille</TableCell>
+                    <TableCell>
+                      <Typography variant="body2" sx={{ color: isOn1 ? "grey" : "black" }}>
+                        {isOn1 ? "Oui" : "Non"}
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography variant="body2" sx={{ color: isOn2 ? "grey" : "black" }}>
+                        {isOn2 ? "Oui" : "Non"}
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Container>
   );
 }
 
