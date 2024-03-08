@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Grid, IconButton, Typography, Card, CardContent, Divider } from "@mui/material";
+import { Box, Grid, IconButton, Typography, Card, CardContent, Divider, Container } from "@mui/material";
 import WaterIcon from "@mui/icons-material/Water";
 
 function DataBarrage({ dataBarrage }) {
@@ -7,8 +7,9 @@ function DataBarrage({ dataBarrage }) {
   const lastUpdated = `Dernière mise à jour : ${currentDate.toLocaleDateString()} à ${currentDate.toLocaleTimeString()}`;
 
   return (
-    <Grid item xs={12}>
-      <Card elevation={4}>
+    <Container sx={{ display: 'flex', justifyContent: 'center' }}>
+      <Card elevation={4} sx={{ maxWidth: 600, width: '100%' }}> {/* Ajustez maxWidth selon vos besoins */}
+    
         <CardContent>
           <Box display="flex" alignItems="center">
             <IconButton disabled className="headerButton">
@@ -55,7 +56,7 @@ function DataBarrage({ dataBarrage }) {
           </Typography>
         </CardContent>
       </Card>
-    </Grid>
+    </Container>
   );
 }
 

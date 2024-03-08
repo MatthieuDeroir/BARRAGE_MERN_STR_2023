@@ -4,7 +4,7 @@ import MediasPage from "./pages/MediasPage";
 import "./Global.css";
 import TestPage from "./pages/TestPage";
 import DataPage from "./pages/DataPage";
-import {setupWebsocketClient} from "./services/WebsocketService";
+import { setupWebsocketClient } from "./services/WebsocketService";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 
@@ -55,8 +55,6 @@ function App() {
     } catch (error) {
       console.error("Error while parsing websocket message", error);
     }
-    
-    
   };
 
   useEffect(() => {
@@ -81,7 +79,7 @@ function App() {
   };
 
   return (
-    <div>
+    /*  <div>
       {!isVeilleMode ? (
         <></> //veille
       ) : isRunning &&
@@ -106,7 +104,8 @@ function App() {
       ) : (
         <DataPage waterData={waterData} />
       )}
-    </div>
+    </div> */
+    <DataPage />
   );
 }
 

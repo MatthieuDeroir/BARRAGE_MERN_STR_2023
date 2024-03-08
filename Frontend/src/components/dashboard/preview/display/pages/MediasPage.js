@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import './MediasPage.css';
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 function MediasPage({ media }) {
@@ -21,9 +23,9 @@ function MediasPage({ media }) {
   }
 
   return (
-    <>
+    <div className="body">
       {renderMedia()}
-    </>
+    </div>
   );
 }
 

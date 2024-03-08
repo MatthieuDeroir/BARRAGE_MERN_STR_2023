@@ -233,7 +233,7 @@ function Settings() {
                         <IconButton disabled>
                           <ModeNightIcon sx={{ color: "text.secondary" }} />
                         </IconButton>
-                        <Typography> Setting</Typography>
+                        <Typography> Veille</Typography>
                       </Stack>
                       <Switch
                         color="secondary"
@@ -266,7 +266,7 @@ function Settings() {
                         <PhoneIcon sx={{ color: "text.secondary" }} />
                       </IconButton>
                       <Typography variant="h8" sx={{ color: "text.primary" }}>
-                        0123456789
+                      02 40 25 46 90
                       </Typography>
                     </Stack>
                   </Stack>

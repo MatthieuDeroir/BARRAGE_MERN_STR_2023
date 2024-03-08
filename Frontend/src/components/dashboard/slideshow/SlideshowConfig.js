@@ -14,6 +14,7 @@ import {
   TableRow,
   TextField,
   Typography,
+  Container
 } from "@mui/material";
 
 import ImageIcon from "@mui/icons-material/Image";
@@ -133,7 +134,8 @@ function SlideshowConfig(props) {
 
   return (
     <>
-      <Grid item xs={12}>
+       <Container sx={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
+      <Grid item xs={12} md={8}>
         <Paper className="mainPaperPage">
           <Stack className="herderTitlePage">
             <Box className="headerLeft">
@@ -196,7 +198,7 @@ function SlideshowConfig(props) {
             </Box>
           </Stack>
           <Box
-            className="containerPage"
+
             sx={{
               paddingLeft: { xs: 2 },
               paddingRight: { xs: 2 },
@@ -275,6 +277,7 @@ function SlideshowConfig(props) {
           </Box>
         </Paper>
       </Grid>
+      </Container>
     </>
   );
 }

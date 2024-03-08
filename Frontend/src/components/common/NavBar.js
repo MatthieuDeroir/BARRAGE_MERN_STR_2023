@@ -18,7 +18,7 @@ function NavBar() {
 
   const getIconColor = (path) => {
     return location.pathname === path ?  "secondary.light"
-    :"secondary.main";
+    :"secondary.dark";
   };
 
 
