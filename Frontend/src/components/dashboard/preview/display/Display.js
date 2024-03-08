@@ -109,7 +109,7 @@ function Display({waterData}) {
           </div>
         ))
       ) : (
-        <DataPage/>
+        <DataPage waterData={waterData}/>
       ))}
     </div>
   );
