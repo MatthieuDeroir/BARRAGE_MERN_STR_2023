@@ -54,8 +54,9 @@ const testIfClientIsConnected = async (clientId) => {
     for (const clientId in connectedClients) {
         const client = connectedClients[clientId];
 		console.log("Testing client ", clientId);
-		console.log("last : ", currentTime - client.lastHeartbeat);
-		console.log("elapsed time since last heartbeat : ", currentTime - client.lastHeartbeat / 1000, " s."); 
+		console.log("current time : ", currentTime);
+		console.log("last heartbeat : ", client.lastHeartbeat);
+		console.log("elapsed time since last heartbeat : ", currentTime - client.lastHeartbeat, " s."); 
         if (currentTime - client.lastHeartbeat > 2 * 60 * 1000) {
             console.log(`Client ${clientId} is considered disconnected due to timeout`);
             delete connectedClients[clientId];
