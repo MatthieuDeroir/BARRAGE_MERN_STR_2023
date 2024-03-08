@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 const { getActiveSlideshows, getSettings, getSlideshowStatus } = require("./Parser");
 // Suppose que `updateClientStatus` est défini dans ce fichier ou importé d'un contrôleur
-// const { updateClientStatus } = require('./path/to/your/controller');
+const { updateClientStatus } = require("./Controller/DataController");
 
 const wss = new WebSocket.Server({ host: '0.0.0.0', port: 8080 });
 console.log("WebSocket server started on port 8080");
@@ -85,11 +85,6 @@ async function sendActiveSlideshows() {
 // You can call this function periodically or trigger it based on some events
 setInterval(sendActiveSlideshows, 30000); // For example, every 30 seconds
 
-// Make sure to define or import `updateClientStatus` function to update client status in your database
-async function updateClientStatus(clientId, isConnected) {
-    // Votre logique de mise à jour de la base de données va ici
-    console.log(`Client ${clientId} connection status updated to ${isConnected}`);
-}
 
 module.exports = {
     setupWebSocketServer,
