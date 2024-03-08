@@ -31,13 +31,14 @@ function Preview() {
     const fetchSettingsAndSetStatus = async () => {
       try {
         // Récupérer les Datas using the dataService
-        const data = await DataService.getSettings();
-
+        const data = await DataService.getData();
+        console.log(data);
         setIsOnline1(data.client1Connected);
         setIsOnline2(data.client2Connected);
 
         // Récupérer les paramètres using the settingsService
         const settings = await settingsService.getSettings();
+        console.log(settings);
         const now = new Date();
         const startTime = new Date();
         const endTime = new Date();
