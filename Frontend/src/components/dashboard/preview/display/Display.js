@@ -86,7 +86,7 @@ function Display({waterData}) {
   };
 
   return (
-    <div className="body">
+    <div className="body" >
       {isTesting? (<TestPage/>):(isSettingMode ? (
        <></>
       ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
@@ -94,9 +94,9 @@ function Display({waterData}) {
           <div
             key={media.id}
             style={{
-              maxHeight: "216px",
+              maxHeight: "240px",
               display: index === currentMediaIndex ? "block" : "none",
-              maxWidth: "228px"
+              maxWidth: "320px"
              
             }}
           >
