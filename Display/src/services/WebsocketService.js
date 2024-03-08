@@ -1,6 +1,6 @@
 function setupWebsocketClient(onMessageReceived, clientId) {
     const API_URL = process.env.REACT_APP_API_URL;
-    const serverUrl = `http://192.168.100.186/ws`;
+    const serverUrl = `ws://192.168.100.186/ws`;
     const ws = new WebSocket(serverUrl);
 
     ws.addEventListener('open', function (event) {
