@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { slideshowService } from "../../../../services/SlideshowService";
 import { settingsService } from "../../../../services/SettingsService";
+import DataService from "../../../../services/DataService";
 import _ from "lodash";
 
 import "./Display.css";
@@ -16,15 +17,18 @@ function Display() {
   const [isTesting, setIsTesting] = useState(false);
   const [currentSlideshow, setCurrentSlideshow] = useState({});
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+  const [waterData, setWaterData] = useState({}); //[debit_entrant, debit_sortant, cote_plan_eau]
 
   useEffect(() => {
     const fetchData = async () => {
-      const [settingRes,  slideshowRes, slideshowStatusRes] =
+      const [settingRes,  slideshowRes, slideshowStatusRes, waterData] =
         await Promise.all([
           settingsService.getSettings(),
+         
 
           slideshowService.getSlideshow(),
           slideshowStatutsService.getSlideshowStatus(),
+          DataService.getData(),
         ]);
       setIsSettingMode(checkIsInSettingPeriod(settingRes[0]));
       const currentSlideshowId = slideshowStatusRes[0]?.slideshowId;
@@ -99,7 +103,7 @@ function Display() {
             }}
           >
             {media.type === "panel" ? (
-              <DataPage/>
+              <DataPage waterData={waterData}/>
              
             ) : (
               <MediasPage media={media} />
