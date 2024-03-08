@@ -1,8 +1,15 @@
 import React, { useEffect } from "react";
 
-function DataPage({ waterData }) {
+function DataPage({ }) {
+	const [waterData, setWaterData] = useState({}); //[debit_entrant, debit_sortant, cote_plan_eau]
   useEffect(() => {
-    console.log(waterData);
+	const data = DataService.getData();
+	  setWaterData(data);
+    const interval = setInterval(async () => {
+	  const data = await DataService.getData();
+	  setWaterData(data);
+	}, 5000);
+	return () => clearInterval(interval);
   }, [waterData]);
 
   return (
