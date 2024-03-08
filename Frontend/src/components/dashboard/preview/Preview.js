@@ -84,7 +84,7 @@ function Preview() {
             Aperçu
           </Typography>
           <Box sx={{ mb: 6 }}>
-            <Display waterData={wdata} />
+            <Display waterData={data} />
           </Box>
           <TableContainer component={Card}>
             <Table>
