@@ -55,7 +55,7 @@ const testIfClientIsConnected = async (clientId) => {
         const client = connectedClients[clientId];
 		console.log("Client : ", clientId);
 		console.log("last heartbeat : ", client.lastHeartbeat);
-		console.log("elapsed time since last heartbeat : ", currentTime - client.lastHeartbeat, " s."); 
+		console.log("elapsed time since last heartbeat : ", (currentTime - client.lastHeartbeat) / 1000, " s."); 
 		console.log("!", currentTime - client.lastHeartbeat > 1 * 90 * 1000);
         if (currentTime - client.lastHeartbeat > 1 * 90 * 1000) {
             console.log(`Client ${clientId} is considered disconnected due to timeout`);
@@ -100,7 +100,6 @@ const sendActiveSlideshows = async () => {
 setInterval(sendActiveSlideshows, 30000); // For example, every 30 seconds
 
 module.exports = {
-    setupWebSocketServer: wss.on.bind(wss, "connection"),
     sendUpdateToAllClients,
     sendToAll,
     sendActiveSlideshows
