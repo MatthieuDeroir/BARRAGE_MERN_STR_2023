@@ -198,7 +198,6 @@ function SlideshowConfig(props) {
             </Box>
           </Stack>
           <Box
-            className="containerPage"
             sx={{
               paddingLeft: { xs: 2 },
               paddingRight: { xs: 2 },
