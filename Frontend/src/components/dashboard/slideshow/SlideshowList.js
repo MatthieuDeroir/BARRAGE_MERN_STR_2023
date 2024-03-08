@@ -90,7 +90,7 @@ function SlideshowList(props) {
     <>
       <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
     
-      <Grid item xs={12}>
+      <Grid item xs={12} md={8}>
         <Paper className="mainPaperPage">
           <Stack className="herderTitlePage">
             <Box className="headerLeft">
