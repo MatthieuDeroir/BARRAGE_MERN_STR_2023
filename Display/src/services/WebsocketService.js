@@ -7,6 +7,11 @@ function setupWebsocketClient(onMessageReceived, clientId) {
         console.log("Connected to the server");
         // Envoyer l'identifiant du client au serveur
         ws.send(JSON.stringify({ type: 'connect', id: clientId }));
+        heartbeatInterval = setInterval(() => {
+            const timestamp = Date.now(); // Obtenir le timestamp actuel
+            ws.send(JSON.stringify({ type: 'heartbeat', id: clientId, timestamp }));
+            console.log("Heartbeat sent", { clientId, timestamp });
+        }, 60000); // 60000 ms = 1 minute
     });
 
     ws.addEventListener('message', function (event) {
