@@ -31,7 +31,6 @@ function SlideshowList(props) {
   const [slideshowToPlay, setSlideshowToPlay] = useState({});
   useEffect(() => {
     slideshowStatutsService.getSlideshowStatus().then((data) => {
-      console.log("data", data[0]);
       setSlideshowToPlay(data[0]);
     });
   }, []);
@@ -53,7 +52,6 @@ function SlideshowList(props) {
   }
 
   async function deleteSlideshow(eventToDelete) {
-    console.log("eventToDelete", eventToDelete);
     const data = { slideshowId: null, isRunning: false, isTesting: false };
     await slideshowStatutsService.updateSlideshowStatus(data);
     setSlideshowToPlay(data);

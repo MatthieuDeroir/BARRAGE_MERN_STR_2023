@@ -29,7 +29,6 @@ function Dashboard() {
 
   async function getData() {
     await DataService.getData().then((data) => {
-      console.log("data", data[0]);
       setdataBarrage(data[0]);
     });
   }
@@ -40,7 +39,6 @@ function Dashboard() {
   }
 
   async function setCurrentSlideshow(currentSlideshow) {
-    console.log("setCurrentSlideshow", currentSlideshow);
     setSlideshow(currentSlideshow);
   }
 
