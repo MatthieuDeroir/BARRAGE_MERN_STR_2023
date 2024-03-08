@@ -7,7 +7,7 @@ function DataBarrage({ dataBarrage }) {
   const lastUpdated = `Dernière mise à jour : ${currentDate.toLocaleDateString()} à ${currentDate.toLocaleTimeString()}`;
 
   return (
-    <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <Container sx={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
       <Card elevation={4} sx={{ maxWidth: 600, width: '100%' }}> {/* Ajustez maxWidth selon vos besoins */}
     
         <CardContent>
