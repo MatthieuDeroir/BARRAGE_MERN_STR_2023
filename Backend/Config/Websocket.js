@@ -14,20 +14,21 @@ wss.on("connection", (ws) => {
 
     ws.on("message", async (message) => {
         console.log("received: %s", message);
+		const ip = ws._socket.remoteAddress;
         const data = JSON.parse(message);
 
         if (data.type === 'connect') {
             connectedClients[data.id] = { ws, lastHeartbeat: Date.now() };
-            console.log(`Client ${data.id} connected`);
+            console.log(`Client ${data.id} from ip ${ip} connected`);
             await updateClientStatus(data.id, true);
         } else if (data.type === 'disconnect') {
             delete connectedClients[data.id];
-            console.log(`Client ${data.id} disconnected`);
+            console.log(`Client ${data.id} ip ${ip} disconnected`);
             await updateClientStatus(data.id, false);
         } else if (data.type === 'heartbeat') {
             if (connectedClients[data.id]) {
                 connectedClients[data.id].lastHeartbeat = Date.now();
-                console.log(`Heartbeat received from ${data.id}`);
+                console.log(`Heartbeat received from ${data.id} ip ${ip}`);
             }
         }
     });
