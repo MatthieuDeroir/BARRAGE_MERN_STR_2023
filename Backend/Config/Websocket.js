@@ -8,6 +8,7 @@ const connectedClients = {};
 
 wss.on("connection", (ws) => {
     console.log("A client connected");
+	testIfClientIsConnected();
 
     ws.on("message", async (message) => {
         console.log("received: %s", message);
@@ -40,7 +41,11 @@ wss.on("connection", (ws) => {
 });
 
 setInterval(async () => {
-    const currentTime = Date.now();
+	testIfClientIsConnected();
+}, 60 * 1000);
+
+const testIfClientIsConnected = async (clientId) => {
+	const currentTime = Date.now();
     for (const clientId in connectedClients) {
         const client = connectedClients[clientId];
 		console.log("elapsed time since last heartbeat : ", currentTime - client.lastHeartbeat / 1000, " s."); 
@@ -50,7 +55,7 @@ setInterval(async () => {
             await updateClientStatus(clientId, false);
         }
     }
-}, 60 * 1000);
+}
 
 const sendUpdateToAllClients = () => {
     const connectedIds = Object.keys(connectedClients);
