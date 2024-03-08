@@ -84,13 +84,13 @@ function Preview({ waterData }) {
                 <TableHead>
                   <TableRow>
                     <TableCell sx={{fontWeight: 'bold' }} >Écran</TableCell>
-                                    <TableCell sx={{fontWeight: 'bold' }} >
-                  <Box sx={{ borderRadius: '50%', border: isOnline1 ? '1px solid green' : '1px solid red', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <TableCell sx={{fontWeight: 'bold' }} align="center">
+                  <Box sx={{ borderRadius: '50%', border: isOnline1 ? '1px solid green' : '1px solid red', width: 36, height: 36 }}>
                     <Typography variant="h5">1</Typography>
                   </Box>
                 </TableCell>
-                <TableCell sx={{fontWeight: 'bold'}} >
-                  <Box sx={{ borderRadius: '50%', border: isOnline2 ? '1px solid green' : '1px solid red', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <TableCell sx={{fontWeight: 'bold'}} align="center">
+                  <Box sx={{ borderRadius: '50%', border: isOnline2 ? '1px solid green' : '1px solid red', width: 36, height: 36 }}>
                     <Typography variant="h5">2</Typography>
                   </Box>
                 </TableCell>
