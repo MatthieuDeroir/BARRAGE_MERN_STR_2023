@@ -23,9 +23,9 @@ function MediasPage({ media }) {
   }
 
   return (
-    <>
+    <div className="body">
       {renderMedia()}
-    </>
+    </div>
   );
 }
 
