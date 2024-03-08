@@ -10,7 +10,7 @@ const connectedClients = {};
 
 wss.on("connection", (ws) => {
     console.log("A client connected");
-	testIfClientIsConnected();
+
 
     ws.on("message", async (message) => {
         console.log("received: %s", message);
