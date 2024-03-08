@@ -69,13 +69,13 @@ function Preview() {
         <CardContent>
           <Typography variant="h5" sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
             <IconButton disabled>
-              <VideoLabelIcon color="primary" />
+              <VideoLabelIcon sx={{color: "primary.light"}} />
             </IconButton>
             Aperçu
-            <Box sx={{ mb: 6 }}>
+          </Typography>
+          <Box sx={{ mb: 6 }}>
             <Display />
           </Box>
-          </Typography>
           <TableContainer component={Card}>
             <Table>
               <TableHead>
