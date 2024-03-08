@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import DataService from "../../../../services/DataService";
+import DataService from "../../../../../services/DataService";
 
 function DataPage({ }) {
 	const [waterData, setWaterData] = useState({}); //[debit_entrant, debit_sortant, cote_plan_eau]
