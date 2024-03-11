@@ -8,52 +8,63 @@ function DataPage({ waterData }) {
   return (
     <div
       style={{
-        width: "320px",
-        height: "240px",
+        width: "288px",
+        height: "216px",
         position: "relative",
         backgroundColor: "#0E4194",
       }}
     >
       <img
-        alt="Header"
+        alt="logo"
         style={{
-          width: "320px",
-          height: "50px",
+          width: "288px",
+          height: "45px",
           left: "0px",
           top: "0px",
           position: "absolute",
         }}
         src="/HeaderImage.png"
       />
+      <img
+        alt="logo"
+        style={{
+          width: "288px",
+          height: "21.60px",
+          left: "0px",
+          top: "194px",
+          position: "absolute",
+        }}
+        src="/FooterImage.png"
+      />
       <div
         style={{
-          width: "307px",
-          height: "35px",
-          left: "6px",
-          top: "60px",
+          width: "279px",
+          height: "36px",
+          left: "4px",
+          top: "55px",
           position: "absolute",
         }}
       >
         <img
-          alt="Cote du plan d’eau :"
+          alt="logo"
           style={{
-            width: "65px",
-            height: "32.50px",
+            width: "54.61px",
+            height: "27.50px",
             left: "0px",
-            top: "2px",
+            top: "3px",
             position: "absolute",
           }}
           src="/cote plan d'eau.png"
         />
         <div
           style={{
-            width: "120px",
+            width: "100px",
             height: "35px",
-            left: "74px",
-            top: "0px",
+            left: "58.58px",
+            top: "1px",
             position: "absolute",
             color: "white",
-            fontSize: "17px",
+            fontSize: "14px",
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
@@ -65,34 +76,31 @@ function DataPage({ waterData }) {
         </div>
         <div
           style={{
-            width: "70px",
+            width: "69.50px",
             height: "35px",
-            left: "186px",
-            top: "0px",
+            left: "153.90px",
+            top: "1px",
             position: "absolute",
             textAlign: "center",
             color: "white",
-            fontSize: "32px",
+            fontSize: "22px",
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
           }}
         >
           {waterData?.cote_plan_eau || 0}
         </div>
         <div
           style={{
-            width: "52px",
+            width: "51.63px",
             height: "35px",
-            left: "272px",
+            left: "227.37px",
             top: "0px",
             position: "absolute",
             textAlign: "center",
             color: "white",
-            fontSize: "16px",
+            fontSize: "13px",
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
@@ -105,18 +113,18 @@ function DataPage({ waterData }) {
       </div>
       <div
         style={{
-          width: "308px",
-          height: "35px",
-          left: "6px",
-          top: "115px",
+          width: "279px",
+          height: "36px",
+          left: "4px",
+          top: "103px",
           position: "absolute",
         }}
       >
         <img
-          alt="Débit entrant:"
+          alt="logo"
           style={{
-            width: "65px",
-            height: "32.50px",
+            width: "53.28px",
+            height: "27.50px",
             left: "0px",
             top: "2px",
             position: "absolute",
@@ -125,13 +133,13 @@ function DataPage({ waterData }) {
         />
         <div
           style={{
-            width: "120px",
+            width: "119.15px",
             height: "35px",
-            left: "74px",
-            top: "0px",
+            left: "58.58px",
+            top: "1px",
             position: "absolute",
             color: "white",
-            fontSize: "17px",
+            fontSize: "14px",
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
@@ -143,14 +151,31 @@ function DataPage({ waterData }) {
         </div>
         <div
           style={{
-            width: "52px",
+            width: "69.50px",
             height: "35px",
-            left: "272px",
+            left: "153.90px",
+            top: "1px",
+            position: "absolute",
+            textAlign: "center",
+            color: "white",
+            fontSize: "22px",
+            fontFamily: '"D-DIN-Bold"',
+            fontWeight: "400",
+            wordWrap: "break-word",
+          }}
+        >
+          {waterData?.debit_entrant || 0}
+        </div>
+        <div
+          style={{
+            width: "51.63px",
+            height: "35px",
+            left: "227.37px",
             top: "0px",
             position: "absolute",
             textAlign: "center",
             color: "white",
-            fontSize: "16px",
+            fontSize: "13px",
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
@@ -160,41 +185,21 @@ function DataPage({ waterData }) {
         >
           m3/s
         </div>
-        <div
-          style={{
-            width: "70px",
-            height: "35px",
-            left: "187px",
-            top: "0px",
-            position: "absolute",
-            textAlign: "center",
-            color: "white",
-            fontSize: "32px",
-            fontFamily: '"D-DIN-Bold"',
-            fontWeight: "400",
-            wordWrap: "break-word",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {waterData?.debit_entrant || 0}
-        </div>
       </div>
       <div
         style={{
-          width: "308px",
-          height: "35px",
-          left: "6px",
-          top: "170px",
+          width: "279px",
+          height: "36px",
+          left: "4px",
+          top: "151px",
           position: "absolute",
         }}
       >
         <img
-          alt="Débit sortant:"
+          alt="logo"
           style={{
-            width: "65px",
-            height: "32.50px",
+            width: "53.28px",
+            height: "27.50px",
             left: "0px",
             top: "2px",
             position: "absolute",
@@ -203,13 +208,13 @@ function DataPage({ waterData }) {
         />
         <div
           style={{
-            width: "120px",
+            width: "119.15px",
             height: "35px",
-            left: "74px",
-            top: "0px",
+            left: "58.58px",
+            top: "1px",
             position: "absolute",
             color: "white",
-            fontSize: "18px",
+            fontSize: "14px",
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
@@ -221,14 +226,31 @@ function DataPage({ waterData }) {
         </div>
         <div
           style={{
-            width: "52px",
+            width: "69.50px",
             height: "35px",
-            left: "272px",
+            left: "153.90px",
+            top: "1px",
+            position: "absolute",
+            textAlign: "center",
+            color: "white",
+            fontSize: "22px",
+            fontFamily: '"D-DIN-Bold"',
+            fontWeight: "400",
+            wordWrap: "break-word",
+          }}
+        >
+          {waterData?.debit_sortant || 0}
+        </div>
+        <div
+          style={{
+            width: "51.63px",
+            height: "35px",
+            left: "227.37px",
             top: "0px",
             position: "absolute",
             textAlign: "center",
             color: "white",
-            fontSize: "16px",
+            fontSize: "13px",
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
@@ -238,38 +260,7 @@ function DataPage({ waterData }) {
         >
           m3/s
         </div>
-        <div
-          style={{
-            width: "70px",
-            height: "35px",
-            left: "187px",
-            top: "0px",
-            position: "absolute",
-            textAlign: "center",
-            color: "white",
-            fontSize: "32px",
-            fontFamily: '"D-DIN-Bold"',
-            fontWeight: "400",
-            wordWrap: "break-word",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {waterData?.debit_sortant || 0}
-        </div>
       </div>
-      <img
-        alt="Footer"
-        style={{
-          width: "320px",
-          height: "24px",
-          left: "0px",
-          top: "216px",
-          position: "absolute",
-        }}
-        src="/FooterImage.png"
-      />
     </div>
   );
 }
