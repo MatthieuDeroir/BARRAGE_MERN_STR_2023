@@ -18,14 +18,12 @@ function Dashboard() {
       try {
         getSlideshow();
         getData();
-        
       } catch (error) {
         console.error("Erreur lors de la récupération du slideshow:", error);
       }
     }
     fetchData();
   }, [slideshow]);
-
 
   async function getData() {
     await DataService.getData().then((data) => {
@@ -44,13 +42,13 @@ function Dashboard() {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={4}>
+      <Grid item sm={4}>
         <DataBarrage dataBarrage={dataBarrage} />
       </Grid>
-      <Grid item xs={12} sm={4}>
-        <Preview waterData={dataBarrage}/>
+      <Grid item sm={4}>
+        <Preview waterData={dataBarrage} />
       </Grid>
-      <Grid item xs={12} sm={4}>
+      <Grid item sm={4}>
         {slideshows && slideshow ? (
           <SlideshowConfig
             slideshow={slideshow}
