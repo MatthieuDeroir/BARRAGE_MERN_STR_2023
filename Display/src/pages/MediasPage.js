@@ -13,7 +13,13 @@ function MediasPage({ media }) {
       );
     } else if (media.type.includes("video")) {
       return (
-        <video style={{ width: "288px", height: "216px" }} autoPlay muted>
+        <video
+          preload={"auto"}
+          style={{ width: "288px", height: "216px" }}
+          autoPlay
+          muted
+          loop
+        >
           <source src={API_URL + media.path} type={media.type} />
         </video>
       );
