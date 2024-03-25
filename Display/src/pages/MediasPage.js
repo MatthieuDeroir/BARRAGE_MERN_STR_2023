@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './Mode.css';
+const API_URL = process.env.REACT_APP_API_URL;
+
 
 const MediasPage = ({ mediaState, mediaMode }) => {
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
@@ -36,7 +37,7 @@ const MediasPage = ({ mediaState, mediaMode }) => {
     <>
       {isVideo ? (
         <video
-          src={mediaMode ? "../../Frontend/build" + mediaPath : mediaPath}
+          src={mediaMode ? API_URL + mediaPath : mediaPath}
           style={{ width: "512px", height: "256px" }}
           autoPlay
           preload="auto"
@@ -45,7 +46,7 @@ const MediasPage = ({ mediaState, mediaMode }) => {
         />
       ) : (
         <img
-          src={mediaMode ? "../../Frontend/build" + mediaPath : mediaPath}
+          src={mediaMode ? API_URL + mediaPath : mediaPath}
           style={{ width: "512px", height: "256px" }}
           alt="Media content"
         />
@@ -54,4 +55,4 @@ const MediasPage = ({ mediaState, mediaMode }) => {
   );
 };
 
-export default MediaMode;
+export default MediasPage;

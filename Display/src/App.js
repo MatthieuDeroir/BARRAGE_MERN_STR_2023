@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Global.css';
-import MediaMode from './MediasPage'; // Assuming MediaMode is the component we refactored
+import MediaMode from './pages/MediasPage'; // Assuming MediaMode is the component we refactored
 import DataPage from './pages/DataPage';
 import TestPage from './pages/TestPage';
 import { setupWebsocketClient } from './services/WebsocketService';
