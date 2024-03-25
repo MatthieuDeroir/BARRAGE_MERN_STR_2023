@@ -55,7 +55,7 @@ function App() {
     if (isVeilleMode) {
       return <div>Veille Mode Active</div>; // Placeholder for veille mode representation
     } else if (isRunning && currentSlideshow?.media && currentSlideshow.media.length > 0) {
-      return <MediaMode mediaState={currentSlideshow.media} mediaMode={true} />;
+      return <MediaMode mediaState={currentSlideshow.media} mediaMode={isRunning} />;
     } else if (isTesting) {
       return <TestPage />;
     } else {
