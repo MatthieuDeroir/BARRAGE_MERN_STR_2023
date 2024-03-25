@@ -14,7 +14,7 @@ function MediasPage({ media, onMediaEnd }) {
     } else if (media.type.includes("video")) {
       return (
         <video
-          preload="auto"
+          //preload="auto"
           style={{ width: "288px", height: "216px" }}
           autoPlay
           muted
