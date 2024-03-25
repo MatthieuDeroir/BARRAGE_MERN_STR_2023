@@ -3,7 +3,7 @@ const { app, BrowserWindow } = require('electron')
 function createWindow () {
 
   const win = new BrowserWindow({
-      width: 320,
+      width: 228,
       height: 216,
       x: 0,
       y: 0,
@@ -16,7 +16,7 @@ function createWindow () {
   })
 
   win.removeMenu()
-  win.loadURL('http://localhost:2000');
+  win.loadURL('http://localhost:000');
   win.setAlwaysOnTop(true, "screen-saver");
 }
 
