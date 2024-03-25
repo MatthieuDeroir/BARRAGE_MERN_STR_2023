@@ -18,7 +18,7 @@ function MediasPage({ media, onMediaEnd }) {
           style={{ width: "288px", height: "216px" }}
           autoPlay
           muted
-          onEnded={onMediaEnd}
+          onEnded={() => onMediaEnd}
         >
           <source src={API_URL + media.path} type={media.type} />
         </video>
