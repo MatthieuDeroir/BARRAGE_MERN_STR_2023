@@ -72,51 +72,40 @@ function App() {
     return currentHour >= startHour && currentHour < stopHour;
   };
 
-  const renderMedia = (media) => {
-    if (media.type.includes("image")) {
-      return <img style={{ width: "288px", height: "216px" }} src={API_URL + media.path} alt="Unsupported media" />;
-    } else if (media.type.includes("video")) {
-      const randomKey = Math.random().toString(36).substring(7);
+  const renderContent = (content, index) => {
+    // Generate a unique key that incorporates both the content ID and its type
+    const uniqueKey = `${content._id}-${content.type}`;
+  
+    if (content.type === "panel") {
       return (
-        <video
-        key={randomKey}
-          preload="auto"
-          style={{ width: "288px", height: "216px" }}
-          autoPlay
-          muted
-          onEnded={goToNextMedia}
-          loop
-          alt="Unsupported media"
-        >
-          <source src={API_URL + media.path} type={media.type} />
-        </video>
+        <div key={uniqueKey} style={{ display: index === currentMediaIndex ? "block" : "none" }}>
+          <DataPage waterData={waterData} />
+        </div>
+      );
+    } else {
+      // For media types, use the uniqueKey with the renderMedia function
+      return (
+        <div key={uniqueKey} style={{ display: index === currentMediaIndex ? "block" : "none" }}>
+          {renderMedia(content)}
+        </div>
       );
     }
-    return <p>Unsupported media type</p>;
   };
-
+  
   return (
     <div>
       {!isVeilleMode ? (
-        <></> 
+        <></>
       ) : isRunning && currentSlideshow.media && currentSlideshow.media.length > 0 ? (
-        currentSlideshow.media.map((media, index) => (
-          <div key={media._id} style={{ display: index === currentMediaIndex ? "block" : "none" }}>
-            {media.type === "panel" ? (
-              <DataPage waterData={waterData} />
-            ) : (
-              renderMedia(media) // Directly render media here
-            )}
-          </div>
-        ))
+        currentSlideshow.media.map((content, index) => renderContent(content, index))
       ) : isTesting ? (
         <TestPage />
-
       ) : (
         <DataPage waterData={waterData} />
       )}
     </div>
   );
 }
+      
 
 export default App;
