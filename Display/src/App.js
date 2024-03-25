@@ -83,6 +83,7 @@ function App() {
           autoPlay
           muted
           onEnded={goToNextMedia}
+          loop
           alt="Unsupported media"
         >
           <source src={API_URL + media.path} type={media.type} />
