@@ -1,20 +1,27 @@
-import React from "react";
-import { Box, Grid, IconButton, Typography, Card, CardContent, Divider, Container } from "@mui/material";
 import WaterIcon from "@mui/icons-material/Water";
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  Divider,
+  IconButton,
+  Typography,
+} from "@mui/material";
+import React from "react";
 
 function DataBarrage({ dataBarrage }) {
   const currentDate = new Date();
   const lastUpdated = `Dernière mise à jour : ${currentDate.toLocaleDateString()} à ${currentDate.toLocaleTimeString()}`;
 
   return (
-    <Container sx={{ display: 'flex', justifyContent: 'center' }}>
-      <Card elevation={4} sx={{ maxWidth: 600, width: '100%' }}> {/* Ajustez maxWidth selon vos besoins */}
-    
+    <Container sx={{ display: "flex", justifyContent: "center" }}>
+      <Card elevation={4} sx={{ maxWidth: 600, width: "100%" }}>
         <CardContent>
           <Box display="flex" alignItems="center">
             <IconButton disabled className="headerButton">
-                <WaterIcon sx={{ color: "primary.light" }} />
-              </IconButton>
+              <WaterIcon sx={{ color: "primary.light" }} />
+            </IconButton>
             <Typography variant="h5" color="text.primary" marginLeft={2}>
               Données Barrage
             </Typography>

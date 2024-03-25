@@ -88,10 +88,8 @@ function SlideshowList(props) {
 
   return (
     <>
-      <Container sx={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
-
-      <Grid item xs={12} md={8}>
-      <Paper elevation={4}>
+      <Grid item xs={12} md={12}>
+        <Paper elevation={4}>
           <Stack className="herderTitlePage">
             <Box className="headerLeft">
               <IconButton disabled className="headerButton">
@@ -156,7 +154,7 @@ function SlideshowList(props) {
                           </IconButton>
                         </TableCell>
                       ) : (
-                        <TableCell sx={{p:0, pr: 4  }} align="right">
+                        <TableCell sx={{ p: 0, pr: 4 }} align="right">
                           <IconButton
                             sx={{
                               p: 0,
@@ -172,7 +170,7 @@ function SlideshowList(props) {
                           </IconButton>
                         </TableCell>
                       )}
-                      <TableCell sx={{p:0, pr: 2  }} align="right">
+                      <TableCell sx={{ p: 0, pr: 2 }} align="right">
                         <IconButton
                           sx={{
                             p: 0,
@@ -213,7 +211,6 @@ function SlideshowList(props) {
         onClose={closeDialog}
         AddSlideshow={AddSlideshow}
       />
-      </Container>
     </>
   );
 }

@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-import MediasPage from "./pages/MediasPage";
 import "./Global.css";
-import TestPage from "./pages/TestPage";
 import DataPage from "./pages/DataPage";
+import MediasPage from "./pages/MediasPage";
+import TestPage from "./pages/TestPage";
 import { setupWebsocketClient } from "./services/WebsocketService";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
 
 function App() {
   const [isVeilleMode, setIsVeilleMode] = useState(false);
@@ -79,7 +77,7 @@ function App() {
   };
 
   return (
-    /*  <div>
+    <div>
       {!isVeilleMode ? (
         <></> //veille
       ) : isRunning &&
@@ -104,8 +102,7 @@ function App() {
       ) : (
         <DataPage waterData={waterData} />
       )}
-    </div> */
-    <DataPage />
+    </div>
   );
 }
 

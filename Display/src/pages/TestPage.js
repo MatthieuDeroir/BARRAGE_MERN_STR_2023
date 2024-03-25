@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function TestPage() {
-  const colors = ['#FF0000', '#00FF00', '#0000FF']; // RGB colors
+  const colors = ["#FF0000", "#00FF00", "#0000FF"]; // RGB colors
   const [colorIndex, setColorIndex] = useState(0);
 
   useEffect(() => {
@@ -17,8 +17,8 @@ function TestPage() {
   return (
     <div
       style={{
-        width: '228px',
-        height: '216px',
+        width: "288px",
+        height: "216px",
         backgroundColor: colors[colorIndex],
       }}
     />
