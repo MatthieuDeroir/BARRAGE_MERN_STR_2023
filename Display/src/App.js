@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 
 import "./Global.css";
 import DataPage from "./pages/DataPage";
-import MediasPage from "./pages/MediasPage";
 import TestPage from "./pages/TestPage";
 import { setupWebsocketClient } from "./services/WebsocketService";
 
 function App() {
+  const API_URL = process.env.REACT_APP_API_URL;
   const [isVeilleMode, setIsVeilleMode] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
   const [currentSlideshow, setCurrentSlideshow] = useState({});
@@ -15,37 +15,35 @@ function App() {
   const [waterData, setWaterData] = useState({});
   const [websocket, setWebsocket] = useState(null);
 
-  // Fonction pour passer au média suivant
   const goToNextMedia = () => {
-    setCurrentMediaIndex(prevIndex => (prevIndex + 1) % (currentSlideshow.media?.length || 1));
+    setCurrentMediaIndex((prevIndex) => (prevIndex + 1) % (currentSlideshow.media?.length || 1));
   };
 
   useEffect(() => {
-    // Configuration de l'intervalle basé sur la durée du média actuel
     const intervalDuration = currentSlideshow.media && currentSlideshow.media.length > 0
       ? currentSlideshow.media[currentMediaIndex]?.duration * 1000
-      : 5000; // Utilisez une durée par défaut si nécessaire
+      : 5000;
 
     const mediaInterval = setInterval(goToNextMedia, intervalDuration);
 
-    return () => clearInterval(mediaInterval); // Nettoyage de l'intervalle lors du démontage ou de la mise à jour
+    return () => clearInterval(mediaInterval);
   }, [currentSlideshow, currentMediaIndex]);
 
   useEffect(() => {
     const ws = setupWebsocketClient(handleWebsocketMessage);
     setWebsocket(ws);
 
-    return () => ws?.close(); // Nettoyage du WebSocket lors du démontage
+    return () => ws?.close();
   }, []);
 
-  const handleWebsocketMessage = event => {
+  const handleWebsocketMessage = (event) => {
     try {
       const result = JSON.parse(event.data);
 
       switch(result.type) {
         case "slideshows":
           setCurrentSlideshow(result.slideshows?.[0] || {});
-          setCurrentMediaIndex(0); // Réinitialisez l'index à chaque nouveau diaporama
+          setCurrentMediaIndex(0);
           break;
         case "slideshowStatus":
           setIsTesting(result.slideshowStatus?.[0]?.isTesting || false);
@@ -58,7 +56,6 @@ function App() {
           setWaterData(result);
           break;
         default:
-          // Gérez d'autres types de messages si nécessaire
           break;
       }
     } catch (error) {
@@ -66,7 +63,7 @@ function App() {
     }
   };
 
-  const checkIsInVeillePeriod = veilleData => {
+  const checkIsInVeillePeriod = (veilleData) => {
     if (!veilleData?.enable) {
       return true;
     }
@@ -75,25 +72,43 @@ function App() {
     return currentHour >= startHour && currentHour < stopHour;
   };
 
+  const renderMedia = (media) => {
+    if (media.type.includes("image")) {
+      return <img style={{ width: "288px", height: "216px" }} src={API_URL + media.path} alt="Unsupported media" />;
+    } else if (media.type.includes("video")) {
+      return (
+        <video
+          preload="auto"
+          style={{ width: "288px", height: "216px" }}
+          autoPlay
+          muted
+          onEnded={goToNextMedia}
+          alt="Unsupported media"
+        >
+          <source src={API_URL + media.path} type={media.type} />
+        </video>
+      );
+    }
+    return <p>Unsupported media type</p>;
+  };
+
   return (
     <div>
       {!isVeilleMode ? (
-        <></> // Mode veille
+        <></> 
       ) : isRunning && currentSlideshow.media && currentSlideshow.media.length > 0 ? (
         currentSlideshow.media.map((media, index) => (
-          <div
-            key={media._id}
-            style={{ display: index === currentMediaIndex ? "block" : "none" }}
-          >
+          <div key={media._id} style={{ display: index === currentMediaIndex ? "block" : "none" }}>
             {media.type === "panel" ? (
               <DataPage waterData={waterData} />
             ) : (
-              <MediasPage media={media} /> // Ajout d'un gestionnaire pour la fin des médias
+              renderMedia(media) // Directly render media here
             )}
           </div>
         ))
       ) : isTesting ? (
         <TestPage />
+
       ) : (
         <DataPage waterData={waterData} />
       )}

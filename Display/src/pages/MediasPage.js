@@ -1,58 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
 const API_URL = process.env.REACT_APP_API_URL;
 
-
-const MediasPage = ({ mediaState, mediaMode }) => {
-  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-
-  useEffect(() => {
-    if (!Array.isArray(mediaState) || mediaState.length === 0) {
-      console.log("No media available");
-      return;
-    }
-
-    // Sort media by order
-    mediaState.sort((a, b) => a.order - b.order);
-
-    const currentMedia = mediaState[currentMediaIndex];
-    const duration = currentMedia?.duration ? currentMedia.duration * 1000 : 5000; // Default to 5 seconds if not provided
-
-    const timer = setTimeout(() => {
-      setCurrentMediaIndex((currentMediaIndex + 1) % mediaState.length);
-    }, duration);
-
-    return () => clearTimeout(timer);
-  }, [currentMediaIndex, mediaState]);
-
-  if (!Array.isArray(mediaState) || mediaState.length === 0 || !mediaState[currentMediaIndex]) {
-    return <div style={{ backgroundColor: "black", width: "100%", height: "100%" }}></div>;
-  }
-
-  const currentMedia = mediaState[currentMediaIndex];
-  const isVideo = currentMedia.type === "video" || currentMedia.type === "video/mp4";
-  const mediaPath = currentMedia.path || ''; // Default to empty string if path is not provided
-  const shouldLoop = mediaState.length === 1 && isVideo;
-
-  return (
-    <>
-      {isVideo ? (
+function MediasPage({ media, onMediaEnd }) {
+  const renderMedia = () => {
+    if (media.type.includes("image")) {
+      return (
+        <img
+          style={{ width: "288px", height: "216px" }}
+          src={API_URL + media.path}
+          alt={`Unsupported media`}
+        />
+      );
+    } else if (media.type.includes("video")) {
+      return (
         <video
-          src={mediaMode ? API_URL + mediaPath : mediaPath}
+          preload="auto"
           style={{ width: "288px", height: "216px" }}
           autoPlay
-          preload="auto"
-          onEnded={() => setCurrentMediaIndex((currentMediaIndex + 1) % mediaState.length)}
-          loop={shouldLoop}
-        />
-      ) : (
-        <img
-          src={mediaMode ? API_URL + mediaPath : mediaPath}
-          style={{ width: "288px", height: "216px" }}
-          alt="Media content"
-        />
-      )}
-    </>
-  );
-};
+          muted
+          onEnded={() => onMediaEnd()} 
+          alt={`Unsupported media`}
+        >
+          <source src={API_URL + media.path} type={media.type} />
+        </video>
+      );
+    } else {
+      return <p>Unsupported media type</p>;
+    }
+  };
+
+  return <>{renderMedia()}</>;
+}
 
 export default MediasPage;
