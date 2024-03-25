@@ -96,19 +96,17 @@ function App() {
   };
 
   const renderContent = (content, index) => {
-    // Generate a unique key that incorporates both the content ID and its type
-    const uniqueKey = `${content._id}-${content.type}`;
   
     if (content.type === "panel") {
       return (
-        <div key={uniqueKey} style={{ display: index === currentMediaIndex ? "block" : "none" }}>
+        <div style={{ display: index === currentMediaIndex ? "block" : "none" }}>
           <DataPage waterData={waterData} />
         </div>
       );
     } else {
       // For media types, use the uniqueKey with the renderMedia function
       return (
-        <div key={uniqueKey} style={{ display: index === currentMediaIndex ? "block" : "none" }}>
+        <div style={{ display: index === currentMediaIndex ? "block" : "none" }}>
           {renderMedia(content)}
         </div>
       );
