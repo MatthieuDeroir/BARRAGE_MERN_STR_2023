@@ -1,51 +1,29 @@
-import React, { useEffect, useState } from "react";
-
-import "./Global.css";
-import DataPage from "./pages/DataPage";
-import MediasPage from "./pages/MediasPage";
-import TestPage from "./pages/TestPage";
-import { setupWebsocketClient } from "./services/WebsocketService";
+import React, { useState, useEffect } from 'react';
+import './Global.css';
+import MediaMode from './MediasPage'; // Assuming MediaMode is the component we refactored
+import DataPage from './pages/DataPage';
+import TestPage from './pages/TestPage';
+import { setupWebsocketClient } from './services/WebsocketService';
 
 function App() {
   const [isVeilleMode, setIsVeilleMode] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
   const [currentSlideshow, setCurrentSlideshow] = useState({});
-  const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
   const [waterData, setWaterData] = useState({});
-  const [websocket, setWebsocket] = useState(null);
-
-  // Fonction pour passer au média suivant
-  const goToNextMedia = () => {
-    setCurrentMediaIndex(prevIndex => (prevIndex + 1) % (currentSlideshow.media?.length || 1));
-  };
-
-  useEffect(() => {
-    // Configuration de l'intervalle basé sur la durée du média actuel
-    const intervalDuration = currentSlideshow.media && currentSlideshow.media.length > 0
-      ? currentSlideshow.media[currentMediaIndex]?.duration * 1000
-      : 5000; // Utilisez une durée par défaut si nécessaire
-
-    const mediaInterval = setInterval(goToNextMedia, intervalDuration);
-
-    return () => clearInterval(mediaInterval); // Nettoyage de l'intervalle lors du démontage ou de la mise à jour
-  }, [currentSlideshow, currentMediaIndex]);
+  const [isRunning, setIsRunning] = useState(false);
 
   useEffect(() => {
     const ws = setupWebsocketClient(handleWebsocketMessage);
-    setWebsocket(ws);
-
-    return () => ws?.close(); // Nettoyage du WebSocket lors du démontage
+    // Set up WebSocket connection
+    return () => ws?.close(); // Clean up WebSocket connection
   }, []);
 
-  const handleWebsocketMessage = event => {
+  const handleWebsocketMessage = (event) => {
     try {
       const result = JSON.parse(event.data);
-
-      switch(result.type) {
+      switch (result.type) {
         case "slideshows":
           setCurrentSlideshow(result.slideshows?.[0] || {});
-          setCurrentMediaIndex(0); // Réinitialisez l'index à chaque nouveau diaporama
           break;
         case "slideshowStatus":
           setIsTesting(result.slideshowStatus?.[0]?.isTesting || false);
@@ -58,45 +36,36 @@ function App() {
           setWaterData(result);
           break;
         default:
-          // Gérez d'autres types de messages si nécessaire
-          break;
+          console.log("Unhandled message type:", result.type);
       }
     } catch (error) {
-      console.error("Error while parsing websocket message", error);
+      console.error("Error parsing websocket message", error);
     }
   };
 
-  const checkIsInVeillePeriod = veilleData => {
-    if (!veilleData?.enable) {
-      return true;
-    }
+  const checkIsInVeillePeriod = (veilleData) => {
+    if (!veilleData?.enable) return false;
     const currentHour = new Date().getHours();
     const [startHour, stopHour] = [veilleData.start, veilleData.stop].map(time => parseInt(time.split(":")[0], 10));
     return currentHour >= startHour && currentHour < stopHour;
   };
 
+  // Conditional rendering based on application state
+  const renderContent = () => {
+    if (isVeilleMode) {
+      return <div>Veille Mode Active</div>; // Placeholder for veille mode representation
+    } else if (isRunning && currentSlideshow?.media && currentSlideshow.media.length > 0) {
+      return <MediaMode mediaState={currentSlideshow.media} mediaMode={true} />;
+    } else if (isTesting) {
+      return <TestPage />;
+    } else {
+      return <DataPage waterData={waterData} />;
+    }
+  };
+
   return (
-    <div>
-      {!isVeilleMode ? (
-        <></> // Mode veille
-      ) : isRunning && currentSlideshow.media && currentSlideshow.media.length > 0 ? (
-        currentSlideshow.media.map((media, index) => (
-          <div
-            key={media._id}
-            style={{ display: index === currentMediaIndex ? "block" : "none" }}
-          >
-            {media.type === "panel" ? (
-              <DataPage waterData={waterData} />
-            ) : (
-              <MediasPage media={media} onMediaEnd={goToNextMedia} /> // Ajout d'un gestionnaire pour la fin des médias
-            )}
-          </div>
-        ))
-      ) : isTesting ? (
-        <TestPage />
-      ) : (
-        <DataPage waterData={waterData} />
-      )}
+    <div className="app">
+      {renderContent()}
     </div>
   );
 }
