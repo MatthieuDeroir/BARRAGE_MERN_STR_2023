@@ -38,7 +38,7 @@ const MediasPage = ({ mediaState, mediaMode }) => {
       {isVideo ? (
         <video
           src={mediaMode ? API_URL + mediaPath : mediaPath}
-          style={{ width: "512px", height: "256px" }}
+          style={{ width: "288px", height: "216px" }}
           autoPlay
           preload="auto"
           onEnded={() => setCurrentMediaIndex((currentMediaIndex + 1) % mediaState.length)}
@@ -47,7 +47,7 @@ const MediasPage = ({ mediaState, mediaMode }) => {
       ) : (
         <img
           src={mediaMode ? API_URL + mediaPath : mediaPath}
-          style={{ width: "512px", height: "256px" }}
+          style={{ width: "288px", height: "216px" }}
           alt="Media content"
         />
       )}
