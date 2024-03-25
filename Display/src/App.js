@@ -72,6 +72,29 @@ function App() {
     return currentHour >= startHour && currentHour < stopHour;
   };
 
+  const renderMedia = (media) => {
+    if (media.type.includes("image")) {
+      return <img style={{ width: "288px", height: "216px" }} src={API_URL + media.path} alt="Unsupported media" />;
+    } else if (media.type.includes("video")) {
+      const randomKey = Math.random().toString(36).substring(7);
+      return (
+        <video
+        key={randomKey}
+          preload="auto"
+          style={{ width: "288px", height: "216px" }}
+          autoPlay
+          muted
+          onEnded={goToNextMedia}
+          loop
+          alt="Unsupported media"
+        >
+          <source src={API_URL + media.path} type={media.type} />
+        </video>
+      );
+    }
+    return <p>Unsupported media type</p>;
+  };
+
   const renderContent = (content, index) => {
     // Generate a unique key that incorporates both the content ID and its type
     const uniqueKey = `${content._id}-${content.type}`;
@@ -105,7 +128,7 @@ function App() {
       )}
     </div>
   );
+  
 }
-      
 
 export default App;
