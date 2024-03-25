@@ -76,8 +76,10 @@ function App() {
     if (media.type.includes("image")) {
       return <img style={{ width: "288px", height: "216px" }} src={API_URL + media.path} alt="Unsupported media" />;
     } else if (media.type.includes("video")) {
+      const randomKey = Math.random().toString(36).substring(7);
       return (
         <video
+        key={randomKey}
           preload="auto"
           style={{ width: "288px", height: "216px" }}
           autoPlay
