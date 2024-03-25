@@ -12,88 +12,83 @@ function App() {
   const [currentSlideshow, setCurrentSlideshow] = useState({});
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [waterData, setWaterData] = useState({}); //[debit_entrant, debit_sortant, cote_plan_eau]
-
+  const [waterData, setWaterData] = useState({});
   const [websocket, setWebsocket] = useState(null);
 
-  useEffect(() => {
-    const mediaInterval = setInterval(
-      () => {
-        setCurrentMediaIndex(
-          (prevIndex) => (prevIndex + 1) % (currentSlideshow.media?.length || 1)
-        );
-      },
-      currentSlideshow.media && currentSlideshow.media.length > 0
-        ? currentSlideshow.media[currentMediaIndex]?.duration * 1000
-        : 5000
-    );
+  // Fonction pour passer au média suivant
+  const goToNextMedia = () => {
+    setCurrentMediaIndex(prevIndex => (prevIndex + 1) % (currentSlideshow.media?.length || 1));
+  };
 
-    return () => clearInterval(mediaInterval);
+  useEffect(() => {
+    // Configuration de l'intervalle basé sur la durée du média actuel
+    const intervalDuration = currentSlideshow.media && currentSlideshow.media.length > 0
+      ? currentSlideshow.media[currentMediaIndex]?.duration * 1000
+      : 5000; // Utilisez une durée par défaut si nécessaire
+
+    const mediaInterval = setInterval(goToNextMedia, intervalDuration);
+
+    return () => clearInterval(mediaInterval); // Nettoyage de l'intervalle lors du démontage ou de la mise à jour
   }, [currentSlideshow, currentMediaIndex]);
 
-  const handleWebsocketMessage = (event) => {
+  useEffect(() => {
+    const ws = setupWebsocketClient(handleWebsocketMessage);
+    setWebsocket(ws);
+
+    return () => ws?.close(); // Nettoyage du WebSocket lors du démontage
+  }, []);
+
+  const handleWebsocketMessage = event => {
     try {
       const result = JSON.parse(event.data);
-      console.log(result);
-      if (result.type === "slideshows") {
-        if (result.slideshows === undefined || result.slideshows.length === 0) {
-          setCurrentSlideshow({});
-          setCurrentMediaIndex(0);
-        } else {
-          setCurrentSlideshow(result.slideshows[0]);
-        }
-      } else if (result.type === "slideshowStatus") {
-        setIsTesting(result.slideshowStatus[0].isTesting);
-        setIsRunning(result.slideshowStatus[0].isRunning);
-      } else if (result.type === "settings") {
-        setIsVeilleMode(checkIsInVeillePeriod(result.settings[0]));
-      } else if (result.type === "data") {
-        setWaterData(result);
+
+      switch(result.type) {
+        case "slideshows":
+          setCurrentSlideshow(result.slideshows?.[0] || {});
+          setCurrentMediaIndex(0); // Réinitialisez l'index à chaque nouveau diaporama
+          break;
+        case "slideshowStatus":
+          setIsTesting(result.slideshowStatus?.[0]?.isTesting || false);
+          setIsRunning(result.slideshowStatus?.[0]?.isRunning || false);
+          break;
+        case "settings":
+          setIsVeilleMode(checkIsInVeillePeriod(result.settings?.[0]));
+          break;
+        case "data":
+          setWaterData(result);
+          break;
+        default:
+          // Gérez d'autres types de messages si nécessaire
+          break;
       }
     } catch (error) {
       console.error("Error while parsing websocket message", error);
     }
   };
 
-  useEffect(() => {
-    const ws = setupWebsocketClient(handleWebsocketMessage);
-    setWebsocket(ws);
-
-    return () => {
-      if (ws) {
-        ws.close();
-      }
-    };
-  }, []);
-
-  const checkIsInVeillePeriod = (veilleData) => {
-    if (!veilleData.enable) {
+  const checkIsInVeillePeriod = veilleData => {
+    if (!veilleData?.enable) {
       return true;
     }
     const currentHour = new Date().getHours();
-    const startHour = parseInt(veilleData.start.split(":")[0], 10);
-    const stopHour = parseInt(veilleData.stop.split(":")[0], 10);
+    const [startHour, stopHour] = [veilleData.start, veilleData.stop].map(time => parseInt(time.split(":")[0], 10));
     return currentHour >= startHour && currentHour < stopHour;
   };
 
   return (
     <div>
       {!isVeilleMode ? (
-        <></> //veille
-      ) : isRunning &&
-        currentSlideshow.media &&
-        currentSlideshow.media.length > 0 ? (
+        <></> // Mode veille
+      ) : isRunning && currentSlideshow.media && currentSlideshow.media.length > 0 ? (
         currentSlideshow.media.map((media, index) => (
           <div
             key={media._id}
-            style={{
-              display: index === currentMediaIndex ? "block" : "none",
-            }}
+            style={{ display: index === currentMediaIndex ? "block" : "none" }}
           >
             {media.type === "panel" ? (
               <DataPage waterData={waterData} />
             ) : (
-              <MediasPage media={media} />
+              <MediasPage media={media} onMediaEnd={goToNextMedia} /> // Ajout d'un gestionnaire pour la fin des médias
             )}
           </div>
         ))

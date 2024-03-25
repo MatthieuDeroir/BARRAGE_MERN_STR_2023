@@ -1,7 +1,7 @@
 import React from "react";
 const API_URL = process.env.REACT_APP_API_URL;
 
-function MediasPage({ media }) {
+function MediasPage({ media, onMediaEnd }) {
   const renderMedia = () => {
     if (media.type.includes("image")) {
       return (
@@ -18,7 +18,7 @@ function MediasPage({ media }) {
           style={{ width: "288px", height: "216px" }}
           autoPlay
           muted
-          loop
+          onEnded={onMediaEnd}
         >
           <source src={API_URL + media.path} type={media.type} />
         </video>
