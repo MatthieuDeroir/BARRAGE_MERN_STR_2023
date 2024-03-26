@@ -1,20 +1,24 @@
 @font-face {
-    font-family: "D-DIN-Bold"; /* Nommez la police comme vous le souhaitez, ce nom est utilisé pour la référence */
-    src: local("D-DIN-Bold"),
-      /* Nom pour rechercher la police localement sur l'ordinateur de l'utilisateur */
-        url("../public/fonts/D-DIN-Bold.otf") format("opentype"); /* Ajustez le chemin selon l'endroit où vous avez placé votre fichier .otf */
-    font-weight: bold; /* Ici, c'est 'bold' parce que la police est déjà une version 'bold' */
-    font-style: normal;
-  }
-  
-  body {
-    font-family: "D-DIN-Bold", sans-serif;
-    margin: 0px;
-    max-width: 228px;
-    max-height: 216px;
-    min-width: 228px;
-    min-height: 216px;
-    background-color: #000000;
-    color: rgb(255, 255, 255);
-    overflow: hidden;
-  }
+  font-family: "D-DIN-Bold";
+  src: local("D-DIN-Bold"),
+    url("../public/fonts/D-DIN-Bold.otf") format("opentype");
+  font-weight: normal; /* Use normal since the font is inherently bold */
+  font-style: normal;
+}
+
+/* Optional: Define a class to use the font */
+.d-din-bold {
+  font-family: "D-DIN-Bold", sans-serif; /* Fallback to sans-serif if the custom font is not available */
+}
+
+body {
+  font-family: "D-DIN-Bold", sans-serif;
+  margin: 0px;
+  max-width: 288px;
+  max-height: 216px;
+  min-width: 288px;
+  min-height: 216px;
+  background-color: #000000;
+  color: rgb(255, 255, 255);
+  overflow: hidden;
+}

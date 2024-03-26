@@ -15,11 +15,12 @@
     "ws": "^8.16.0"
   },
   "scripts": {
-    "start": "set PORT=2000 && react-scripts start",
+    "start": "concurrently \"PORT=2000 serve -s build\" \"npm run electron-dev\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron-dev": "electron ."
+    "electron-dev": "electron .",
+    "startReact": "react-scripts start"
   },
   "eslintConfig": {
     "extends": [
