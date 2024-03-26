@@ -10,6 +10,7 @@ import {
   TableCell,
   TableRow,
   Typography,
+  Container,
 } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import AddIcon from "@mui/icons-material/Add";
@@ -31,7 +32,6 @@ function SlideshowList(props) {
   const [slideshowToPlay, setSlideshowToPlay] = useState({});
   useEffect(() => {
     slideshowStatutsService.getSlideshowStatus().then((data) => {
-      console.log("data", data[0]);
       setSlideshowToPlay(data[0]);
     });
   }, []);
@@ -53,7 +53,6 @@ function SlideshowList(props) {
   }
 
   async function deleteSlideshow(eventToDelete) {
-    console.log("eventToDelete", eventToDelete);
     const data = { slideshowId: null, isRunning: false, isTesting: false };
     await slideshowStatutsService.updateSlideshowStatus(data);
     setSlideshowToPlay(data);
@@ -89,8 +88,8 @@ function SlideshowList(props) {
 
   return (
     <>
-      <Grid item xs={12}>
-        <Paper className="mainPaperPage">
+      <Grid item xs={12} md={12}>
+        <Paper elevation={4}>
           <Stack className="herderTitlePage">
             <Box className="headerLeft">
               <IconButton disabled className="headerButton">
@@ -118,7 +117,7 @@ function SlideshowList(props) {
           {props.slideshows ? (
             <Box className="containerPage">
               {props.slideshows.map((slideshow) => (
-                <Table size="big" key={slideshow.id}>
+                <Table key={slideshow.id}>
                   <TableBody>
                     <TableRow hover>
                       <TableCell
@@ -155,7 +154,7 @@ function SlideshowList(props) {
                           </IconButton>
                         </TableCell>
                       ) : (
-                        <TableCell sx={{p:0, pr: 4  }} align="right">
+                        <TableCell sx={{ p: 0, pr: 4 }} align="right">
                           <IconButton
                             sx={{
                               p: 0,
@@ -171,7 +170,7 @@ function SlideshowList(props) {
                           </IconButton>
                         </TableCell>
                       )}
-                      <TableCell sx={{p:0, pr: 2  }} align="right">
+                      <TableCell sx={{ p: 0, pr: 2 }} align="right">
                         <IconButton
                           sx={{
                             p: 0,

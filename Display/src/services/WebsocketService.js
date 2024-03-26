@@ -1,34 +1,52 @@
-function setupWebsocketClient(onMessageReceived) {
-	// Create a new WebSocket connection
-	const ws = new WebSocket("ws://localhost:8080");
+function setupWebsocketClient(onMessageReceived, clientId) {
+    const API_URL = process.env.REACT_APP_API_URL;
+    const serverUrl = `ws://88.123.138.131:16387`;
+    const ws = new WebSocket(serverUrl);
 
-	// Connection opened
-	ws.addEventListener('open', function (event) {
-		console.log("Connected to the server");
-		ws.send("Hello, server!");
-	});
+    ws.addEventListener('open', function (event) {
+        console.log("Connected to the server");
+        // Envoyer l'identifiant du client au serveur
+        ws.send(JSON.stringify({ type: 'connect', id: clientId }));
+        let heartbeatInterval = setInterval(() => {
+            const timestamp = Date.now(); // Obtenir le timestamp actuel
+            ws.send(JSON.stringify({ type: 'heartbeat', id: clientId, timestamp }));
+            console.log("Heartbeat sent", { clientId, timestamp });
+        }, 60000); // 60000 ms = 1 minute
+    });
 
-	// Listen for messages
-	ws.addEventListener('message', function (event) {
-		try {
-			// Attempt to parse the message as JSON
-			onMessageReceived(event);
-		} catch (e) {
-			// If an error occurs, the message is not valid JSON
-			console.log("Non-JSON message received:", event.data);
-		}
-	});
+    ws.addEventListener('message', function (event) {
+        onMessageReceived(event);
+    });
 
-	// Handle any errors that occur
-	ws.addEventListener('error', function (event) {
-		console.error("WebSocket error observed:", event);
-	});
+    ws.addEventListener('close', function (event) {
+        console.log("Disconnected from the server");
+        setTimeout(() => setupWebsocketClient(onMessageReceived, clientId), 1000);
+    });
 
-	// Connection closed
-	ws.addEventListener('close', function (event) {
-		console.log("Disconnected from the server");
-	});
+    ws.addEventListener('error', function (event) {
+        console.error("WebSocket error observed:", event);
+    });
+
+    // Envoyer un message de déconnexion avant de fermer la connexion
+    function disconnect() {
+        ws.send(JSON.stringify({ type: 'disconnect', id: clientId }));
+    }
+
+
+    // Exposer la fonction de déconnexion pour un usage externe
+    return { disconnect };
 }
 
-// You can call this function to set up the WebSocket client
-module.exports = setupWebsocketClient;
+// Vous pouvez adapter cette partie pour choisir l'identifiant du client correctement
+const client = setupWebsocketClient(onMessageReceived, process.env.REACT_APP_CLIENT_ID); // Utiliser "1" pour le client 1, "2" pour le client 2
+function onMessageReceived(event) {
+    try {
+        const data = JSON.parse(event.data);
+        console.log(data);
+    } catch (error) {
+        console.error('Erreur lors du parsing JSON:', error);
+    }
+}
+
+
+exports.setupWebsocketClient = setupWebsocketClient;

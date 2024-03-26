@@ -1,131 +1,132 @@
 import React, { useEffect, useState } from "react";
 
-import { slideshowService } from "./services/SlideshowService";
-import { settingsService } from "./services/SettingsService";
-import _ from "lodash";
-
-import MediasPage from "./pages/MediasPage";
-import { slideshowStatutsService } from "./services/SlideshowStatutsService";
 import "./Global.css";
-import TestPage from "./pages/TestPage";
 import DataPage from "./pages/DataPage";
-import setupWebsocketClient from "./services/WebsocketService";
+import TestPage from "./pages/TestPage";
+import { setupWebsocketClient } from "./services/WebsocketService";
 
 function App() {
-
+  const API_URL = process.env.REACT_APP_API_URL;
   const [isVeilleMode, setIsVeilleMode] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
   const [currentSlideshow, setCurrentSlideshow] = useState({});
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const [waterData, setWaterData] = useState({});
+  const [websocket, setWebsocket] = useState(null);
+
+  const goToNextMedia = () => {
+    setCurrentMediaIndex((prevIndex) => (prevIndex + 1) % (currentSlideshow.media?.length || 1));
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const [veilleRes,  slideshowRes, slideshowStatusRes] =
-        await Promise.all([
-          settingsService.getSettings(),
+    const intervalDuration = currentSlideshow.media && currentSlideshow.media.length > 0
+      ? currentSlideshow.media[currentMediaIndex]?.duration * 1000
+      : 5000;
 
-          slideshowService.getSlideshow(),
-          slideshowStatutsService.getSlideshowStatus(),
-        ]);
-        console.log(slideshowRes);
-        console.log(slideshowStatusRes);
-        console.log(veilleRes);
-      setIsVeilleMode(checkIsInVeillePeriod(veilleRes[0]));
-      const currentSlideshowId = slideshowStatusRes[0]?.slideshowId;
-      if (slideshowStatusRes[0]?.isRunning) {
-        console.log("isRunning");
-        const foundSlideshow = slideshowRes.data.slideshows.find(
-          (slideshow) => slideshow.id === currentSlideshowId
-        );
-        console.log(foundSlideshow);
-    
-
-        // Vérifie si le diaporama actuel est le même que le précédent
-        if (!_.isEqual(currentSlideshow, foundSlideshow)) {
-          setCurrentSlideshow(foundSlideshow);
-          setCurrentMediaIndex(0);
-        }
-      } else if (!_.isEmpty(currentSlideshow)) {
-        // Si le diaporama n'est plus en cours, réinitialise currentSlideshow
-        setCurrentSlideshow({});
-      }
-      if (slideshowStatusRes[0]?.isTesting) {
-        setIsTesting(true);
-      }else{
-        setIsTesting(false);
-      }
-    };
-    fetchData();
-    const interval = setInterval(fetchData, 5000);
-    return () => clearInterval(interval);
-  }, [currentSlideshow]);
-
-  useEffect(() => {
-
-    const mediaInterval = setInterval(
-      () => {
-        setCurrentMediaIndex(
-          (prevIndex) => (prevIndex + 1) % (currentSlideshow.media?.length || 1)
-        );
-      },
-      currentSlideshow.media && currentSlideshow.media.length > 0
-        ? currentSlideshow.media[currentMediaIndex]?.duration * 1000
-        : 5000
-    );
+    const mediaInterval = setInterval(goToNextMedia, intervalDuration);
 
     return () => clearInterval(mediaInterval);
   }, [currentSlideshow, currentMediaIndex]);
 
-  const handleWebsocketMessage = (data) => {
-    console.log("Received data from WebSocket:", data);
-    const result = JSON.parse(data);
+  useEffect(() => {
+    const ws = setupWebsocketClient(handleWebsocketMessage);
+    setWebsocket(ws);
 
+    return () => ws?.close();
+  }, []);
 
+  const handleWebsocketMessage = (event) => {
+    try {
+      const result = JSON.parse(event.data);
+
+      switch (result.type) {
+        case "slideshows":
+          setCurrentSlideshow(result.slideshows?.[0] || {});
+          setCurrentMediaIndex(0);
+          break;
+        case "slideshowStatus":
+          setIsTesting(result.slideshowStatus?.[0]?.isTesting || false);
+          setIsRunning(result.slideshowStatus?.[0]?.isRunning || false);
+          break;
+        case "settings":
+          setIsVeilleMode(checkIsInVeillePeriod(result.settings?.[0]));
+          break;
+        case "data":
+          setWaterData(result);
+          break;
+        default:
+          break;
+      }
+    } catch (error) {
+      console.error("Error while parsing websocket message", error);
+    }
   };
 
-  // Setup WebSocket client with the callback
-  setupWebsocketClient(handleWebsocketMessage);
-
   const checkIsInVeillePeriod = (veilleData) => {
-    if (!veilleData.enable) {
-      return false;
+    if (!veilleData?.enable) {
+      return true;
     }
     const currentHour = new Date().getHours();
-    const startHour = parseInt(veilleData.start);
-    const stopHour = parseInt(veilleData.stop);
-    console.log(currentHour, startHour, stopHour);
-    console.log(currentHour >= startHour && stopHour <= currentHour);
-    return currentHour >= startHour && stopHour <= currentHour;
+    const [startHour, stopHour] = [veilleData.start, veilleData.stop].map(time => parseInt(time.split(":")[0], 10));
+    return currentHour >= startHour && currentHour < stopHour;
+  };
+
+  const renderMedia = (media) => {
+    if (media.type.includes("image")) {
+      return <img style={{ width: "288px", height: "216px" }} src={API_URL + media.path} alt="Unsupported media" />;
+    } else if (media.type.includes("video")) {
+      const randomKey = Math.random().toString(36).substring(7);
+      return (
+        <video
+          key={randomKey}
+          preload="auto"
+          style={{ width: "288px", height: "216px" }}
+          autoPlay
+          muted
+          onEnded={goToNextMedia}
+          loop
+          alt="Unsupported media"
+        >
+          <source src={API_URL + media.path} type={media.type} />
+        </video>
+      );
+    }
+    return <p>Unsupported media type</p>;
+  };
+
+  const renderContent = (content, index) => {
+
+    if (content.type === "panel") {
+      return (
+        <div style={{ display: index === currentMediaIndex ? "block" : "none" }}>
+          <DataPage waterData={waterData} />
+        </div>
+      );
+    } else {
+      // For media types, use the uniqueKey with the renderMedia function
+      return (
+        <div style={{ display: index === currentMediaIndex ? "block" : "none" }}>
+          {renderMedia(content)}
+        </div>
+      );
+    }
   };
 
   return (
     <div>
-      {isTesting? (<TestPage/>):(isVeilleMode ? (
-       <></>
-      ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
-        currentSlideshow.media.map((media, index) => (
-          <div
-            key={media.id}
-            style={{
-              maxHeight: "216px",
-              display: index === currentMediaIndex ? "block" : "none",
-              maxWidth: "228px"
-             
-            }}
-          >
-            {media.type === "panel" ? (
-              <DataPage/>
-             
-            ) : (
-              <MediasPage media={media} />
-            )}
-          </div>
-        ))
+      {!isVeilleMode ? (
+        <></>
+      ) : isRunning && currentSlideshow.media && currentSlideshow.media.length > 0 ? (
+        currentSlideshow.media.map((content, index) => renderContent(content, index))
+      ) : isTesting ? (
+        <TestPage />
       ) : (
-        <DataPage/>
-      ))}
+        <DataPage waterData={waterData} />
+      )}
     </div>
   );
+
 }
 
 export default App;

@@ -2,8 +2,9 @@ const fs = require("fs");
 const Data = require("../Models/DataModel");
 const Slideshow = require('../Models/SlideshowModel');
 const Media = require('../Models/MediaModel');
-const SlideshowStatus = require('../Models/SlideshowStatusModel');
+const { Settings } = require("../Models");
 
+const SlideshowStatus = require('../Models/SlideshowStatusModel');
 const read = () => {
 	return new Promise((resolve, reject) => {
 		fs.readFile(process.env.DATA_FILE_PATH, "utf8", (err, dataString) => {
@@ -85,8 +86,30 @@ async function getActiveSlideshows() {
 	}
 }
 
+async function getSettings() {
+	try {
+		return await Settings.findAll();
+	}
+	catch (error) {
+		console.error("Error fetching settings:", error);
+		throw error;
+	}
+}
+
+async function getSlideshowStatus() {
+	try {
+		return await SlideshowStatus.findAll();
+	}
+	catch (error) {
+		console.error("Error fetching slideshow status:", error);
+		throw error;
+	}
+}
+
 module.exports = {
 	read,
 	write,
-	getActiveSlideshows
+	getActiveSlideshows,
+	getSettings,
+	getSlideshowStatus
 };

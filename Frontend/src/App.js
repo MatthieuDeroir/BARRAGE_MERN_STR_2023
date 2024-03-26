@@ -17,14 +17,12 @@ import { useThemeMode } from "./context/ThemeModeContext";
 import "./styles/Global.css";
 import Settings from "./components/settings/settings.js";
 
-<<<<<<< HEAD
 function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
   const { themeMode } = useThemeMode();
 
   useEffect(() => {
     const API_URL = process.env.REACT_APP_API_URL;
-    console.log("test01",API_URL);
     setToken(localStorage.getItem("token"));
   }, [token]);
 
@@ -76,17 +74,5 @@ function App() {
     </MuiThemeProvider>
   );
 }
-=======
-const App = () => (
-  <div className="App">
-    <Header/>
-    <div className="dashboard">
-      <Preview panelNumber={1} className="dashboard-panel"/>
-      <Preview panelNumber={2} className="dashboard-panel"/>
-    </div>
-    <ConfigurationPanel />
-  </div>
-);
->>>>>>> a7b385d (st: pull frt)
 
 export default App;

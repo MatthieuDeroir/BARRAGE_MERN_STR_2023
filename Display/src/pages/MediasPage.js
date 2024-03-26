@@ -1,28 +1,37 @@
-import React from 'react'
+import React from "react";
+const API_URL = process.env.REACT_APP_API_URL;
 
-function MediasPage({ media }) {
-  
+function MediasPage({ media, onMediaEnd }) {
   const renderMedia = () => {
-    if (media.type.includes('image')) {
-      return <img style={{width:"228px", height:"216px"}} src={process.env.REACT_APP_MEDIA_DISPLAY_PATH + media.path} alt={`Media ${media.id}`} />;
-    }
-    else if (media.type.includes('video')) {
+    if (media.type.includes("image")) {
       return (
-        <video style={{width:"228px", height:"216px"}} autoPlay muted>
-          <source src={process.env.REACT_APP_MEDIA_DISPLAY_PATH + media.path} type={media.type} />
+        <img
+          style={{ width: "288px", height: "216px" }}
+          src={API_URL + media.path}
+          alt={`Unsupported media`}
+        />
+      );
+    } else if (media.type.includes("video")) {
+      return (
+        <video
+          //preload="auto"
+          style={{ width: "288px", height: "216px" }}
+          autoPlay
+          muted
+          onEnded={() => onMediaEnd()}
+          alt={`Unsupported media`}
+        >
+          <source src={API_URL + media.path} type={media.type} />
         </video>
       );
+    } else {
+      return <p>Unsupported media type</p>;
     }
-    else {
-      return null;
-    }
-  }
+  };
 
-  return (
-    <>
-      {renderMedia()}
-    </>
-  );
+  return <>{renderMedia()}</>;
 }
+
+
 
 export default MediasPage;

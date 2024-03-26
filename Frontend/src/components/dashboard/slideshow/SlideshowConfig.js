@@ -14,6 +14,7 @@ import {
   TableRow,
   TextField,
   Typography,
+  Container
 } from "@mui/material";
 
 import ImageIcon from "@mui/icons-material/Image";
@@ -27,6 +28,7 @@ import { ReactSortable } from "react-sortablejs";
 function SlideshowConfig(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const sortedMedia = [...props.slideshow.media].sort(
     (a, b) => a.order - b.order
@@ -132,7 +134,8 @@ function SlideshowConfig(props) {
 
   return (
     <>
-      <Grid item xs={12}>
+       <Container sx={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
+      <Grid item xs={12} md={8}>
         <Paper className="mainPaperPage">
           <Stack className="herderTitlePage">
             <Box className="headerLeft">
@@ -195,7 +198,7 @@ function SlideshowConfig(props) {
             </Box>
           </Stack>
           <Box
-            className="containerPage"
+
             sx={{
               paddingLeft: { xs: 2 },
               paddingRight: { xs: 2 },
@@ -225,7 +228,7 @@ function SlideshowConfig(props) {
                                 maxHeight: "calc(8vh)",
                               }}
                               alt={media.originalFilename}
-                              src={media.path}
+                              src={API_URL + media.path}
                             />
                           ) : media.type.split("/")[0] === "image" ? (
                             <Box
@@ -237,7 +240,7 @@ function SlideshowConfig(props) {
                                 maxHeight: "calc(8vh)",
                               }}
                               alt={media.originalFilename}
-                              src={media.path}
+                              src={API_URL + media.path}
                             />
                           ) : (
                             "Panneau"
@@ -274,6 +277,7 @@ function SlideshowConfig(props) {
           </Box>
         </Paper>
       </Grid>
+      </Container>
     </>
   );
 }

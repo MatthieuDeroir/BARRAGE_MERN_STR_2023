@@ -32,6 +32,9 @@ exports.addData = async (req, res) => {
 };
 
 
+
+
+
 exports.getDatas = async (req, res) => {
 	try {
 		const datas = await Data.findAll();
@@ -78,4 +81,27 @@ exports.updateDatas = async (req, res) => {
 		res.status(400).send(error.message);
 	}
 };
+
+
+exports.updateClientStatus = async (clientId, isConnected) => {
+    try {
+        const data = await Data.findOne();
+        if (!data) {
+            console.error("Aucune donnée trouvée pour mettre à jour l'état du client.");
+            return;
+        }
+        
+        if (clientId === "1") {
+            data.client1Connected = isConnected;
+        } else if (clientId === "2") {
+            data.client2Connected = isConnected;
+        }
+        
+        await data.save();
+        console.log(`L'état de connexion pour le client ${clientId} a été mis à jour : ${isConnected}`);
+    } catch (error) {
+        console.error("Erreur lors de la mise à jour de l'état de connexion du client:", error);
+    }
+};
+
 

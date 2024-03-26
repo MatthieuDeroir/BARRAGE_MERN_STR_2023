@@ -10,7 +10,7 @@ const init = require("./Database/Init");
 async function startServer() {
 	try {
 		await sequelize.sync({ force: false });
-		console.log("All models were synchronized successfully.");
+	
 
 		await init();
 
