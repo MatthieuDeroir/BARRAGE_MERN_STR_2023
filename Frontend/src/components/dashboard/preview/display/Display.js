@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-import { slideshowService } from "../../../../services/SlideshowService";
-import { settingsService } from "../../../../services/SettingsService";
-import DataService from "../../../../services/DataService";
 import _ from "lodash";
+import { settingsService } from "../../../../services/SettingsService";
+import { slideshowService } from "../../../../services/SlideshowService";
 
-import "./Display.css";
-import MediasPage from "./pages/MediasPage";
 import { slideshowStatutsService } from "../../../../services/SlideshowStatutsService";
-import TestPage from "./pages/TestPage";
+import "./Display.css";
 import DataPage from "./pages/DataPage";
+import MediasPage from "./pages/MediasPage";
+import TestPage from "./pages/TestPage";
 
-function Display({waterData}) {
+function Display({ waterData }) {
 
   const [isSettingMode, setIsSettingMode] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
@@ -20,10 +19,10 @@ function Display({waterData}) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const [settingRes,  slideshowRes, slideshowStatusRes] =
+      const [settingRes, slideshowRes, slideshowStatusRes] =
         await Promise.all([
           settingsService.getSettings(),
-         
+
 
           slideshowService.getSlideshow(),
           slideshowStatutsService.getSlideshowStatus()
@@ -37,7 +36,7 @@ function Display({waterData}) {
         if (foundSlideshow && foundSlideshow.media) {
           foundSlideshow.media.sort((a, b) => a.order - b.order);
         }
-    
+
 
         // Vérifie si le diaporama actuel est le même que le précédent
         if (!_.isEqual(currentSlideshow, foundSlideshow)) {
@@ -50,7 +49,7 @@ function Display({waterData}) {
       }
       if (slideshowStatusRes[0]?.isTesting) {
         setIsTesting(true);
-      }else{
+      } else {
         setIsTesting(false);
       }
     };
@@ -82,34 +81,34 @@ function Display({waterData}) {
     const currentHour = new Date().getHours();
     const startHour = parseInt(veilleData.start);
     const stopHour = parseInt(veilleData.stop);
-    return currentHour <= startHour &&  currentHour >= stopHour;
+    return currentHour <= startHour && currentHour >= stopHour;
   };
 
   return (
     <div className="body" >
-      {isTesting? (<TestPage/>):(isSettingMode ? (
-       <></>
+      {isTesting ? (<TestPage />) : (isSettingMode ? (
+        <></>
       ) : currentSlideshow.media && currentSlideshow.media.length > 0 ? (
         currentSlideshow.media.map((media, index) => (
           <div
             key={media.id}
             style={{
-              maxHeight: "240px",
+              maxHeight: "212px",
               display: index === currentMediaIndex ? "block" : "none",
-              maxWidth: "320px"
-             
+              maxWidth: "280px"
+
             }}
           >
             {media.type === "panel" ? (
-              <DataPage waterData={waterData}/>
-             
+              <DataPage waterData={waterData} />
+
             ) : (
               <MediasPage media={media} />
             )}
           </div>
         ))
       ) : (
-        <DataPage waterData={waterData}/>
+        <DataPage waterData={waterData} />
       ))}
     </div>
   );

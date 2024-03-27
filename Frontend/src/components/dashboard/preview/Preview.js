@@ -86,7 +86,7 @@ function Preview({ waterData }) {
           </Box>
         </Stack>
         <Divider sx={{ ml: 4, mr: 4, mb: 2 }} />
-        <Box className="containerPageNoScroll" style={{ height: "calc(94vh - 340px)" }} >
+        <Box className="containerPageNoScroll" style={{ height: "calc(94vh - 220px)" }} >
           <Box sx={{ mb: 6, display: "flex", justifyContent: "center" }}>
             <Display waterData={waterData} />
           </Box>
