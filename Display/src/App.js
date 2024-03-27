@@ -31,16 +31,17 @@ function App() {
 
   useEffect(() => {
     const ws = setupWebsocketClient(handleWebsocketMessage);
+
     setWebsocket(ws);
 
-    return () => ws?.close();
+
   }, []);
 
   const handleWebsocketMessage = (event) => {
     try {
       const result = JSON.parse(event.data);
-
-      switch(result.type) {
+      console.log(result);
+      switch (result.type) {
         case "slideshows":
           setCurrentSlideshow(result.slideshows?.[0] || {});
           setCurrentMediaIndex(0);
@@ -50,7 +51,9 @@ function App() {
           setIsRunning(result.slideshowStatus?.[0]?.isRunning || false);
           break;
         case "settings":
+
           setIsVeilleMode(checkIsInVeillePeriod(result.settings?.[0]));
+
           break;
         case "data":
           setWaterData(result);
@@ -79,7 +82,7 @@ function App() {
       const randomKey = Math.random().toString(36).substring(7);
       return (
         <video
-        key={randomKey}
+          key={randomKey}
           preload="auto"
           style={{ width: "288px", height: "216px" }}
           autoPlay
@@ -96,7 +99,7 @@ function App() {
   };
 
   const renderContent = (content, index) => {
-  
+
     if (content.type === "panel") {
       return (
         <div style={{ display: index === currentMediaIndex ? "block" : "none" }}>
@@ -112,12 +115,14 @@ function App() {
       );
     }
   };
-  
+
   return (
     <div>
-      {!isVeilleMode ? (
+      {isVeilleMode ? (
+
         <></>
       ) : isRunning && currentSlideshow.media && currentSlideshow.media.length > 0 ? (
+        //ajoute key 
         currentSlideshow.media.map((content, index) => renderContent(content, index))
       ) : isTesting ? (
         <TestPage />
@@ -126,7 +131,7 @@ function App() {
       )}
     </div>
   );
-  
+
 }
 
 export default App;

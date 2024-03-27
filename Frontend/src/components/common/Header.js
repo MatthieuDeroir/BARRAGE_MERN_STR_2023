@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AppBar, Box, Toolbar } from "@mui/material";
 
 function Header(props) {
+  useEffect(() => {
+    console.log(props);
+  }, []);
 
   return (
     <AppBar
@@ -20,7 +23,7 @@ function Header(props) {
       >
         <Box
           component="img"
-          src={props.themeMode ? "/pictures/Logo_Stramatel_White.png" : "/pictures/Logo_Stramatel_Dark.png"}
+          src={props.themeMode === 'light' ? "/pictures/Logo_Stramatel_Dark.png" : "/pictures/Logo_Stramatel_White.png"}
           alt="Logo"
           sx={{ width: "200px", height: "auto" }}
         />

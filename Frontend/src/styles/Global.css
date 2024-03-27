@@ -57,7 +57,7 @@ code {
   padding: 8px;
   flex-direction: column;
   justify-content: flex-start;
-  height: calc(94vh - 200px);
+  height: calc(94vh - 220px);
 }
 .containerPageNoScroll {
   align-items: center;

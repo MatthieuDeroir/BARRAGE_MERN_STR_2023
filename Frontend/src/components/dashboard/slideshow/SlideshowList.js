@@ -1,6 +1,9 @@
+import AddIcon from "@mui/icons-material/Add";
+import FolderIcon from "@mui/icons-material/Folder";
 import {
   Box,
   CircularProgress,
+  Divider,
   Grid,
   IconButton,
   Paper,
@@ -9,21 +12,17 @@ import {
   TableBody,
   TableCell,
   TableRow,
-  Typography,
-  Container,
+  Typography
 } from "@mui/material";
-import FolderIcon from "@mui/icons-material/Folder";
-import AddIcon from "@mui/icons-material/Add";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { slideshowService } from "../../../services/SlideshowService";
-import AddSlideshowDialog from "../../dialogs/AddSlideshowDialog";
 import { slideshowStatutsService } from "../../../services/SlideshowStatutsService";
-import { useEffect } from "react";
+import AddSlideshowDialog from "../../dialogs/AddSlideshowDialog";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import DeleteSlideshowDialog from "../../dialogs/DeleteSlideshowDialog";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import StopIcon from "@mui/icons-material/Stop";
+import DeleteSlideshowDialog from "../../dialogs/DeleteSlideshowDialog";
 
 function SlideshowList(props) {
   const [addDialogOpen, setAddDialogOpen] = useState(false);
@@ -88,7 +87,7 @@ function SlideshowList(props) {
 
   return (
     <>
-      <Grid item xs={12} md={12}>
+      <Grid >
         <Paper elevation={4}>
           <Stack className="herderTitlePage">
             <Box className="headerLeft">
@@ -114,6 +113,7 @@ function SlideshowList(props) {
               </IconButton>
             </Box>
           </Stack>
+          <Divider sx={{ ml: 4, mr: 4, mb: 2 }} />
           {props.slideshows ? (
             <Box className="containerPage">
               {props.slideshows.map((slideshow) => (
@@ -131,7 +131,7 @@ function SlideshowList(props) {
                       </TableCell>
 
                       {slideshowToPlay.slideshowId === slideshow.id &&
-                      slideshowToPlay.isRunning ? (
+                        slideshowToPlay.isRunning ? (
                         <TableCell sx={{ p: 0 }} align="right">
                           <IconButton
                             onClick={(e) => {

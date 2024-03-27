@@ -1,8 +1,7 @@
 import VideoLabelIcon from "@mui/icons-material/VideoLabel";
 import {
   Box,
-  Card,
-  CardContent,
+  Divider,
   Grid,
   IconButton,
   Paper,
@@ -11,9 +10,8 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
-  Typography,
+  Typography
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import DataService from "../../../services/DataService";
@@ -75,7 +73,7 @@ function Preview({ waterData }) {
   }, []);
 
   return (
-    <Grid item xs={12} md={12}>
+    <Grid>
       <Paper className="mainPaperPage">
         <Stack className="herderTitlePage">
           <Box className="headerLeft">
@@ -87,7 +85,8 @@ function Preview({ waterData }) {
             </Typography>
           </Box>
         </Stack>
-        <Box className="containerPageNoScroll">
+        <Divider sx={{ ml: 4, mr: 4, mb: 2 }} />
+        <Box className="containerPageNoScroll" style={{ height: "calc(94vh - 340px)" }} >
           <Box sx={{ mb: 6, display: "flex", justifyContent: "center" }}>
             <Display waterData={waterData} />
           </Box>

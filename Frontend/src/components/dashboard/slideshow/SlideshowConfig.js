@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
 import {
   Box,
+  Divider,
   Grid,
   IconButton,
   Menu,
@@ -13,17 +13,17 @@ import {
   TableContainer,
   TableRow,
   TextField,
-  Typography,
-  Container
+  Typography
 } from "@mui/material";
+import React from "react";
 
-import ImageIcon from "@mui/icons-material/Image";
 import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
 import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ImageIcon from "@mui/icons-material/Image";
+import { ReactSortable } from "react-sortablejs";
 import { mediaService } from "../../../services/MediaServices";
 import { slideshowService } from "../../../services/SlideshowService";
-import { ReactSortable } from "react-sortablejs";
 
 function SlideshowConfig(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -134,9 +134,8 @@ function SlideshowConfig(props) {
 
   return (
     <>
-       <Container sx={{ display: 'flex', justifyContent: 'center', height: '100vh' }}>
-      <Grid item xs={12} md={8}>
-        <Paper className="mainPaperPage">
+      <Grid>
+        <Paper elevation={4}>
           <Stack className="herderTitlePage">
             <Box className="headerLeft">
               <IconButton
@@ -158,6 +157,7 @@ function SlideshowConfig(props) {
                 {props.slideshow.name}
               </Typography>
             </Box>
+            <Divider sx={{ ml: 4, mr: 4, mb: 2 }} />
             <Box className="headerRight">
               <IconButton
                 aria-controls={open ? "basic-menu" : undefined}
@@ -197,13 +197,8 @@ function SlideshowConfig(props) {
               </Menu>
             </Box>
           </Stack>
-          <Box
-
-            sx={{
-              paddingLeft: { xs: 2 },
-              paddingRight: { xs: 2 },
-            }}
-          >
+          <Divider sx={{ ml: 4, mr: 4, mb: 2 }} />
+          <Box className="containerPage">
             <TableContainer>
               <Table sx={{ borderCollapse: "separate", borderSpacing: 0 }}>
                 <TableBody>
@@ -277,7 +272,6 @@ function SlideshowConfig(props) {
           </Box>
         </Paper>
       </Grid>
-      </Container>
     </>
   );
 }

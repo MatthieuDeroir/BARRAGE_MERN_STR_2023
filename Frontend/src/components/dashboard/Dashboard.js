@@ -42,13 +42,13 @@ function Dashboard() {
 
   return (
     <Grid container spacing={2}>
-      <Grid item sm={4}>
+      <Grid item sm={3}>
         <DataBarrage dataBarrage={dataBarrage} />
       </Grid>
-      <Grid item sm={4}>
+      <Grid item sm={6}>
         <Preview waterData={dataBarrage} />
       </Grid>
-      <Grid item sm={4}>
+      <Grid item sm={3}>
         {slideshows && slideshow ? (
           <SlideshowConfig
             slideshow={slideshow}
