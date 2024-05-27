@@ -84,6 +84,9 @@ const DataPage = ({ waterData }) => {
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           {waterData?.cote_plan_eau || 0}
@@ -144,7 +147,7 @@ const DataPage = ({ waterData }) => {
             alignItems: "center",
           }}
         >
-          Débit entrant:
+          Débit entrant :
         </div>
         <div
           style={{
@@ -159,6 +162,9 @@ const DataPage = ({ waterData }) => {
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           {waterData?.debit_entrant || 0}
@@ -219,7 +225,7 @@ const DataPage = ({ waterData }) => {
             alignItems: "center",
           }}
         >
-          Débit sortant:
+          Débit sortant :
         </div>
         <div
           style={{
@@ -234,6 +240,9 @@ const DataPage = ({ waterData }) => {
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           {waterData?.debit_sortant || 0}

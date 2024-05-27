@@ -95,40 +95,16 @@ function Preview({ waterData }) {
               <TableBody>
                 <TableRow>
                   <TableCell sx={{ fontWeight: "bold" }}>Écran</TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        borderRadius: "100%",
-                        border: isOnline1 ? "1px solid green" : "1px solid red",
-                        width: 36,
-                        height: 36,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Typography variant="h5">1</Typography>
-                    </Box>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    <Typography variant="h5">1</Typography>
                   </TableCell>
-                  <TableCell>
-                    <Box
-                      sx={{
-                        borderRadius: "100%",
-                        border: isOnline2 ? "1px solid green" : "1px solid red",
-                        width: 36,
-                        height: 36,
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      <Typography variant="h5">2</Typography>
-                    </Box>
+                  <TableCell sx={{ textAlign: "center" }}>
+                    <Typography variant="h5">2</Typography>
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell sx={{ fontWeight: "bold" }}>En Ligne</TableCell>
-                  <TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
                     <Typography
                       variant="body2"
                       sx={{
@@ -139,7 +115,7 @@ function Preview({ waterData }) {
                       {isOnline1 ? "Oui" : "Non"}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
                     <Typography
                       variant="body2"
                       sx={{
@@ -153,7 +129,7 @@ function Preview({ waterData }) {
                 </TableRow>
                 <TableRow>
                   <TableCell sx={{ fontWeight: "bold" }}>En Veille</TableCell>
-                  <TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
                     <Typography
                       variant="body2"
                       sx={{
@@ -164,7 +140,7 @@ function Preview({ waterData }) {
                       {isOn1 ? "Oui" : "Non"}
                     </Typography>
                   </TableCell>
-                  <TableCell>
+                  <TableCell sx={{ textAlign: "center" }}>
                     <Typography
                       variant="body2"
                       sx={{
@@ -181,7 +157,7 @@ function Preview({ waterData }) {
           </TableContainer>
         </Box>
       </Paper>
-    </Grid>
+    </Grid >
   );
 }
 
