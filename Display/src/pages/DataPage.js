@@ -81,7 +81,9 @@ function DataPage({ waterData }) {
             left: "153.90px",
             top: "1px",
             position: "absolute",
-            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             color: "white",
             fontSize: "22px",
             fontFamily: '"D-DIN-Bold"',
@@ -147,7 +149,7 @@ function DataPage({ waterData }) {
             alignItems: "center",
           }}
         >
-          Débit entrant:
+          Débit entrant :
         </div>
         <div
           style={{
@@ -156,7 +158,9 @@ function DataPage({ waterData }) {
             left: "153.90px",
             top: "1px",
             position: "absolute",
-            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             color: "white",
             fontSize: "22px",
             fontFamily: '"D-DIN-Bold"',
@@ -222,7 +226,7 @@ function DataPage({ waterData }) {
             alignItems: "center",
           }}
         >
-          Débit sortant:
+          Débit sortant :
         </div>
         <div
           style={{
@@ -231,7 +235,9 @@ function DataPage({ waterData }) {
             left: "153.90px",
             top: "1px",
             position: "absolute",
-            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             color: "white",
             fontSize: "22px",
             fontFamily: '"D-DIN-Bold"',

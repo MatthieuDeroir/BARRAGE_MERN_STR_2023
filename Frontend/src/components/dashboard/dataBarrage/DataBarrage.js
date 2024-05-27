@@ -38,6 +38,14 @@ function DataBarrage({ dataBarrage }) {
 
           <Box display="flex" justifyContent="space-between" width="90%" my={2}>
             <Typography variant="subtitle1" color="text.secondary">
+              Côte du plan d'eau
+            </Typography>
+            <Typography variant="subtitle1" color="text.primary">
+              {dataBarrage?.cote_plan_eau} m
+            </Typography>
+          </Box>
+          <Box display="flex" justifyContent="space-between" width="90%" my={2}>
+            <Typography variant="subtitle1" color="text.secondary">
               Débit entrant
             </Typography>
             <Typography variant="subtitle1" color="text.primary">
@@ -54,14 +62,6 @@ function DataBarrage({ dataBarrage }) {
             </Typography>
           </Box>
 
-          <Box display="flex" justifyContent="space-between" width="90%" my={2}>
-            <Typography variant="subtitle1" color="text.secondary">
-              Côte du plan d'eau
-            </Typography>
-            <Typography variant="subtitle1" color="text.primary">
-              {dataBarrage?.cote_plan_eau} m
-            </Typography>
-          </Box>
           <Box>
             <Divider sx={{ my: 2 }} />
           </Box>
