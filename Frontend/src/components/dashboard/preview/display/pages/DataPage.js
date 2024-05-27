@@ -78,7 +78,9 @@ const DataPage = ({ waterData }) => {
             left: "calc(153.90px * var(--scale-factor))",
             top: "calc(1px * var(--scale-factor))",
             position: "absolute",
-            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             color: "white",
             fontSize: "calc(22px * var(--scale-factor))",
             fontFamily: '"D-DIN-Bold"',
@@ -159,6 +161,9 @@ const DataPage = ({ waterData }) => {
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           {waterData?.debit_entrant || 0}
@@ -234,6 +239,9 @@ const DataPage = ({ waterData }) => {
             fontFamily: '"D-DIN-Bold"',
             fontWeight: "400",
             wordWrap: "break-word",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           {waterData?.debit_sortant || 0}
